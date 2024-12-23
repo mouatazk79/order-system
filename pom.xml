@@ -31,6 +31,11 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <common.module.version>1.0-SNAPSHOT</common.module.version>
+        <driver.service.version>1.0-SNAPSHOT</driver.service.version>
+        <order.service.version>1.0-SNAPSHOT</order.service.version>
+        <payment.service.version>1.0-SNAPSHOT</payment.service.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -46,7 +51,111 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>common-application</artifactId>
+                <version>${common.module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>common-data</artifactId>
+                <version>${common.module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>common-domain</artifactId>
+                <version>${common.module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-application</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-container</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-data</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-domain-core</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-application-service</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>driver-messaging</artifactId>
+                <version>${driver.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-application</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-container</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-data</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-domain-core</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-application-service</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>order-messaging</artifactId>
+                <version>${order.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-application</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-container</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-data</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-domain-core</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-application-service</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>payment-messaging</artifactId>
+                <version>${payment.service.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

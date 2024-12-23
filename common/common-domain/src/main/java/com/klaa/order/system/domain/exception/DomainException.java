@@ -1,4 +1,4 @@
-package com.order.system.domain.exception;
+package com.klaa.order.system.domain.exception;
 
 public class DomainException extends RuntimeException{
 

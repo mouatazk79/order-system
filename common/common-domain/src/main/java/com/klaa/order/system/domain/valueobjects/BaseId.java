@@ -1,4 +1,4 @@
-package com.order.system.domain.valueobjects;
+package com.klaa.order.system.domain.valueobjects;
 
 import java.util.Objects;
 

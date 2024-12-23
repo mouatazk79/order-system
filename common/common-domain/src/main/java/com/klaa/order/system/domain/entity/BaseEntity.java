@@ -1,4 +1,4 @@
-package com.order.system.domain.entity;
+package com.klaa.order.system.domain.entity;
 
 import java.util.Objects;
 
