@@ -16,5 +16,27 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>driver-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>driver-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>driver-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>driver-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>driver-application</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
