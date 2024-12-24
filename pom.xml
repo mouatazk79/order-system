@@ -36,6 +36,7 @@
         <order.service.version>1.0-SNAPSHOT</order.service.version>
         <payment.service.version>1.0-SNAPSHOT</payment.service.version>
         <infrastructure.version>1.0-SNAPSHOT</infrastructure.version>
+        <kafka.version>1.0-SNAPSHOT</kafka.version>
     </properties>
     <dependencies>
         <dependency>
@@ -160,6 +161,26 @@
                 <groupId>com.klaa</groupId>
                 <artifactId>saga</artifactId>
                 <version>${infrastructure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafka-admin</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafka-model</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafka-producer</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafka-consumer</artifactId>
+                <version>${kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

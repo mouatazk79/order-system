@@ -3,23 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>order-system</artifactId>
+        <artifactId>infrastructure</artifactId>
         <groupId>com.klaa</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>infrastructure</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>kafka</module>
-        <module>elastic</module>
-        <module>saga</module>
-        <module>kafka/kafka-model</module>
-        <module>kafka/kafka-producer</module>
-        <module>kafka/kafka-consumer</module>
-        <module>kafka/kafka-admin</module>
-    </modules>
+    <artifactId>kafka-admin</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
