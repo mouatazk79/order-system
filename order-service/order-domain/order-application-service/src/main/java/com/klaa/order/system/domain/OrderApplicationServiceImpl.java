@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 public class OrderApplicationServiceImpl implements OrderApplicationService {
     @Override
     public OrderCreateResponse createOrder(OrderCreateCommand orderCreateCommand) {
+
         return null;
     }
 
