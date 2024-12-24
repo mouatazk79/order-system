@@ -35,7 +35,7 @@
         <driver.service.version>1.0-SNAPSHOT</driver.service.version>
         <order.service.version>1.0-SNAPSHOT</order.service.version>
         <payment.service.version>1.0-SNAPSHOT</payment.service.version>
-
+        <infrastructure.version>1.0-SNAPSHOT</infrastructure.version>
     </properties>
     <dependencies>
         <dependency>
@@ -155,6 +155,11 @@
                 <groupId>com.klaa</groupId>
                 <artifactId>payment-messaging</artifactId>
                 <version>${payment.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>saga</artifactId>
+                <version>${infrastructure.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

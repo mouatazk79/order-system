@@ -16,5 +16,27 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>order-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>order-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>order-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>order-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>order-application</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
