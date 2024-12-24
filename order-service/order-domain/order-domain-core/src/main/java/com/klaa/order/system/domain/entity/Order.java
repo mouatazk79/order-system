@@ -10,11 +10,11 @@ public class Order extends AggregateRoot<OrderId>{
 private final UserId userId;
 private final DriverId driverId;
 private final Position position;
+private final Position destination;
 private final Money price;
 private TrackingId trackingId;
 private OrderStatus orderStatus;
-
-    private List<String> failureMessages;
+private List<String> failureMessages;
 
     public static final String FAILURE_MESSAGE_DELIMITER = ",";
 
@@ -26,7 +26,7 @@ private OrderStatus orderStatus;
 
     public void validateOrder() {
         validateInitialOrder();
-        validateTotalPrice();
+        validateDestination();
     }
 
     public void pay() {
@@ -74,9 +74,9 @@ private OrderStatus orderStatus;
         }
     }
 
-    private void validateTotalPrice() {
-        if (price == null || !price.isGreaterThanZero()) {
-            throw new OrderDomainException("Total price must be greater than zero!");
+    private void validateDestination() {
+        if (position.equals(destination)) {
+            throw new OrderDomainException("current position and destination are the same");
         }
     }
 
@@ -87,6 +87,7 @@ private OrderStatus orderStatus;
         userId = builder.userId;
         driverId = builder.driverId;
         position = builder.position;
+        destination=builder.destination;
         price = builder.price;
         trackingId = builder.trackingId;
         orderStatus = builder.orderStatus;
@@ -107,6 +108,10 @@ private OrderStatus orderStatus;
 
     public Position getPosition() {
         return position;
+    }
+
+    public Position getDestination() {
+        return destination;
     }
 
     public Money getPrice() {
@@ -131,6 +136,7 @@ private OrderStatus orderStatus;
         private UserId userId;
         private DriverId driverId;
         private Position position;
+        private Position destination;
         private Money price;
         private TrackingId trackingId;
         private OrderStatus orderStatus;
@@ -156,6 +162,10 @@ private OrderStatus orderStatus;
 
         public Builder position(Position val) {
             position = val;
+            return this;
+        }
+        public Builder destination(Position val) {
+            destination= val;
             return this;
         }
 
