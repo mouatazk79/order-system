@@ -15,9 +15,9 @@ public class OrderCreateCommand {
     @NotNull
     private final UUID customerId;
     @NotNull
-    private final UUID driverId;
-    @NotNull
     private final BigDecimal price;
     @NotNull
-    private final PositionAddress address;
+    private final PositionAddress position;
+    @NotNull
+    private final PositionAddress destinationAddress;
 }

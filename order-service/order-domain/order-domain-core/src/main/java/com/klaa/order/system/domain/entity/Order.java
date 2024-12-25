@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public class Order extends AggregateRoot<OrderId>{
 private final UserId userId;
-private final DriverId driverId;
 private final Position position;
 private final Position destination;
 private final Money price;
+private DriverId driverId;
 private TrackingId trackingId;
 private OrderStatus orderStatus;
 private List<String> failureMessages;
@@ -21,6 +21,7 @@ private List<String> failureMessages;
     public void initializeOrder() {
         setId(new OrderId(UUID.randomUUID()));
         trackingId = new TrackingId(UUID.randomUUID());
+        driverId=new DriverId(UUID.randomUUID());
         orderStatus = OrderStatus.PENDING;
     }
 
