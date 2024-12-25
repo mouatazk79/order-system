@@ -31,9 +31,17 @@ public class OrderDataMapper {
 
     }
 
+    // TODO: 12/25/2024 this last two methods will be modified
     public OrderCreateResponse orderCreatedEventToOrderCreateResponse(OrderCreatedEvent orderCreatedEvent) {
+        return OrderCreateResponse.builder()
+                .orderStatus(orderCreatedEvent.getOrder().getOrderStatus())
+                .orderTrackingId(orderCreatedEvent.getOrder().getTrackingId().getValue())
+                .build();
     }
 
     public TrackOrderResponse orderToTrackOrderResponse(TrackOrderQuery trackOrderQuery) {
+        return TrackOrderResponse.builder()
+                .orderTrackingId(trackOrderQuery.getOrderTrackingId())
+                .build();
     }
 }
