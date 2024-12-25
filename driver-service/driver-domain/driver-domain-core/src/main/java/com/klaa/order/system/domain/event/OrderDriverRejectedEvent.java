@@ -9,13 +9,14 @@ import java.util.List;
 public class OrderDriverRejectedEvent extends OrderDriverApprovalEvent{
     private final DomainEventPublisher<OrderDriverRejectedEvent> orderDriverRejectedEventDomainEventPublisher;
 
-    protected OrderDriverRejectedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime, DomainEventPublisher<OrderDriverRejectedEvent> orderDriverRejectedEventDomainEventPublisher) {
+    public OrderDriverRejectedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime, DomainEventPublisher<OrderDriverRejectedEvent> orderDriverRejectedEventDomainEventPublisher) {
         super(orderApproval, failureMessages, localDateTime);
         this.orderDriverRejectedEventDomainEventPublisher = orderDriverRejectedEventDomainEventPublisher;
     }
 
     @Override
     public void fire() {
+        orderDriverRejectedEventDomainEventPublisher.publish(this);
 
     }
 }

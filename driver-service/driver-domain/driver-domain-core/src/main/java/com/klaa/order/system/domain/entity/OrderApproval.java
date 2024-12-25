@@ -3,16 +3,29 @@ package com.klaa.order.system.domain.entity;
 import com.klaa.order.system.domain.valueobject.OrderApprovalId;
 import com.klaa.order.system.domain.valueobjects.DriverId;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
-import com.klaa.order.system.domain.valueobjects.OrderId;
+import com.klaa.order.system.domain.valueobjects.OrderStatus;
+
+import java.util.List;
 
 public class OrderApproval extends BaseEntity<OrderApprovalId>{
     private final DriverId driverId;
-    private final OrderId orderId;
-    private final DriverOrderStatus orderStatus;
+    private final OrderDetail orderDetail;
+    private DriverOrderStatus orderStatus;
+
+
+   public void validateOrder(List<String> failureMessages){
+        if (orderDetail.getOrderStatus()!= OrderStatus.PENDING){
+            failureMessages.add("order is not in pending state");
+        }
+    }
+   public void changeStatus(DriverOrderStatus orderStatus){
+        this.orderStatus=orderStatus;
+    }
+
     private OrderApproval(Builder builder) {
         setId(builder.orderApprovalId);
         this.driverId = builder.driverId;
-        this.orderId = builder.orderId;
+        this.orderDetail = builder.orderDetail;
         this.orderStatus = builder.orderStatus;
     }
 
@@ -23,7 +36,7 @@ public class OrderApproval extends BaseEntity<OrderApprovalId>{
     public static class Builder {
         private OrderApprovalId orderApprovalId;
         private DriverId driverId;
-        private OrderId orderId;
+        private OrderDetail orderDetail;
         private DriverOrderStatus orderStatus;
 
         public Builder driverId(OrderApprovalId orderApprovalId) {
@@ -35,8 +48,8 @@ public class OrderApproval extends BaseEntity<OrderApprovalId>{
             return this;
         }
 
-        public Builder orderId(OrderId orderId) {
-            this.orderId = orderId;
+        public Builder orderDetail(OrderDetail orderDetail) {
+            this.orderDetail = orderDetail;
             return this;
         }
 
@@ -54,8 +67,8 @@ public class OrderApproval extends BaseEntity<OrderApprovalId>{
         return driverId;
     }
 
-    public OrderId getOrderId() {
-        return orderId;
+    public OrderDetail getOrderDetail() {
+        return orderDetail;
     }
 
     public DriverOrderStatus getOrderStatus() {

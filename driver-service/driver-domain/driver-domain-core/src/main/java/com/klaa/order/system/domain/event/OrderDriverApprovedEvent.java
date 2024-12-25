@@ -9,7 +9,7 @@ import java.util.List;
 public class OrderDriverApprovedEvent extends OrderDriverApprovalEvent{
     private final DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher;
 
-    protected OrderDriverApprovedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime, DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher) {
+    public OrderDriverApprovedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime, DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher) {
         super(orderApproval, failureMessages, localDateTime);
         this.orderDriverApprovedEventDomainEventPublisher = orderDriverApprovedEventDomainEventPublisher;
     }
