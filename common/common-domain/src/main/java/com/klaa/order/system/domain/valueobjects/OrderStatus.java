@@ -1,5 +1,5 @@
 package com.klaa.order.system.domain.valueobjects;
 
 public enum OrderStatus {
-    PENDING, PAID, APPROVED, CANCELLING, CANCELLED
+    PENDING, PAID, APPROVED, CANCELLING, CANCELLED,REJECTING,REJECTED
 }

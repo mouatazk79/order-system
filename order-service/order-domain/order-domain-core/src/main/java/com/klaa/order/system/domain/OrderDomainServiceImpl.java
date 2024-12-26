@@ -5,6 +5,7 @@ import com.klaa.order.system.domain.entity.Order;
 import com.klaa.order.system.domain.event.OrderCancelledEvent;
 import com.klaa.order.system.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.event.OrderPaidEvent;
+import com.klaa.order.system.domain.event.OrderRejectedEvent;
 import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import com.klaa.order.system.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,21 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         order.cancel(failureMessages);
         log.info("Order cancelled for order id: {}", order.getId());
     }
+
+    @Override
+    public void rejectOrder(Order order, List<String> failureMessages) {
+        order.reject(failureMessages);
+        log.info("Order rejected for order id: {}", order.getId());
+    }
+
+    @Override
+    public OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages, DomainEventPublisher<OrderRejectedEvent> orderRejectedEventDomainEventPublisher) {
+
+        order.initReject(failureMessages);
+        log.info("Order rejecting for order id: {}", order.getId());
+        return new OrderRejectedEvent(order,LocalDateTime.now(),orderRejectedEventDomainEventPublisher);
+    }
+
     private void validateDriver(Driver driver){
         if (!driver.isActive()){
             throw new OrderDomainException("driver with id: "+driver.getId()+" is not active");

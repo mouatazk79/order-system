@@ -29,6 +29,21 @@ private List<String> failureMessages;
         validateInitialOrder();
         validateDestination();
     }
+    public void initReject(List<String> failureMessages){
+        if(!(orderStatus ==OrderStatus.PENDING || orderStatus ==OrderStatus.APPROVED)){
+            throw new OrderDomainException("Order is not in correct state for pay operation!");
+        }
+        orderStatus=OrderStatus.REJECTING;
+        updateFailureMessages(failureMessages);
+    }
+
+    public void reject(List<String> failureMessages){
+        if(!(orderStatus ==OrderStatus.REJECTING || orderStatus ==OrderStatus.PENDING)){
+            throw new OrderDomainException("Order is not in correct state for pay operation!");
+        }
+        orderStatus=OrderStatus.REJECTED;
+        updateFailureMessages(failureMessages);
+    }
 
     public void pay() {
         if (orderStatus != OrderStatus.PENDING) {
