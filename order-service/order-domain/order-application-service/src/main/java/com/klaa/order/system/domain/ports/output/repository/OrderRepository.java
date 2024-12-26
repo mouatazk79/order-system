@@ -9,5 +9,4 @@ public interface OrderRepository {
     Optional<Order> saveOrder(Order order);
     Optional<Order> findOrderById(UUID id);
 
-
 }
