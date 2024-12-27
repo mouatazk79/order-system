@@ -3,10 +3,12 @@ package com.klaa.order.system.domain.mapper;
 import com.klaa.order.system.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.dto.create.OrderCreateResponse;
 import com.klaa.order.system.domain.dto.create.PositionAddress;
+import com.klaa.order.system.domain.dto.remove.RejectOrderResponse;
 import com.klaa.order.system.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.entity.Order;
 import com.klaa.order.system.domain.event.OrderCreatedEvent;
+import com.klaa.order.system.domain.event.OrderRejectedEvent;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.Position;
 import com.klaa.order.system.domain.valueobjects.UserId;
@@ -43,5 +45,9 @@ public class OrderDataMapper {
         return TrackOrderResponse.builder()
                 .orderTrackingId(trackOrderQuery.getOrderTrackingId())
                 .build();
+    }
+
+    public RejectOrderResponse orderRejectedEventToRejectOrderResponse(OrderRejectedEvent rejectedEvent) {
+        return null;
     }
 }
