@@ -2,6 +2,7 @@ package com.klaa.order.system.domain;
 
 import com.klaa.order.system.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.dto.create.OrderCreateResponse;
+import com.klaa.order.system.domain.dto.remove.RejectOrderResponse;
 import com.klaa.order.system.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.ports.input.service.OrderApplicationService;
@@ -17,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 public class OrderApplicationServiceImpl implements OrderApplicationService {
     private final OrderCreateCommandHandler orderCreateCommandHandler;
     private final OrderTrackCommandHandler orderTrackCommandHandler;
+    private final OrderRejectHandler orderRejectHandler;
     @Override
     public OrderCreateResponse createOrder(OrderCreateCommand orderCreateCommand) {
         return orderCreateCommandHandler.createOrder(orderCreateCommand);
@@ -25,5 +27,10 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
     @Override
     public TrackOrderResponse trackOrder(TrackOrderQuery trackOrderQuery) {
         return orderTrackCommandHandler.trackOrder(trackOrderQuery);
+    }
+
+    @Override
+    public RejectOrderResponse rejectOrder(TrackOrderQuery trackOrderQuery) {
+       return  orderRejectHandler.rejectOrder(trackOrderQuery);
     }
 }
