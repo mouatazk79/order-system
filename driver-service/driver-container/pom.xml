@@ -37,6 +37,10 @@
             <groupId>com.klaa</groupId>
             <artifactId>driver-application</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>common-data</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
