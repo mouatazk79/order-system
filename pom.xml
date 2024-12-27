@@ -37,6 +37,9 @@
         <payment.service.version>1.0-SNAPSHOT</payment.service.version>
         <infrastructure.version>1.0-SNAPSHOT</infrastructure.version>
         <kafka.version>1.0-SNAPSHOT</kafka.version>
+        <spring.kafka.version>3.3.0</spring.kafka.version>
+        <kafka.avro.serelizer>7.3.0</kafka.avro.serelizer>
+        <avro.version>1.12.0</avro.version>
     </properties>
     <dependencies>
         <dependency>
@@ -181,6 +184,21 @@
                 <groupId>com.klaa</groupId>
                 <artifactId>kafka-consumer</artifactId>
                 <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring.kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-avro-serializer</artifactId>
+                <version>${kafka.avro.serelizer}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
