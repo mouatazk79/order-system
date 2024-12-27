@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class OrderSaga implements SagaStep<DriverResponse, OrderCreatedEvent, OrderCancelledEvent> {
+public class OrderSaga implements SagaStep<DriverResponse, EmptyEvent, OrderCancelledEvent> {
     private final OrderDomainService orderDomainService;
     private final SagaHelper sagaHelper;
     @Override
     @Transactional
-    public OrderCreatedEvent process(DriverResponse data) {
+    public EmptyEvent process(DriverResponse data) {
         log.info("receiving driver response with id: {}",data.getDriverId());
         Order order=sagaHelper.findOrderById(data.getOrderId());
         orderDomainService.approveOrder(order);
@@ -29,6 +29,7 @@ public class OrderSaga implements SagaStep<DriverResponse, OrderCreatedEvent, Or
     @Override
     @Transactional
     public OrderCancelledEvent rollBack(DriverResponse data) {
+
         return null;
     }
 }
