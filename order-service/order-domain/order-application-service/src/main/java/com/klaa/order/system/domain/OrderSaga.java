@@ -4,7 +4,6 @@ import com.klaa.order.system.domain.dto.message.DriverResponse;
 import com.klaa.order.system.domain.entity.Order;
 import com.klaa.order.system.domain.event.EmptyEvent;
 import com.klaa.order.system.domain.event.OrderCancelledEvent;
-import com.klaa.order.system.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.saga.SagaStep;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
