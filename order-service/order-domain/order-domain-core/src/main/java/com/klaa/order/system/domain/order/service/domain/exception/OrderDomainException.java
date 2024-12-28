@@ -1,6 +1,6 @@
 package com.klaa.order.system.domain.order.service.domain.exception;
 
-import com.klaa.order.system.domain.exception.DomainException;
+import com.klaa.order.system.driver.service.domain.exception.DomainException;
 
 public class OrderDomainException extends DomainException {
 

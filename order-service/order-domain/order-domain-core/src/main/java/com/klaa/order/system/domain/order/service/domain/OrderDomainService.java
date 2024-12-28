@@ -6,7 +6,7 @@ import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEve
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderPaidEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
-import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
 
 import java.util.List;
 

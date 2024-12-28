@@ -2,7 +2,7 @@ package com.klaa.order.system.domain.order.service.domain.ports.output.publisher
 
 
 import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEvent;
-import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
 
 public interface OrderCancelledPaymentRequestMessagePublisher extends DomainEventPublisher<OrderCancelledEvent> {
 }

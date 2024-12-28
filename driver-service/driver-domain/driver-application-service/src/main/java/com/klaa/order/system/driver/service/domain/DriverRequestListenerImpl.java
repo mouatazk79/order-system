@@ -1,0 +1,34 @@
+package com.klaa.order.system.driver.service.domain;
+
+import com.klaa.order.system.driver.service.domain.dto.DriverRequest;
+import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
+import com.klaa.order.system.driver.service.domain.ports.input.listener.DriverRequestListener;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+@AllArgsConstructor
+public class DriverRequestListenerImpl implements DriverRequestListener {
+    private final DriverRequestHelper driverRequestHelper;
+
+
+    @Override
+    public void orderRequest(DriverRequest driverRequest) {
+        OrderDriverApprovalEvent approvalEvent= driverRequestHelper.persistDriverRequest(driverRequest);
+        fireEvent(approvalEvent);
+    }
+
+    @Override
+    public void orderCancelled(DriverRequest driverRequest) {
+        OrderDriverApprovalEvent approvalEvent=driverRequestHelper.persistCancelPayment(driverRequest);
+        fireEvent(approvalEvent);
+    }
+
+
+    private void fireEvent(OrderDriverApprovalEvent approvalEvent) {
+        approvalEvent.fire();
+    }
+
+}

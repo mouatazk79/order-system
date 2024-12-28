@@ -2,10 +2,10 @@ package com.klaa.order.system.domain.order.service.domain.mapper;
 
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateResponse;
+import com.klaa.order.system.domain.order.service.domain.dto.reject.RejectOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.create.PositionAddress;
-import com.klaa.order.system.domain.order.service.domain.dto.reject.DriverRejectOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
@@ -47,7 +47,7 @@ public class OrderDataMapper {
                 .build();
     }
 
-    public DriverRejectOrderResponse orderRejectedEventToRejectOrderResponse(OrderRejectedEvent rejectedEvent) {
+    public RejectOrderResponse orderRejectedEventToRejectOrderResponse(OrderRejectedEvent rejectedEvent) {
         return null;
     }
 }

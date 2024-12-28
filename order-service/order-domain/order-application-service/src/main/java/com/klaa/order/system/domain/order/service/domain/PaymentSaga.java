@@ -1,7 +1,7 @@
 package com.klaa.order.system.domain.order.service.domain;
 
 import com.klaa.order.system.domain.order.service.domain.dto.message.PaymentResponse;
-import com.klaa.order.system.domain.event.EmptyEvent;
+import com.klaa.order.system.driver.service.domain.event.EmptyEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEvent;
 import com.klaa.order.system.saga.SagaStep;
 

@@ -1,7 +1,7 @@
 package com.klaa.order.system.driver.service;
 
-import com.klaa.order.system.domain.DriverDomainService;
-import com.klaa.order.system.domain.DriverDomainServiceImpl;
+import com.klaa.order.system.driver.service.domain.DriverDomainService;
+import com.klaa.order.system.driver.service.domain.DriverDomainServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

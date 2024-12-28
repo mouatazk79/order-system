@@ -2,7 +2,7 @@ package com.klaa.order.system.domain.order.service.domain;
 
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateResponse;
-import com.klaa.order.system.domain.order.service.domain.dto.reject.DriverRejectOrderResponse;
+import com.klaa.order.system.domain.order.service.domain.dto.reject.RejectOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.ports.input.service.OrderApplicationService;
@@ -30,7 +30,7 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
     }
 
     @Override
-    public DriverRejectOrderResponse rejectOrder(TrackOrderQuery trackOrderQuery) {
+    public RejectOrderResponse rejectOrder(TrackOrderQuery trackOrderQuery) {
        return  orderRejectHandler.rejectOrder(trackOrderQuery);
     }
 }

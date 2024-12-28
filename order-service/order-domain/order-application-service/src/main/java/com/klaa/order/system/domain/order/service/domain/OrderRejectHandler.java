@@ -1,6 +1,6 @@
 package com.klaa.order.system.domain.order.service.domain;
 
-import com.klaa.order.system.domain.order.service.domain.dto.reject.DriverRejectOrderResponse;
+import com.klaa.order.system.domain.order.service.domain.dto.reject.RejectOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
 import com.klaa.order.system.domain.order.service.domain.mapper.OrderDataMapper;
@@ -18,7 +18,7 @@ public class OrderRejectHandler {
     private final OrderRejectHelper orderRejectHelper;
     private final OrderRejectMessagePublisher orderRejectMessagePublisher;
 
-    public DriverRejectOrderResponse rejectOrder(TrackOrderQuery trackOrderQuery) {
+    public RejectOrderResponse rejectOrder(TrackOrderQuery trackOrderQuery) {
        OrderRejectedEvent rejectedEvent= orderRejectHelper.rejectOrder(trackOrderQuery);
        log.info("order with id: {} rejected",trackOrderQuery.getOrderTrackingId());
         orderRejectMessagePublisher.publish(rejectedEvent);
