@@ -68,7 +68,7 @@
       <module name="order-domain" options="-parameters" />
       <module name="order-domain-core" options="-parameters" />
       <module name="order-messaging" options="-parameters" />
-      <module name="order-service" options="-parameters" />
+      <module name="order-service" options="" />
       <module name="order-system" options="" />
       <module name="payment-application" options="-parameters" />
       <module name="payment-application-service" options="-parameters" />

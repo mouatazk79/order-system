@@ -2,7 +2,8 @@ package com.klaa.order.system.order.service.application.rest;
 
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateResponse;
-import com.klaa.order.system.domain.order.service.domain.dto.reject.DriverRejectOrderResponse;
+
+import com.klaa.order.system.domain.order.service.domain.dto.reject.RejectOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.ports.input.service.OrderApplicationService;
@@ -31,9 +32,9 @@ public class OrderController {
         return ResponseEntity.ok(trackOrderResponse);
     }
     @PatchMapping
-    public ResponseEntity<DriverRejectOrderResponse> rejectOrder(@RequestBody TrackOrderQuery trackOrderQuery){
+    public ResponseEntity<RejectOrderResponse> rejectOrder(@RequestBody TrackOrderQuery trackOrderQuery){
         log.info("receiving order rejection query {}",trackOrderQuery);
-        DriverRejectOrderResponse rejectOrderResponse= orderApplicationService.rejectOrder(trackOrderQuery);
+        RejectOrderResponse rejectOrderResponse= orderApplicationService.rejectOrder(trackOrderQuery);
         return ResponseEntity.ok(rejectOrderResponse);
     }
 

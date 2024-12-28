@@ -19,6 +19,18 @@
     <dependencies>
         <dependency>
             <groupId>com.klaa</groupId>
+            <artifactId>common-application</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
             <artifactId>driver-application-service</artifactId>
         </dependency>
     </dependencies>
