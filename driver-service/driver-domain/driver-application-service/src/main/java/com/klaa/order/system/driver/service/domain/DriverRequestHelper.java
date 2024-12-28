@@ -1,6 +1,6 @@
 package com.klaa.order.system.driver.service.domain;
 
-import com.klaa.order.system.driver.service.domain.dto.DriverRequest;
+import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
 import com.klaa.order.system.driver.service.domain.entity.Driver;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
@@ -57,7 +57,7 @@ public class DriverRequestHelper {
     }
 
     private void persistOrderApproval(OrderApproval orderApproval) {
-        Optional<OrderApproval> newOrderApproval=approvalRepository.orderApproval(orderApproval);
+        Optional<OrderApproval> newOrderApproval=approvalRepository.saveOrderApproval(orderApproval);
         if (newOrderApproval.isEmpty()){
             throw new DriverDomainException("");
         }

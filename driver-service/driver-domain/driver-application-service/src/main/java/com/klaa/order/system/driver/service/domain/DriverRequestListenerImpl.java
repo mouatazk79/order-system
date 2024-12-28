@@ -1,6 +1,6 @@
 package com.klaa.order.system.driver.service.domain;
 
-import com.klaa.order.system.driver.service.domain.dto.DriverRequest;
+import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.ports.input.listener.DriverRequestListener;
 import lombok.AllArgsConstructor;
