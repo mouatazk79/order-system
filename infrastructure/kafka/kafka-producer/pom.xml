@@ -12,6 +12,11 @@
     <artifactId>kafka-producer</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>kafka-config-data</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.klaa</groupId>
             <artifactId>kafka-model</artifactId>

@@ -179,6 +179,11 @@
                 <artifactId>kafka-consumer</artifactId>
                 <version>${infrastructure.kafka.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafka-config-data</artifactId>
+                <version>${infrastructure.kafka.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
