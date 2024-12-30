@@ -7,7 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-application" />
+        <module name="elastic-index-client" />
         <module name="driver-data" />
+        <module name="elastic-config" />
         <module name="order-data" />
         <module name="kafka-model" />
         <module name="kafka-consumer" />
@@ -20,6 +22,7 @@
         <module name="common-domain" />
         <module name="order-application" />
         <module name="payment-application" />
+        <module name="elastic-model" />
         <module name="order-domain-core" />
         <module name="payment-domain-core" />
         <module name="saga" />
@@ -38,12 +41,6 @@
         <module name="elastic-query-client" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="elastic" target="17" />
-      <module name="elastic-config" target="17" />
-      <module name="elastic-index-client" target="17" />
-      <module name="elastic-model" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -65,7 +62,7 @@
       <module name="elastic-model" options="-parameters" />
       <module name="elastic-query-client" options="-parameters" />
       <module name="infrastructure" options="" />
-      <module name="kafka" options="-parameters" />
+      <module name="kafka" options="" />
       <module name="kafka-admin" options="-parameters" />
       <module name="kafka-config-data" options="-parameters" />
       <module name="kafka-consumer" options="-parameters" />
