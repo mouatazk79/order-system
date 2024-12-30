@@ -8,6 +8,12 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/elastic/elastic-query-client/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kafka/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kafka/kafka-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kafka/kafka-model/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kafka/kafka-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kafka/kafka-admin/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

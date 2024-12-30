@@ -16,7 +16,6 @@
         <module name="driver-messaging" />
         <module name="order-messaging" />
         <module name="payment-application-service" />
-        <module name="common" />
         <module name="driver-application-service" />
         <module name="common-domain" />
         <module name="order-application" />
@@ -33,16 +32,21 @@
         <module name="kafka-admin" />
         <module name="common-data" />
         <module name="payment-container" />
-        <module name="kafka" />
         <module name="driver-container" />
         <module name="driver-domain-core" />
-        <module name="elastic" />
+        <module name="elastic-query-client" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="elastic" target="17" />
+      <module name="elastic-config" target="17" />
+      <module name="elastic-index-client" target="17" />
+      <module name="elastic-model" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="common" options="-parameters" />
+      <module name="common" options="" />
       <module name="common-application" options="-parameters" />
       <module name="common-data" options="-parameters" />
       <module name="common-domain" options="-parameters" />
@@ -54,9 +58,13 @@
       <module name="driver-domain-core" options="-parameters" />
       <module name="driver-messaging" options="-parameters" />
       <module name="driver-service" options="" />
-      <module name="elastic" options="-parameters" />
+      <module name="elastic" options="" />
+      <module name="elastic-config" options="-parameters" />
+      <module name="elastic-index-client" options="-parameters" />
+      <module name="elastic-model" options="-parameters" />
+      <module name="elastic-query-client" options="-parameters" />
       <module name="infrastructure" options="" />
-      <module name="kafka" options="-parameters" />
+      <module name="kafka" options="" />
       <module name="kafka-admin" options="-parameters" />
       <module name="kafka-consumer" options="-parameters" />
       <module name="kafka-model" options="-parameters" />

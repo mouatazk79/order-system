@@ -9,7 +9,7 @@ import com.klaa.order.service.payment.service.domain.event.PaymentCancelledEvent
 import com.klaa.order.service.payment.service.domain.event.PaymentCompletedEvent;
 import com.klaa.order.service.payment.service.domain.event.PaymentEvent;
 import com.klaa.order.service.payment.service.domain.event.PaymentFailedEvent;
-import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 
 import java.util.List;
 

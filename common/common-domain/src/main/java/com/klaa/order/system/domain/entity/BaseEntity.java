@@ -1,4 +1,4 @@
-package com.klaa.order.system.driver.service.domain.entity;
+package com.klaa.order.system.domain.entity;
 
 import java.util.Objects;
 

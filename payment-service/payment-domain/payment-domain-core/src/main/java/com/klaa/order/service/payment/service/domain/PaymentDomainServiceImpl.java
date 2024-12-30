@@ -12,7 +12,7 @@ import com.klaa.order.service.payment.service.domain.valueobject.CreditHistoryId
 import com.klaa.order.service.payment.service.domain.valueobject.TransactionType;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.PaymentStatus;
-import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.ZoneId;

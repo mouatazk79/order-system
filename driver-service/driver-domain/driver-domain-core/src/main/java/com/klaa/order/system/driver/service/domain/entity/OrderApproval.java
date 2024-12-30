@@ -1,5 +1,6 @@
 package com.klaa.order.system.driver.service.domain.entity;
 
+import com.klaa.order.system.domain.entity.BaseEntity;
 import com.klaa.order.system.driver.service.domain.valueobject.OrderApprovalId;
 import com.klaa.order.system.domain.valueobjects.DriverId;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
@@ -7,7 +8,7 @@ import com.klaa.order.system.domain.valueobjects.OrderStatus;
 
 import java.util.List;
 
-public class OrderApproval extends BaseEntity<OrderApprovalId>{
+public class OrderApproval extends BaseEntity<OrderApprovalId> {
     private final DriverId driverId;
     private final OrderDetail orderDetail;
     private DriverOrderStatus orderStatus;

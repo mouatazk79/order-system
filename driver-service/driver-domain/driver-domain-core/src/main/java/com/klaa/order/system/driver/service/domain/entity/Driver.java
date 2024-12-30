@@ -1,5 +1,6 @@
 package com.klaa.order.system.driver.service.domain.entity;
 
+import com.klaa.order.system.domain.entity.AggregateRoot;
 import com.klaa.order.system.domain.valueobjects.DriverId;
 
 public class Driver extends AggregateRoot<DriverId> {

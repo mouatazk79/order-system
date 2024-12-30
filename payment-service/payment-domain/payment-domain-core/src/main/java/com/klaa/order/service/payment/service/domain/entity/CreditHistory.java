@@ -4,7 +4,7 @@ import com.klaa.order.service.payment.service.domain.valueobject.CreditHistoryId
 import com.klaa.order.service.payment.service.domain.valueobject.TransactionType;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.UserId;
-import com.klaa.order.system.driver.service.domain.entity.BaseEntity;
+import com.klaa.order.system.domain.entity.BaseEntity;
 
 public class CreditHistory extends BaseEntity<CreditHistoryId> {
 

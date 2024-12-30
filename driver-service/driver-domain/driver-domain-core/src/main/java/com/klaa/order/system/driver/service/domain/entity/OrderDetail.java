@@ -1,12 +1,13 @@
 package com.klaa.order.system.driver.service.domain.entity;
 
+import com.klaa.order.system.domain.entity.AggregateRoot;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.domain.valueobjects.OrderStatus;
 
 import javax.swing.text.Position;
 
-public class OrderDetail extends AggregateRoot<OrderId>{
+public class OrderDetail extends AggregateRoot<OrderId> {
     private final Position position;
     private final Position destination;
     private  Money price;

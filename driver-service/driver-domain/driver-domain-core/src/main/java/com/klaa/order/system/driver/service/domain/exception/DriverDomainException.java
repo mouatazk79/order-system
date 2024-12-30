@@ -1,6 +1,8 @@
 package com.klaa.order.system.driver.service.domain.exception;
 
-public class DriverDomainException extends DomainException{
+import com.klaa.order.system.domain.exception.DomainException;
+
+public class DriverDomainException extends DomainException {
     public DriverDomainException(String message) {
         super(message);
     }

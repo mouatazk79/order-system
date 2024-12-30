@@ -1,4 +1,4 @@
-package com.klaa.order.system.driver.service.domain.exception;
+package com.klaa.order.system.domain.exception;
 
 public class DomainException extends RuntimeException{
 

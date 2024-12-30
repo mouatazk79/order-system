@@ -1,7 +1,7 @@
 package com.klaa.order.system.domain.order.service.domain.event;
 
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
-import com.klaa.order.system.driver.service.domain.event.DomainEvent;
+import com.klaa.order.system.domain.event.DomainEvent;
 
 import java.time.LocalDateTime;
 

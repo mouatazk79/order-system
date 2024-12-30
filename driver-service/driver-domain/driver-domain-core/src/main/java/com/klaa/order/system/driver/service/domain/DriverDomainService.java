@@ -5,7 +5,7 @@ import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEven
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovedEvent;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverFailedEvent;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverRejectedEvent;
-import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 
 import java.util.List;
 

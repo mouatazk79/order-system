@@ -4,7 +4,7 @@ package com.klaa.order.service.payment.service.domain.entity;
 import com.klaa.order.service.payment.service.domain.valueobject.CreditEntryId;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.UserId;
-import com.klaa.order.system.driver.service.domain.entity.BaseEntity;
+import com.klaa.order.system.domain.entity.BaseEntity;
 
 public class CreditEntry extends BaseEntity<CreditEntryId> {
 

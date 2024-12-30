@@ -2,7 +2,7 @@ package com.klaa.order.service.payment.service.domain.event;
 
 
 import com.klaa.order.service.payment.service.domain.entity.Payment;
-import com.klaa.order.system.driver.service.domain.event.publisher.DomainEventPublisher;
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;

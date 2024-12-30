@@ -1,6 +1,6 @@
 package com.klaa.order.system.domain.order.service.domain.entity;
 
-import com.klaa.order.system.driver.service.domain.entity.AggregateRoot;
+import com.klaa.order.system.domain.entity.AggregateRoot;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.domain.order.service.domain.valueobjects.TrackingId;
 import com.klaa.order.system.domain.valueobjects.*;

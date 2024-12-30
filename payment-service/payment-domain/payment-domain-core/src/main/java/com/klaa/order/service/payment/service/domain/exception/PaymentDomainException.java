@@ -1,7 +1,7 @@
 package com.klaa.order.service.payment.service.domain.exception;
 
 
-import com.klaa.order.system.driver.service.domain.exception.DomainException;
+import com.klaa.order.system.domain.exception.DomainException;
 
 public class PaymentDomainException extends DomainException {
 

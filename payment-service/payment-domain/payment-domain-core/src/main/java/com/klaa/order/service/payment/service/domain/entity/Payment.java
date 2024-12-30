@@ -6,7 +6,7 @@ import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.domain.valueobjects.PaymentStatus;
 import com.klaa.order.system.domain.valueobjects.UserId;
-import com.klaa.order.system.driver.service.domain.entity.AggregateRoot;
+import com.klaa.order.system.domain.entity.AggregateRoot;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
