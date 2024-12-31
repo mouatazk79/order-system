@@ -1,7 +1,7 @@
 {
   "namespace": "com.klaa.order.system.kafka.model.driver",
   "type": "record",
-  "name": "DriverResponse",
+  "name": "DriverResponseAvroModel",
   "fields": [
     {
       "name": "id",

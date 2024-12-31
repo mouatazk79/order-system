@@ -1,8 +1,12 @@
 package com.klaa.order.system.order.service.messaging.kafka.mapper;
 
+import com.klaa.order.system.domain.order.service.domain.dto.message.DriverResponse;
+import com.klaa.order.system.domain.order.service.domain.dto.message.PaymentResponse;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
+import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
+import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +16,14 @@ public class OrderMessagingDataMapper {
     }
 
     public PaymentRequestAvroModel orderToPaymentRequestAvroModel(Order order) {
+        return null;
+    }
+
+    public DriverResponse driverResponseAvroModelToDriverReponse(DriverResponseAvroModel message) {
+        return null;
+    }
+
+    public PaymentResponse paymentResponseAvroModelToPaymentResponse(PaymentResponseAvroModel message) {
         return null;
     }
 }
