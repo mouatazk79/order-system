@@ -66,6 +66,14 @@
       }
     },
     {
+      "name": "orderStatus",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatus",
+        "symbols": ["PENDING", "PAID", "APPROVED", "CANCELLING", "CANCELLED", "REJECTING", "REJECTED"]
+      }
+    },
+    {
       "name": "driverId",
       "type": {
         "type": "string",
