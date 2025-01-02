@@ -5,14 +5,14 @@ import com.klaa.order.system.domain.event.EmptyEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEvent;
 import com.klaa.order.system.saga.SagaStep;
 
-public class PaymentSaga implements SagaStep<PaymentResponse, EmptyEvent, OrderCancelledEvent> {
+public class PaymentSaga implements SagaStep<PaymentResponse> {
     @Override
-    public EmptyEvent process(PaymentResponse data) {
-        return null;
+    public void process(PaymentResponse data) {
+
     }
 
     @Override
-    public OrderCancelledEvent rollBack(PaymentResponse data) {
-        return null;
+    public void rollBack(PaymentResponse data) {
+
     }
 }

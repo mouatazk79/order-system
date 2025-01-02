@@ -11,19 +11,19 @@ import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import java.util.List;
 
 public interface OrderDomainService {
-    OrderCreatedEvent validateAndInitiateOrder(Order order, Driver driver, DomainEventPublisher<OrderCreatedEvent> orderCreatedEventDomainEventPublisher);
+    OrderCreatedEvent validateAndInitiateOrder(Order order, Driver driver);
 
-    OrderPaidEvent payOrder(Order order, DomainEventPublisher<OrderPaidEvent> orderPaidEventDomainEventPublisher);
+    OrderPaidEvent payOrder(Order order);
 
     void approveOrder(Order order);
 
-    OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages, DomainEventPublisher<OrderCancelledEvent> orderCancelledEventDomainEventPublisher);
+    OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages);
 
     void cancelOrder(Order order, List<String> failureMessages);
 
     void rejectOrder(Order order,List<String> failureMessages);
 
-    OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages,DomainEventPublisher<OrderRejectedEvent> orderRejectedEventDomainEventPublisher);
+    OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages);
 
 
 }

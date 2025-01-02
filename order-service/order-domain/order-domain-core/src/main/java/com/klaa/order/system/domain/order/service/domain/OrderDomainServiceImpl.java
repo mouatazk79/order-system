@@ -6,7 +6,6 @@ import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEve
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderPaidEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
-import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,20 +14,20 @@ import java.util.List;
 @Slf4j
 public class OrderDomainServiceImpl implements OrderDomainService {
     @Override
-    public OrderCreatedEvent validateAndInitiateOrder(Order order, Driver driver, DomainEventPublisher<OrderCreatedEvent> orderCreatedEventDomainEventPublisher) {
+    public OrderCreatedEvent validateAndInitiateOrder(Order order, Driver driver) {
 
         validateDriver(driver);
         order.validateOrder();
         order.initializeOrder();
         log.info("Order with id: {} initiated", order.getId());
-        return new OrderCreatedEvent(order, LocalDateTime.now(),orderCreatedEventDomainEventPublisher);
+        return new OrderCreatedEvent(order, LocalDateTime.now());
     }
 
     @Override
-    public OrderPaidEvent payOrder(Order order, DomainEventPublisher<OrderPaidEvent> orderPaidEventDomainEventPublisher) {
+    public OrderPaidEvent payOrder(Order order ) {
         order.pay();
         log.info("Order with id: {} payed", order.getId());
-        return new OrderPaidEvent(order, LocalDateTime.now(),orderPaidEventDomainEventPublisher);
+        return new OrderPaidEvent(order, LocalDateTime.now());
     }
 
     @Override
@@ -38,11 +37,11 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     @Override
-    public OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages, DomainEventPublisher<OrderCancelledEvent> orderCancelledEventDomainEventPublisher) {
+    public OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages) {
 
         order.initCancel(failureMessages);
         log.info("Order payment is cancelling for order id: {}", order.getId());
-        return new OrderCancelledEvent(order,LocalDateTime.now(),orderCancelledEventDomainEventPublisher);
+        return new OrderCancelledEvent(order,LocalDateTime.now());
     }
 
     @Override
@@ -58,11 +57,11 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     @Override
-    public OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages, DomainEventPublisher<OrderRejectedEvent> orderRejectedEventDomainEventPublisher) {
+    public OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages ) {
 
         order.initReject(failureMessages);
         log.info("Order rejecting for order id: {}", order.getId());
-        return new OrderRejectedEvent(order,LocalDateTime.now(),orderRejectedEventDomainEventPublisher);
+        return new OrderRejectedEvent(order,LocalDateTime.now());
     }
 
     private void validateDriver(Driver driver){
