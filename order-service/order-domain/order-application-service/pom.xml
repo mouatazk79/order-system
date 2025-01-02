@@ -19,6 +19,14 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.klaa</groupId>
             <artifactId>saga</artifactId>
         </dependency>
