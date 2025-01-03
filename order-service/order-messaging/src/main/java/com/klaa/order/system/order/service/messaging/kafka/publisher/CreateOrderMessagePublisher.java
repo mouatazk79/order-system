@@ -1,8 +1,8 @@
 package com.klaa.order.system.order.service.messaging.kafka.publisher;
 
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import com.klaa.order.system.domain.order.service.domain.config.OrderServiceConfigData;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
-import com.klaa.order.system.domain.order.service.domain.ports.output.publisher.driver.OrderCreatedRequestMessagePublisher;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
 import com.klaa.order.system.order.service.messaging.kafka.mapper.OrderMessagingDataMapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CreateOrderMessagePublisher implements OrderCreatedRequestMessagePublisher {
+public class CreateOrderMessagePublisher implements DomainEventPublisher<OrderCreatedEvent> {
     private final KafkaProducer<String, DriverRequestAvroModel> kafkaProducer;
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;

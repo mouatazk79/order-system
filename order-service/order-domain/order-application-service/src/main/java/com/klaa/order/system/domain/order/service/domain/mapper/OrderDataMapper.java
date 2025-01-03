@@ -9,6 +9,7 @@ import com.klaa.order.system.domain.order.service.domain.dto.create.PositionAddr
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
+import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.DriverRequestPayload;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.Position;
 import com.klaa.order.system.domain.valueobjects.UserId;
@@ -49,5 +50,9 @@ public class OrderDataMapper {
 
     public RejectOrderResponse orderRejectedEventToRejectOrderResponse(OrderRejectedEvent rejectedEvent) {
         return null;
+    }
+
+    public DriverRequestPayload orderCreatedEventToDriverRequestPayload(OrderCreatedEvent orderCreatedEvent) {
+        return  null;
     }
 }

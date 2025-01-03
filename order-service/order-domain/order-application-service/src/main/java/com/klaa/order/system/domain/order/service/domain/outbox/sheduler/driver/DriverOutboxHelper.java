@@ -49,7 +49,7 @@ public class DriverOutboxHelper {
         return driverOutboxRepository.findByTypeAndSagaIdAndSagaStatus("OrderProcessingSaga", sagaId, sagaStatus);
     }
     @Transactional
-    public void savePaymentOutboxMessage(DriverRequestPayload driverRequestPayload,
+    public void saveDriverRequestOutboxMessage(DriverRequestPayload driverRequestPayload,
                                          OrderStatus orderStatus,
                                          SagaStatus sagaStatus,
                                          OutboxStatus outboxStatus,

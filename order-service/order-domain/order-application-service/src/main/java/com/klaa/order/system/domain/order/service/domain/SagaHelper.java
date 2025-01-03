@@ -3,6 +3,8 @@ package com.klaa.order.system.domain.order.service.domain;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderNotFoundException;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderRepository;
+import com.klaa.order.system.domain.valueobjects.OrderStatus;
+import com.klaa.order.system.saga.SagaStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,7 +27,20 @@ public class SagaHelper {
     public void saveOrder(Order order){
         orderRepository.saveOrder(order);
     }
-
+    SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
+        switch (orderStatus) {
+            case PAID:
+                return SagaStatus.PROCESSING;
+            case APPROVED:
+                return SagaStatus.SUCCEEDED;
+            case CANCELLING:
+                return SagaStatus.COMPENSATING;
+            case CANCELLED:
+                return SagaStatus.COMPENSATED;
+            default:
+                return SagaStatus.STARTED;
+        }
+    }
 
 
 }

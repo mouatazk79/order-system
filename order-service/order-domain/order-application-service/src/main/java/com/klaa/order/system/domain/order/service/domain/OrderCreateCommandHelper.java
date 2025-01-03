@@ -1,5 +1,6 @@
 package com.klaa.order.system.domain.order.service.domain;
 
+import com.klaa.order.system.domain.order.service.domain.outbox.sheduler.driver.DriverOutboxHelper;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.UserRepository;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.order.service.domain.entity.Driver;
@@ -8,10 +9,10 @@ import com.klaa.order.system.domain.order.service.domain.entity.User;
 import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.domain.order.service.domain.mapper.OrderDataMapper;
-import com.klaa.order.system.domain.order.service.domain.ports.output.publisher.driver.OrderCreatedRequestMessagePublisher;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.DriverRepository;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderRepository;
 import com.klaa.order.system.domain.valueobjects.DriverId;
+import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,8 @@ public class OrderCreateCommandHelper {
     private final DriverRepository driverRepository;
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
-    private final OrderCreatedRequestMessagePublisher orderCreatedRequestMessagePublisher;
+    private final DriverOutboxHelper driverOutboxHelper;
+    private final SagaHelper sagaHelper;
 
     @Transactional
     public OrderCreatedEvent persistOrder(OrderCreateCommand orderCreateCommand) {
@@ -38,10 +40,15 @@ public class OrderCreateCommandHelper {
         order.initializeOrder();
         Driver driver=getDriver(order.getDriverId());
         order.validateOrder();
-        OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(
-                order,driver,orderCreatedRequestMessagePublisher
-        );
+        OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(order,driver);
         saveOrder(order);
+        driverOutboxHelper.saveDriverRequestOutboxMessage(
+                orderDataMapper.orderCreatedEventToDriverRequestPayload(orderCreatedEvent),
+                orderCreatedEvent.getOrder().getOrderStatus(),
+                sagaHelper.orderStatusToSagaStatus(orderCreatedEvent.getOrder().getOrderStatus()),
+                OutboxStatus.STARTED,
+                UUID.randomUUID()
+                );
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
     }
