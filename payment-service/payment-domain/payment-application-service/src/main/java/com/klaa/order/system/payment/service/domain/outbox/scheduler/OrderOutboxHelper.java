@@ -2,12 +2,12 @@ package com.klaa.order.system.payment.service.domain.outbox.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.ordering.system.domain.valueobject.PaymentStatus;
-import com.food.ordering.system.outbox.OutboxStatus;
-import com.food.ordering.system.payment.service.domain.exception.PaymentDomainException;
-import com.food.ordering.system.payment.service.domain.outbox.model.OrderEventPayload;
-import com.food.ordering.system.payment.service.domain.outbox.model.OrderOutboxMessage;
-import com.food.ordering.system.payment.service.domain.ports.output.repository.OrderOutboxRepository;
+import com.klaa.order.service.payment.service.domain.exception.PaymentDomainException;
+import com.klaa.order.system.domain.valueobjects.PaymentStatus;
+import com.klaa.order.system.outbox.OutboxStatus;
+import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPayload;
+import com.klaa.order.system.payment.service.domain.outbox.model.OrderOutboxMessage;
+import com.klaa.order.system.payment.service.domain.ports.output.repository.OrderOutboxRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.food.ordering.system.domain.DomainConstants.UTC;
-import static com.food.ordering.system.saga.order.SagaConstants.ORDER_SAGA_NAME;
 
 @Slf4j
 @Component
@@ -37,18 +35,18 @@ public class OrderOutboxHelper {
     public Optional<OrderOutboxMessage> getCompletedOrderOutboxMessageBySagaIdAndPaymentStatus(UUID sagaId,
                                                                                                PaymentStatus
                                                                                                        paymentStatus) {
-        return orderOutboxRepository.findByTypeAndSagaIdAndPaymentStatusAndOutboxStatus(ORDER_SAGA_NAME, sagaId,
+        return orderOutboxRepository.findByTypeAndSagaIdAndPaymentStatusAndOutboxStatus("", sagaId,
                 paymentStatus, OutboxStatus.COMPLETED);
     }
 
     @Transactional(readOnly = true)
     public Optional<List<OrderOutboxMessage>> getOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {
-        return orderOutboxRepository.findByTypeAndOutboxStatus(ORDER_SAGA_NAME, outboxStatus);
+        return orderOutboxRepository.findByTypeAndOutboxStatus("", outboxStatus);
     }
 
     @Transactional
     public void deleteOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {
-        orderOutboxRepository.deleteByTypeAndOutboxStatus(ORDER_SAGA_NAME, outboxStatus);
+        orderOutboxRepository.deleteByTypeAndOutboxStatus("", outboxStatus);
     }
 
     @Transactional
@@ -60,8 +58,8 @@ public class OrderOutboxHelper {
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)
                 .createdAt(orderEventPayload.getCreatedAt())
-                .processedAt(ZonedDateTime.now(ZoneId.of(UTC)))
-                .type(ORDER_SAGA_NAME)
+                .processedAt(ZonedDateTime.now(ZoneId.of("UTC")))
+                .type("")
                 .payload(createPayload(orderEventPayload))
                 .paymentStatus(paymentStatus)
                 .outboxStatus(outboxStatus)
