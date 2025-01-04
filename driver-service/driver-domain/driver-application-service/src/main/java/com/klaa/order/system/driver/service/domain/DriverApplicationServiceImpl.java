@@ -24,16 +24,14 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
     private final OrderApprovalRepository approvalRepository;
     private final DriverDomainService driverDomainService;
     private final DriverDataMapper driverDataMapper;
-    private final DriverApprovedRequestMessagePublisher driverApprovedRequestMessagePublisher;
-    private final DriverRejectedRequestMessagePublisher driverRejectedRequestMessagePublisher;
+
 
 
     @Override
     public DriverRejectResponse rejectOrder(DriverRequest driverRequest) {
         OrderApproval orderApproval= checkOrder(driverRequest.getOrderId());
         List<String> failureMessages = new ArrayList<>();
-        OrderDriverApprovalEvent approvalEvent =driverDomainService.validateAndRejectOrder(orderApproval,failureMessages,driverApprovedRequestMessagePublisher,driverRejectedRequestMessagePublisher);
-        approvalEvent.fire();
+        OrderDriverApprovalEvent approvalEvent =driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
         return driverDataMapper.orderDriverApprovalEventToDriverRejectResponse(approvalEvent);
     }
 

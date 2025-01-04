@@ -14,24 +14,24 @@ import java.util.List;
 @Slf4j
 public class DriverDomainServiceImpl implements DriverDomainService {
     @Override
-    public OrderDriverApprovalEvent validateAndApproveOrder(OrderApproval orderApproval, List<String> failureMessages, DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher, DomainEventPublisher<OrderDriverFailedEvent> orderDriverFailedEventDomainEventPublisher) {
+    public OrderDriverApprovalEvent validateAndApproveOrder(OrderApproval orderApproval, List<String> failureMessages) {
        orderApproval.validateOrder(failureMessages);
        if (failureMessages.isEmpty()){
            log.info("order with id: {} approved",orderApproval.getId());
            orderApproval.changeStatus(DriverOrderStatus.APPROVED);
-           return new OrderDriverApprovedEvent(orderApproval,failureMessages, LocalDateTime.now(),orderDriverApprovedEventDomainEventPublisher);
+           return new OrderDriverApprovedEvent(orderApproval,failureMessages, LocalDateTime.now());
        }else {
            log.info("order with id: {} failed",orderApproval.getId());
-           return new OrderDriverFailedEvent(orderApproval,failureMessages, LocalDateTime.now(),orderDriverFailedEventDomainEventPublisher);
+           return new OrderDriverFailedEvent(orderApproval,failureMessages, LocalDateTime.now());
        }
 
     }
 
     @Override
-    public OrderDriverApprovalEvent validateAndRejectOrder(OrderApproval orderApproval, List<String> failureMessages, DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher, DomainEventPublisher<OrderDriverRejectedEvent> orderDriverRejectedEventDomainEventPublisher) {
+    public OrderDriverApprovalEvent validateAndRejectOrder(OrderApproval orderApproval, List<String> failureMessages) {
         log.info("order with id: {} rejected",orderApproval.getId());
         orderApproval.validateOrder(failureMessages);
        orderApproval.changeStatus(DriverOrderStatus.REJECTED);
-       return new OrderDriverRejectedEvent(orderApproval,failureMessages, LocalDateTime.now(),orderDriverRejectedEventDomainEventPublisher);
+       return new OrderDriverRejectedEvent(orderApproval,failureMessages, LocalDateTime.now());
     }
 }

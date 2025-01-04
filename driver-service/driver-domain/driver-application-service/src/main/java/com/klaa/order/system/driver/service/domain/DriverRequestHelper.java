@@ -30,9 +30,6 @@ public class DriverRequestHelper {
     private final OrderApprovalRepository approvalRepository;
     private final DriverDataMapper driverDataMapper;
     private final DriverDomainService driverDomainService;
-    private final DriverApprovedRequestMessagePublisher driverApprovedRequestMessagePublisher;
-    private final DriverRejectedRequestMessagePublisher driverRejectedRequestMessagePublisher;
-    private final DriverFailedMessagePublisher driverFailedMessagePublisher;
 
 
     public OrderDriverApprovalEvent persistDriverRequest(DriverRequest driverRequest) {
@@ -41,7 +38,7 @@ public class DriverRequestHelper {
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent=driverDomainService
-                .validateAndApproveOrder(orderApproval,failureMessages,driverApprovedRequestMessagePublisher,driverFailedMessagePublisher);
+                .validateAndApproveOrder(orderApproval,failureMessages);
         persistOrderApproval(orderApproval);
         return approvalEvent;
         }
@@ -51,7 +48,7 @@ public class DriverRequestHelper {
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent=driverDomainService
-                .validateAndRejectOrder(orderApproval,failureMessages,driverApprovedRequestMessagePublisher,driverRejectedRequestMessagePublisher);
+                .validateAndRejectOrder(orderApproval,failureMessages);
         persistOrderApproval(orderApproval);
         return approvalEvent;
     }
