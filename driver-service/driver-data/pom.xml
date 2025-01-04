@@ -19,6 +19,10 @@
     <dependencies>
         <dependency>
             <groupId>com.klaa</groupId>
+            <artifactId>common-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
             <artifactId>driver-application-service</artifactId>
         </dependency>
     </dependencies>
