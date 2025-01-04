@@ -7,16 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDriverApprovedEvent extends OrderDriverApprovalEvent{
-    private final DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher;
 
-    public OrderDriverApprovedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime, DomainEventPublisher<OrderDriverApprovedEvent> orderDriverApprovedEventDomainEventPublisher) {
+    public OrderDriverApprovedEvent(OrderApproval orderApproval, List<String> failureMessages, LocalDateTime localDateTime) {
         super(orderApproval, failureMessages, localDateTime);
-        this.orderDriverApprovedEventDomainEventPublisher = orderDriverApprovedEventDomainEventPublisher;
     }
 
-    @Override
-    public void fire() {
-        orderDriverApprovedEventDomainEventPublisher.publish(this);
-
-    }
 }
