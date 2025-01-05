@@ -6,6 +6,7 @@ import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentStatus;
 import com.klaa.order.system.order.service.messaging.kafka.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -25,6 +26,7 @@ public class PaymentResponseListener implements KafkaConsumer<PaymentResponseAvr
 
 
     @Override
+    @KafkaListener
     public void receive(@Payload List<PaymentResponseAvroModel> messages, @Header(KafkaHeaders.KEY) List<String> keys,@Header(KafkaHeaders.PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
 
         messages.forEach(
