@@ -2,7 +2,7 @@ package com.klaa.order.system.domain.order.service.domain.ports.input.listener.d
 
 import com.klaa.order.system.domain.order.service.domain.dto.message.DriverResponse;
 
-public interface OrderResponseMessageListener {
+public interface DriverOrderResponseMessageListener {
     void orderApproved(DriverResponse driverResponse);
 
     void orderRejected(DriverResponse driverResponse);

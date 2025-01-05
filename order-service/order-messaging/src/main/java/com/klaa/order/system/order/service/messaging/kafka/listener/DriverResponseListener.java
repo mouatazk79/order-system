@@ -1,9 +1,8 @@
 package com.klaa.order.system.order.service.messaging.kafka.listener;
 
-import com.klaa.order.system.domain.order.service.domain.ports.input.listener.driver.OrderResponseMessageListener;
+import com.klaa.order.system.domain.order.service.domain.ports.input.listener.driver.DriverOrderResponseMessageListener;
 import com.klaa.order.system.kafka.consumer.consumer.KafkaConsumer;
 import com.klaa.order.system.kafka.model.driver.DriverOrderStatus;
-import com.klaa.order.system.kafka.model.driver.DriverResponse;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
 import com.klaa.order.system.order.service.messaging.kafka.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +16,10 @@ import java.util.List;
 @Slf4j
 @Component
 public class DriverResponseListener implements KafkaConsumer<DriverResponseAvroModel> {
-    private final OrderResponseMessageListener orderResponseMessageListener;
+    private final DriverOrderResponseMessageListener orderResponseMessageListener;
     private final OrderMessagingDataMapper orderMessagingDataMapper;
 
-    public DriverResponseListener(OrderResponseMessageListener orderResponseMessageListener, OrderMessagingDataMapper orderMessagingDataMapper) {
+    public DriverResponseListener(DriverOrderResponseMessageListener orderResponseMessageListener, OrderMessagingDataMapper orderMessagingDataMapper) {
         this.orderResponseMessageListener = orderResponseMessageListener;
         this.orderMessagingDataMapper = orderMessagingDataMapper;
     }

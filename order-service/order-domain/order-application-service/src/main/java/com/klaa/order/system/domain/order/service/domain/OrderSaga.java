@@ -9,6 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Slf4j
 @AllArgsConstructor
@@ -27,5 +31,10 @@ public class OrderSaga implements SagaStep<DriverResponse> {
     @Override
     @Transactional
     public void rollBack(DriverResponse data) {
+        log.info("rollback order with id: {}",data.getOrderId());
+        Order order=sagaHelper.findOrderById(data.getOrderId());
+        List<String> failureMessages=new ArrayList<>();
+        orderDomainService.cancelOrder(order,failureMessages);
+        sagaHelper.saveOrder(order);
     }
 }
