@@ -33,8 +33,10 @@ public class SagaHelper {
                 return SagaStatus.PROCESSING;
             case APPROVED:
                 return SagaStatus.SUCCEEDED;
+            case REJECTING:
             case CANCELLING:
                 return SagaStatus.COMPENSATING;
+            case REJECTED:
             case CANCELLED:
                 return SagaStatus.COMPENSATED;
             default:

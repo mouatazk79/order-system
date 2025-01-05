@@ -55,4 +55,8 @@ public class OrderDataMapper {
     public DriverRequestPayload orderCreatedEventToDriverRequestPayload(OrderCreatedEvent orderCreatedEvent) {
         return  null;
     }
+
+    public DriverRequestPayload orderRejectedEventToDriverRequestPayload(OrderRejectedEvent rejectedEvent) {
+        return null;
+    }
 }
