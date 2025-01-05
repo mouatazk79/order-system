@@ -9,6 +9,7 @@ import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentStatus;
 import com.klaa.order.system.payment.service.domain.dto.PaymentRequest;
+import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -71,5 +72,9 @@ public class PaymentMessagingDataMapper {
                 .createdAt(paymentRequestAvroModel.getCreatedAt())
                 .paymentOrderStatus(PaymentOrderStatus.valueOf(paymentRequestAvroModel.getPaymentOrderStatus().name()))
                 .build();
+    }
+
+    public PaymentResponseAvroModel orderEventPayloadToPaymentResponseAvroModel(String sagaId, OrderEventPayload orderEventPayload) {
+        return null;
     }
 }
