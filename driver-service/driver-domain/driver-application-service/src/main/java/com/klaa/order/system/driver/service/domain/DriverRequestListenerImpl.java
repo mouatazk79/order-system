@@ -16,12 +16,12 @@ public class DriverRequestListenerImpl implements DriverRequestListener {
 
     @Override
     public void orderRequest(DriverRequest driverRequest) {
-        OrderDriverApprovalEvent approvalEvent= driverRequestHelper.persistDriverRequest(driverRequest);
+         driverRequestHelper.persistDriverRequest(driverRequest);
     }
 
     @Override
     public void orderCancelled(DriverRequest driverRequest) {
-        OrderDriverApprovalEvent approvalEvent=driverRequestHelper.persistCancelPayment(driverRequest);
+        driverRequestHelper.persistCancelPayment(driverRequest);
     }
 
 

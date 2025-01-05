@@ -1,8 +1,8 @@
 package com.klaa.order.system.driver.service.messaging.kafka.publisher;
 
+import com.klaa.order.system.domain.event.publisher.DomainEventPublisher;
 import com.klaa.order.system.driver.service.domain.config.DriverServiceConfigData;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverRejectedEvent;
-import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverRejectedRequestMessagePublisher;
 import com.klaa.order.system.driver.service.messaging.kafka.mapper.DriverMessagingDataMapper;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class RejectedDriverMessagePublisher implements DriverRejectedRequestMessagePublisher {
+public class RejectedDriverMessagePublisher implements DomainEventPublisher<OrderDriverRejectedEvent> {
     private final KafkaProducer<String, DriverResponseAvroModel> kafkaProducer;
     private final DriverMessagingDataMapper driverMessagingDataMapper;
     private final DriverServiceConfigData driverServiceConfigData;
