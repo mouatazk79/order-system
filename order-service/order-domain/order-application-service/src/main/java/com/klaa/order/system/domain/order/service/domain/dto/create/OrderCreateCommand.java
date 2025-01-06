@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class OrderCreateCommand {
     @NotNull
-    private final UUID customerId;
+    private final UUID userId;
     @NotNull
     private final BigDecimal price;
     @NotNull

@@ -36,7 +36,7 @@ public class OrderCreateCommandHelper {
     @Transactional
     public OrderCreatedEvent persistOrder(OrderCreateCommand orderCreateCommand) {
         Order order=orderDataMapper.orderCreateCommandToOrder(orderCreateCommand);
-        checkUser(orderCreateCommand.getCustomerId());
+        checkUser(orderCreateCommand.getUserId());
         order.initializeOrder();
         Driver driver=getDriver(order.getDriverId());
         order.validateOrder();
