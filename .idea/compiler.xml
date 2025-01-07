@@ -57,7 +57,7 @@
       <module name="driver-domain-core" options="-parameters" />
       <module name="driver-messaging" options="-parameters" />
       <module name="driver-service" options="" />
-      <module name="elastic" options="" />
+      <module name="elastic" options="-parameters" />
       <module name="elastic-config" options="-parameters" />
       <module name="elastic-index-client" options="-parameters" />
       <module name="elastic-model" options="-parameters" />
