@@ -1,5 +1,4 @@
 package com.klaa.order.system.domain.order.service.domain;
-
 import com.klaa.order.system.domain.order.service.domain.outbox.sheduler.driver.DriverOutboxHelper;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.UserRepository;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
@@ -49,6 +48,7 @@ public class OrderCreateCommandHelper {
                 OutboxStatus.STARTED,
                 UUID.randomUUID()
                 );
+
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
     }
