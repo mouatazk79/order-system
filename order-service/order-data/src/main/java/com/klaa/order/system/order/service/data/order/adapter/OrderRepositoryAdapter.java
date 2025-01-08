@@ -6,6 +6,8 @@ import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,5 +24,12 @@ public class OrderRepositoryAdapter implements OrderRepository {
     @Override
     public Optional<Order> findOrderById(UUID id) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<Order> findOrdersCreatedAtBetween(LocalDateTime startTime, LocalDateTime endTime) {
+        return orderJpaRepository.findByCreatedDateIsBetween(startTime,endTime)
+                .stream()
+                .map(orderEntityMapper::orderEntityToOrder).toList();
     }
 }
