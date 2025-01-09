@@ -1,0 +1,69 @@
+{
+  "namespace": "com.klaa.order.system.kafka.model.elastic",
+  "type": "record",
+  "name": "OrderElasticMessageAvroModel",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },{
+      "name": "position",
+      "type": {
+        "type": "record",
+        "name": "Position",
+        "fields": [
+          {
+            "name": "streetAddress",
+            "type": "string"
+          },
+          {
+            "name": "zipCode",
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "destination",
+      "type": "Position"
+    },
+    {
+      "name": "price",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 10,
+        "scale": 2
+      }
+    },
+    {
+      "name": "driverId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "trackingId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "orderStatus",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatus",
+        "symbols": ["PENDING", "PAID", "APPROVED", "CANCELLING", "CANCELLED", "REJECTING", "REJECTED"]
+      }
+    }
+  ]
+}
