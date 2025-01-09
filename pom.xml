@@ -130,11 +130,6 @@
             </dependency>
             <dependency>
                 <groupId>com.klaa</groupId>
-                <artifactId>payment-application</artifactId>
-                <version>${payment.service.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.klaa</groupId>
                 <artifactId>payment-container</artifactId>
                 <version>${payment.service.version}</version>
             </dependency>

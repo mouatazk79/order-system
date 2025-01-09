@@ -31,10 +31,6 @@
         </dependency>
         <dependency>
             <groupId>com.klaa</groupId>
-            <artifactId>payment-application</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.klaa</groupId>
             <artifactId>payment-data</artifactId>
         </dependency>
 

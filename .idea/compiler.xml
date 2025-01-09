@@ -23,7 +23,6 @@
         <module name="driver-application-service" />
         <module name="common-domain" />
         <module name="order-application" />
-        <module name="payment-application" />
         <module name="elastic-model" />
         <module name="order-domain-core" />
         <module name="payment-domain-core" />
@@ -44,6 +43,9 @@
         <module name="elastic-query-client" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="payment-application" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -71,7 +73,7 @@
       <module name="kafka-consumer" options="-parameters" />
       <module name="kafka-model" options="-parameters" />
       <module name="kafka-producer" options="-parameters" />
-      <module name="kafka-to-elastic" options="-parameters" />
+      <module name="kafka-to-elastic" options="" />
       <module name="kafkatoelastic-container" options="-parameters" />
       <module name="kafkatoelastic-messaging" options="-parameters" />
       <module name="order-application" options="-parameters" />
