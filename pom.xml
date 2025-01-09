@@ -11,6 +11,7 @@
         <module>infrastructure</module>
         <module>infrastructure/kafka</module>
         <module>infrastructure/elastic</module>
+        <module>kafka-to-elastic</module>
     </modules>
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -37,6 +38,7 @@
         <avro.version>1.12.0</avro.version>
         <infrastructure.kafka.version>1.0-SNAPSHOT</infrastructure.kafka.version>
         <infrastructure.elastic.version>1.0-SNAPSHOT</infrastructure.elastic.version>
+        <kafka.to.elastic.version>1.0-SNAPSHOT</kafka.to.elastic.version>
     </properties>
     <dependencies>
         <dependency>
@@ -210,6 +212,16 @@
                 <groupId>com.klaa</groupId>
                 <artifactId>elastic-query-client</artifactId>
                 <version>${infrastructure.elastic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafkatoelastic-container</artifactId>
+                <version>${kafka.to.elastic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>kafkatoelastic-messaging</artifactId>
+                <version>${kafka.to.elastic.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
