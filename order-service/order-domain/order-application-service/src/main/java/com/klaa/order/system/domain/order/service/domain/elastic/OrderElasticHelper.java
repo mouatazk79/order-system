@@ -51,5 +51,7 @@ public class OrderElasticHelper {
     }
 
 
-
+    public void deleteOrderElasticMessageById(UUID id) {
+        orderElasticRepository.deleteOrderElasticMessageById(id);
+    }
 }

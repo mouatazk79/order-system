@@ -30,7 +30,7 @@ public class OrderElasticScheduler {
     public void processElasticMessages(){
         orderElasticHelper.saveOrderElasticMessages(LocalDateTime.now().minusMinutes(2),LocalDateTime.now());
         Optional<List<OrderElasticMessage>> orderElasticMessages=orderElasticRepository.getAllOrderElasticMessageByStatus(ElasticMessageStatus.PENDING,ElasticMessageStatus.FAILED);
-        if (orderElasticMessages.isPresent()){
+        if (orderElasticMessages.isPresent()&&orderElasticMessages.get().size()>0){
             List<OrderElasticMessage> orderMessages=orderElasticMessages.get();
             orderMessages.forEach(orderElasticMessage -> {
                 orderElasticMessagePublisher.publish(orderElasticMessage,this::updateOrderElasticMessageStatus);
