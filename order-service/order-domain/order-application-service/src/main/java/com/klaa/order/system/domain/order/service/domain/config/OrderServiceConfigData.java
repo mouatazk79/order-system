@@ -12,4 +12,5 @@ public class OrderServiceConfigData {
     private String paymentResponseTopicName;
     private String driverApprovalRequestTopicName;
     private String driverApprovalResponseTopicName;
+    private String OrderElasticTopicName;
 }

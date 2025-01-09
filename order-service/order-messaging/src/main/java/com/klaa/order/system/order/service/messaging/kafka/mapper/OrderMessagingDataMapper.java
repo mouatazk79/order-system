@@ -7,6 +7,7 @@ import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.Dri
 import com.klaa.order.system.domain.order.service.domain.outbox.model.payment.PaymentRequestPayload;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
+import com.klaa.order.system.kafka.model.elastic.OrderElasticMessageAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,10 @@ public class OrderMessagingDataMapper {
     }
 
     public PaymentRequestAvroModel orderPaymentEventToPaymentRequestAvroModel(String sagaId, PaymentRequestPayload paymentRequestPayload) {
+        return null;
+    }
+
+    public OrderElasticMessageAvroModel orderPayloadToOrderElasticMessageAvroModel(Order orderPayload) {
         return null;
     }
 }

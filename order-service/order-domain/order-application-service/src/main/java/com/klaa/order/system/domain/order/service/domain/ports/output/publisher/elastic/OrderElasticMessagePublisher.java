@@ -1,6 +1,6 @@
 package com.klaa.order.system.domain.order.service.domain.ports.output.publisher.elastic;
 
-import com.klaa.order.system.domain.order.service.domain.elastic.model.ElasticMessageStatus;
+import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.domain.order.service.domain.elastic.model.OrderElasticMessage;
 
 

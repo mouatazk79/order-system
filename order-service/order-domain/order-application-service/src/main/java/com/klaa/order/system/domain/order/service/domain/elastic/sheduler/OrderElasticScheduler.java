@@ -1,12 +1,10 @@
 package com.klaa.order.system.domain.order.service.domain.elastic.sheduler;
 
 import com.klaa.order.system.domain.order.service.domain.elastic.OrderElasticHelper;
-import com.klaa.order.system.domain.order.service.domain.elastic.model.ElasticMessageStatus;
+import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.domain.order.service.domain.elastic.model.OrderElasticMessage;
-import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
 import com.klaa.order.system.domain.order.service.domain.ports.output.publisher.elastic.OrderElasticMessagePublisher;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderElasticRepository;
-import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

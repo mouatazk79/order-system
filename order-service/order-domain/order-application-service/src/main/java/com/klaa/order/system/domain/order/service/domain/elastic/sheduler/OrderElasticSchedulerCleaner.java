@@ -1,7 +1,7 @@
 package com.klaa.order.system.domain.order.service.domain.elastic.sheduler;
 
 import com.klaa.order.system.domain.order.service.domain.elastic.OrderElasticHelper;
-import com.klaa.order.system.domain.order.service.domain.elastic.model.ElasticMessageStatus;
+import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.domain.order.service.domain.elastic.model.OrderElasticMessage;
 import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderElasticRepository;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
