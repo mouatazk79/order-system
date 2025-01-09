@@ -1,4 +1,4 @@
-package com.klaa.order.system.domain.order.service.domain.elastic.model;
+package com.klaa.order.system.domain.valueobjects;
 
 public enum ElasticMessageStatus {
     PENDING,
