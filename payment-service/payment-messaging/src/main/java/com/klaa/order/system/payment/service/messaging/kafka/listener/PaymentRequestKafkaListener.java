@@ -6,7 +6,7 @@ import com.klaa.order.system.kafka.model.payment.PaymentOrderStatus;
 import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
 import com.klaa.order.system.payment.service.domain.exception.PaymentApplicationServiceException;
 import com.klaa.order.system.payment.service.domain.ports.input.message.listener.PaymentRequestMessageListener;
-import com.klaa.order.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
+import com.klaa.order.system.payment.service.messaging.kafka.mapper.PaymentMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.postgresql.util.PSQLState;
 import org.springframework.dao.DataAccessException;

@@ -25,7 +25,8 @@ public class DriverResponseListener implements KafkaConsumer<DriverResponseAvroM
     }
 
     @Override
-    @KafkaListener
+    @KafkaListener(id = "${kafka-consumer-config.driver-approval-consumer-group-id}",
+            topics = "${order-service.driver-approval-response-topic-name}")
     public void receive(@Payload List<DriverResponseAvroModel> messages, @Header(KafkaHeaders.KEY) List<String> keys,@Header(KafkaHeaders.PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         messages.forEach(message->{
             DriverOrderStatus messageDriverOrderStatus=message.getDriverOrderStatus();

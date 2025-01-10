@@ -11,7 +11,7 @@ import com.klaa.order.system.payment.service.domain.config.PaymentServiceConfigD
 import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPayload;
 import com.klaa.order.system.payment.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.payment.service.domain.ports.output.message.publisher.PaymentResponseMessagePublisher;
-import com.klaa.order.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
+import com.klaa.order.system.payment.service.messaging.kafka.mapper.PaymentMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

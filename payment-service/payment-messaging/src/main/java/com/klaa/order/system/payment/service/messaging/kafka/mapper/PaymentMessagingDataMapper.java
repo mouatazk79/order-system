@@ -1,4 +1,4 @@
-package com.klaa.order.system.payment.service.messaging.mapper;
+package com.klaa.order.system.payment.service.messaging.kafka.mapper;
 
 
 import com.klaa.order.service.payment.service.domain.event.PaymentCancelledEvent;

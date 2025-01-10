@@ -6,6 +6,7 @@ import com.klaa.order.system.kafka.consumer.consumer.KafkaConsumer;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.model.driver.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -25,6 +26,8 @@ public class DriverOrderRequestListener implements KafkaConsumer<DriverRequestAv
     }
 
     @Override
+    @KafkaListener(id = "${kafka-consumer-config.driver-approval-consumer-group-id}",
+            topics = "${driver-service.driver-approval-request-topic-name}")
     public void receive(@Payload List<DriverRequestAvroModel> messages, @Header(KafkaHeaders.KEY) List<String> keys,@Header(KafkaHeaders.PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         messages.forEach(
                 message->{
