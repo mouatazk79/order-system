@@ -73,7 +73,7 @@
       <module name="kafka-consumer" options="-parameters" />
       <module name="kafka-model" options="-parameters" />
       <module name="kafka-producer" options="-parameters" />
-      <module name="kafka-to-elastic" options="" />
+      <module name="kafka-to-elastic" options="-parameters" />
       <module name="kafkatoelastic-container" options="-parameters" />
       <module name="kafkatoelastic-messaging" options="-parameters" />
       <module name="order-application" options="-parameters" />
