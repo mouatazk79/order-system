@@ -2,12 +2,12 @@ package com.klaa.order.system.order.service.messaging.kafka.publisher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.klaa.order.system.domain.order.service.domain.config.OrderServiceConfigData;
+import com.klaa.order.system.order.service.domain.config.OrderServiceConfigData;
 import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
-import com.klaa.order.system.domain.order.service.domain.elastic.model.OrderElasticMessage;
+import com.klaa.order.system.order.service.domain.elastic.model.OrderElasticMessage;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
-import com.klaa.order.system.domain.order.service.domain.ports.output.publisher.elastic.OrderElasticMessagePublisher;
+import com.klaa.order.system.order.service.domain.ports.output.publisher.elastic.OrderElasticMessagePublisher;
 import com.klaa.order.system.kafka.model.elastic.OrderElasticMessageAvroModel;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
 import com.klaa.order.system.order.service.messaging.kafka.mapper.OrderMessagingDataMapper;
