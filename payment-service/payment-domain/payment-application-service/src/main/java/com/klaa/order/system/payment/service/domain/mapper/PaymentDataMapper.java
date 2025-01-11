@@ -26,7 +26,7 @@ public class PaymentDataMapper {
     public OrderEventPayload paymentEventToOrderEventPayload(PaymentEvent paymentEvent) {
         return OrderEventPayload.builder()
                 .paymentId(paymentEvent.getPayment().getId().getValue().toString())
-                .customerId(paymentEvent.getPayment().getUserId().getValue().toString())
+                .userId(paymentEvent.getPayment().getUserId().getValue().toString())
                 .orderId(paymentEvent.getPayment().getOrderId().getValue().toString())
                 .price(paymentEvent.getPayment().getPrice().getAmount())
                 .createdAt(paymentEvent.getCreatedAt())

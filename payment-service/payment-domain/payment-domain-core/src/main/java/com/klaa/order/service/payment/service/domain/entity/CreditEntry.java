@@ -51,7 +51,7 @@ public class CreditEntry extends BaseEntity<CreditEntryId> {
             return this;
         }
 
-        public Builder customerId(UserId val) {
+        public Builder userId(UserId val) {
             userId = val;
             return this;
         }

@@ -28,20 +28,13 @@ public class SagaHelper {
         orderRepository.saveOrder(order);
     }
     SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
-        switch (orderStatus) {
-            case PAID:
-                return SagaStatus.PROCESSING;
-            case APPROVED:
-                return SagaStatus.SUCCEEDED;
-            case REJECTING:
-            case CANCELLING:
-                return SagaStatus.COMPENSATING;
-            case REJECTED:
-            case CANCELLED:
-                return SagaStatus.COMPENSATED;
-            default:
-                return SagaStatus.STARTED;
-        }
+        return switch (orderStatus) {
+            case PAID -> SagaStatus.PROCESSING;
+            case APPROVED -> SagaStatus.SUCCEEDED;
+            case REJECTING, CANCELLING -> SagaStatus.COMPENSATING;
+            case REJECTED, CANCELLED -> SagaStatus.COMPENSATED;
+            default -> SagaStatus.STARTED;
+        };
     }
 
 

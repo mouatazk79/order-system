@@ -16,6 +16,8 @@ private final String city;
         this.city = city;
     }
 
+
+
     public UUID getPositionId() {
         return positionId;
     }

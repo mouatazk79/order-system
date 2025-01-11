@@ -18,7 +18,7 @@ public class PaymentResponse {
     private String sagaId;
     private UUID orderId;
     private String paymentId;
-    private String customerId;
+    private String userId;
     private BigDecimal price;
     private Instant createdAt;
     private PaymentOrderStatus paymentStatus;

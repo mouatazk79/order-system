@@ -12,6 +12,7 @@ import com.klaa.order.system.payment.service.domain.dto.PaymentRequest;
 import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
 
+
 import java.util.UUID;
 
 @Component
@@ -75,6 +76,15 @@ public class PaymentMessagingDataMapper {
     }
 
     public PaymentResponseAvroModel orderEventPayloadToPaymentResponseAvroModel(String sagaId, OrderEventPayload orderEventPayload) {
-        return null;
+        return PaymentResponseAvroModel.newBuilder()
+                .setId(UUID.randomUUID())
+                .setSagaId(UUID.fromString(sagaId))
+                .setUserId(UUID.fromString(orderEventPayload.getUserId()))
+                .setOrderId(UUID.fromString(orderEventPayload.getOrderId()))
+                .setPaymentId(UUID.fromString(orderEventPayload.getPaymentId()))
+                .setFailureMessages(orderEventPayload.getFailureMessages())
+                .setPrice(orderEventPayload.getPrice())
+                .setPaymentStatus(PaymentStatus.valueOf(orderEventPayload.getPaymentStatus()))
+                .build();
     }
 }

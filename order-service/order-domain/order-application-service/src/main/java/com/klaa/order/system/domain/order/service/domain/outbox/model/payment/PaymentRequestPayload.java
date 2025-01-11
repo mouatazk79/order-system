@@ -14,7 +14,7 @@ public class PaymentRequestPayload {
     @JsonProperty
     private String orderId;
     @JsonProperty
-    private String customerId;
+    private String userId;
     @JsonProperty
     private BigDecimal price;
     @JsonProperty
