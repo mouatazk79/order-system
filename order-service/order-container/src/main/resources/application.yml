@@ -11,18 +11,22 @@ order-service:
   driver-approval-response-topic-name: driver-approval-response
 
 spring:
-  jpa:
-    open-in-view: false
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+   application:
+     name: order
+   datasource:
+     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+     username: root
+     password: password
+   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
-    username: postgres
-    password: 0123456789
-    driver-class-name: org.postgresql.Driver
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    open-in-view: false
+
 
 
 

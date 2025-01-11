@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderEntity extends BaseJpaEntity {

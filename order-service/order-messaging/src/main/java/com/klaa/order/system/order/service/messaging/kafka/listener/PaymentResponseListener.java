@@ -1,6 +1,6 @@
 package com.klaa.order.system.order.service.messaging.kafka.listener;
 
-import com.klaa.order.system.domain.order.service.domain.ports.input.listener.payment.PaymentResponseMessageListener;
+import com.klaa.order.system.order.service.domain.ports.input.listener.payment.PaymentResponseMessageListener;
 import com.klaa.order.system.kafka.consumer.consumer.KafkaConsumer;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentStatus;

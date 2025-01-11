@@ -1,7 +1,7 @@
 package com.klaa.order.system.order.service.data.elastic.adapter;
 
-import com.klaa.order.system.domain.order.service.domain.elastic.model.OrderElasticMessage;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderElasticRepository;
+import com.klaa.order.system.order.service.domain.elastic.model.OrderElasticMessage;
+import com.klaa.order.system.order.service.domain.ports.output.repository.OrderElasticRepository;
 import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.order.service.data.elastic.mapper.ElasticOrderDataMapper;
 import com.klaa.order.system.order.service.data.elastic.repository.ElasticOrderJpaRepository;

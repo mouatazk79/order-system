@@ -1,6 +1,6 @@
 package com.klaa.order.system.order.service.messaging.kafka.listener;
 
-import com.klaa.order.system.domain.order.service.domain.ports.input.listener.driver.DriverOrderResponseMessageListener;
+import com.klaa.order.system.order.service.domain.ports.input.listener.driver.DriverOrderResponseMessageListener;
 import com.klaa.order.system.kafka.consumer.consumer.KafkaConsumer;
 import com.klaa.order.system.kafka.model.driver.DriverOrderStatus;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
@@ -33,12 +33,12 @@ public class DriverResponseListener implements KafkaConsumer<DriverResponseAvroM
             if (DriverOrderStatus.APPROVED==messageDriverOrderStatus){
                 log.info("processing approved request with if: {}",message.getId());
                 orderResponseMessageListener.orderApproved(
-                        orderMessagingDataMapper.driverResponseAvroModelToDriverReponse(message)
+                        orderMessagingDataMapper.driverResponseAvroModelToDriverResponse(message)
                 );
             } else if (DriverOrderStatus.REJECTED==messageDriverOrderStatus) {
                 log.info("processing rejected request with if: {}",message.getId());
                 orderResponseMessageListener.orderRejected(
-                        orderMessagingDataMapper.driverResponseAvroModelToDriverReponse(message)
+                        orderMessagingDataMapper.driverResponseAvroModelToDriverResponse(message)
                 );
 
 

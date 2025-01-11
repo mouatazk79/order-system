@@ -3,7 +3,7 @@ package com.klaa.order.system.order.service.data.order.adapter;
 import com.klaa.order.system.order.service.data.order.mapper.OrderEntityMapper;
 import com.klaa.order.system.order.service.data.order.repository.OrderJpaRepository;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.OrderRepository;
+import com.klaa.order.system.order.service.domain.ports.output.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;

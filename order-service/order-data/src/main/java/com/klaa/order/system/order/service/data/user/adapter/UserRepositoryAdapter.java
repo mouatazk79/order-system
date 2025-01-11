@@ -1,10 +1,9 @@
 package com.klaa.order.system.order.service.data.user.adapter;
 
-import com.klaa.order.system.order.service.data.order.mapper.OrderEntityMapper;
 import com.klaa.order.system.order.service.data.user.mapper.UserEntityMapper;
 import com.klaa.order.system.order.service.data.user.repository.UserJpaRepository;
 import com.klaa.order.system.domain.order.service.domain.entity.User;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.UserRepository;
+import com.klaa.order.system.order.service.domain.ports.output.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
 import java.util.Optional;

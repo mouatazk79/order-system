@@ -2,7 +2,7 @@ package com.klaa.order.system.order.service.data.driver.adapter;
 
 import com.klaa.order.system.data.driver.repository.DriverJpaRepository;
 import com.klaa.order.system.domain.order.service.domain.entity.Driver;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.DriverRepository;
+import com.klaa.order.system.order.service.domain.ports.output.repository.DriverRepository;
 import com.klaa.order.system.order.service.data.driver.mapper.DriverEntityMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

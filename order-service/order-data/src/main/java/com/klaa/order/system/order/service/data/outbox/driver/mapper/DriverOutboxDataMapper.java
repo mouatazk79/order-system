@@ -1,6 +1,6 @@
 package com.klaa.order.system.order.service.data.outbox.driver.mapper;
 
-import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
+import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
 import com.klaa.order.system.order.service.data.outbox.driver.entity.DriverOutboxMessageEntity;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.klaa.order.system.order.service.data.outbox.payment.adapter;
 
-import com.klaa.order.system.domain.order.service.domain.outbox.model.payment.PaymentRequestOutboxMessage;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.PaymentOutboxRepository;
+import com.klaa.order.system.order.service.domain.outbox.model.payment.PaymentRequestOutboxMessage;
+import com.klaa.order.system.order.service.domain.ports.output.repository.PaymentOutboxRepository;
 import com.klaa.order.system.order.service.data.outbox.payment.exception.PaymentOutboxDataException;
 import com.klaa.order.system.order.service.data.outbox.payment.mapper.PaymentOutboxDataMapper;
 import com.klaa.order.system.order.service.data.outbox.payment.repository.PaymentOutboxJpaRepository;

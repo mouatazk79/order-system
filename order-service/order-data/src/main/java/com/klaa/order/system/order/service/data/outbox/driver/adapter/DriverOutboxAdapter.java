@@ -1,7 +1,7 @@
 package com.klaa.order.system.order.service.data.outbox.driver.adapter;
 
-import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
-import com.klaa.order.system.domain.order.service.domain.ports.output.repository.DriverOutboxRepository;
+import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
+import com.klaa.order.system.order.service.domain.ports.output.repository.DriverOutboxRepository;
 import com.klaa.order.system.order.service.data.outbox.driver.exception.DriverOutboxDataException;
 import com.klaa.order.system.order.service.data.outbox.driver.mapper.DriverOutboxDataMapper;
 import com.klaa.order.system.order.service.data.outbox.driver.repository.DriverOutboxJpaRepository;

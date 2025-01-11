@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 @Entity
@@ -21,8 +22,8 @@ public class DriverOutboxMessageEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private UUID sagaId;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime processedAt;
     private String type;
     private String payload;
     @Enumerated(EnumType.STRING)

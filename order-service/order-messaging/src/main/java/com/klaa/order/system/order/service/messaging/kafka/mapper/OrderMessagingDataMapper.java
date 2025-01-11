@@ -1,11 +1,11 @@
 package com.klaa.order.system.order.service.messaging.kafka.mapper;
 
-import com.klaa.order.system.domain.order.service.domain.dto.create.PositionAddress;
-import com.klaa.order.system.domain.order.service.domain.dto.message.DriverResponse;
-import com.klaa.order.system.domain.order.service.domain.dto.message.PaymentResponse;
+import com.klaa.order.system.order.service.domain.dto.create.PositionAddress;
+import com.klaa.order.system.order.service.domain.dto.message.DriverResponse;
+import com.klaa.order.system.order.service.domain.dto.message.PaymentResponse;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
-import com.klaa.order.system.domain.order.service.domain.outbox.model.driver.DriverRequestPayload;
-import com.klaa.order.system.domain.order.service.domain.outbox.model.payment.PaymentRequestPayload;
+import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestPayload;
+import com.klaa.order.system.order.service.domain.outbox.model.payment.PaymentRequestPayload;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
