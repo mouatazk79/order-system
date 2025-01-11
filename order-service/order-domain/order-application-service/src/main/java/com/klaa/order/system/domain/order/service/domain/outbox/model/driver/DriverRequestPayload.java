@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -22,7 +22,7 @@ public class DriverRequestPayload {
     @JsonProperty
     private PositionAddress destination;
     @JsonProperty
-    private ZonedDateTime createdAt;
-    @JsonProperty
-    private String driverOrderStatus;
+    private LocalDateTime createdAt;
+//    @JsonProperty
+//    private String driverOrderStatus;
 }

@@ -1,8 +1,12 @@
 package com.klaa.order.system.driver.service.domain.mapper;
 
+import com.klaa.order.system.domain.valueobjects.DriverId;
+import com.klaa.order.system.domain.valueobjects.Money;
+import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
 import com.klaa.order.system.driver.service.domain.dto.reject.DriverRejectResponse;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
+import com.klaa.order.system.driver.service.domain.entity.OrderDetail;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
@@ -11,7 +15,17 @@ import org.springframework.stereotype.Component;
 public class DriverDataMapper {
 
     public OrderApproval driverRequestToOrderApproval(DriverRequest driverRequest) {
-        return null;
+        return OrderApproval.builder()
+                .driverId(new DriverId(driverRequest.getDriverId()))
+                .orderDetail(OrderDetail.builder()
+                        .orderId(new OrderId(driverRequest.getOrderId()))
+                        .position(driverRequest.getPosition())
+                        .destination(driverRequest.getDestination())
+                        .price(new Money(driverRequest.getPrice()))
+                        .build()
+                )
+                .driverOrderStatus(driverRequest.getOrderStatus())
+                .build();
     }
 
     public DriverRejectResponse orderDriverApprovalEventToDriverRejectResponse(OrderDriverApprovalEvent approvalEvent) {
@@ -19,6 +33,12 @@ public class DriverDataMapper {
     }
 
     public OrderEventPayload orderApprovalEventToOrderEventPayload(OrderDriverApprovalEvent approvalEvent) {
-        return null;
+        return OrderEventPayload.builder()
+                .orderId(approvalEvent.getOrderApproval().getId().toString())
+                .driverId(approvalEvent.getOrderApproval().getDriverId().toString())
+                .createdAt(approvalEvent.getLocalDateTime())
+                .orderApprovalStatus(approvalEvent.getOrderApproval().toString())
+                .failureMessages(approvalEvent.getFailureMessages())
+                .build();
     }
 }

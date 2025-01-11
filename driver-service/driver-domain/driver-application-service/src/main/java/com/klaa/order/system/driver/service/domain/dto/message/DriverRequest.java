@@ -18,7 +18,7 @@ public class DriverRequest {
     private String sagaId;
     private UUID driverId;
     private UUID orderId;
-    private DriverOrderStatus orderStatus;
+    private DriverOrderStatus driverOrderStatus;
     private Position position;
     private Position destination;
     private BigDecimal price;

@@ -22,5 +22,5 @@ public class DriverEntity {
     private String email;
     private String car;
     private String phoneNumber;
-    private boolean active;
+    private Boolean active;
 }
