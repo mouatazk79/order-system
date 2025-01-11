@@ -9,10 +9,18 @@ import java.util.Optional;
 @Component
 public class ElasticOrderDataMapper {
     public ElasticOrderEntity orderElasticMessageToElasticOrderEntity(OrderElasticMessage orderElasticMessage) {
-        return null;
+        return ElasticOrderEntity.builder()
+                .id(orderElasticMessage.getId())
+                .elasticMessageStatus(orderElasticMessage.getElasticMessageStatus())
+                .payload(orderElasticMessage.getPayload())
+                .build();
     }
 
-    public OrderElasticMessage elasticOrderEntityToOrderElasticMessage(ElasticOrderEntity save) {
-        return null;
+    public OrderElasticMessage elasticOrderEntityToOrderElasticMessage(ElasticOrderEntity elasticOrderEntity) {
+        return OrderElasticMessage.builder()
+                .id(elasticOrderEntity.getId())
+                .elasticMessageStatus(elasticOrderEntity.getElasticMessageStatus())
+                .payload(elasticOrderEntity.getPayload())
+                .build();
     }
 }

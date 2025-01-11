@@ -24,7 +24,7 @@ public class OrderTrackCommandHandler {
         if (order.isEmpty()){
             throw new OrderNotFoundException("order with id: "+trackOrderQuery.getOrderTrackingId()+"does not exist");
         }
-        return orderDataMapper.orderToTrackOrderResponse(trackOrderQuery);
+        return orderDataMapper.orderToTrackOrderResponse(order.get());
 
     }
 

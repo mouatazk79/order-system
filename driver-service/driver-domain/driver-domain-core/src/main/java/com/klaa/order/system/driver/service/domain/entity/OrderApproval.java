@@ -11,7 +11,7 @@ import java.util.List;
 public class OrderApproval extends BaseEntity<OrderApprovalId> {
     private final DriverId driverId;
     private final OrderDetail orderDetail;
-    private DriverOrderStatus orderStatus;
+    private DriverOrderStatus driverOrderStatus;
 
 
    public void validateOrder(List<String> failureMessages){
@@ -19,15 +19,15 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
             failureMessages.add("order is not in pending state");
         }
     }
-   public void changeStatus(DriverOrderStatus orderStatus){
-        this.orderStatus=orderStatus;
+   public void changeStatus(DriverOrderStatus driverOrderStatus){
+        this.driverOrderStatus=driverOrderStatus;
     }
 
     private OrderApproval(Builder builder) {
         setId(builder.orderApprovalId);
         this.driverId = builder.driverId;
         this.orderDetail = builder.orderDetail;
-        this.orderStatus = builder.orderStatus;
+        this.driverOrderStatus = builder.driverOrderStatus;
     }
 
     public static Builder builder() {
@@ -38,7 +38,7 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
         private OrderApprovalId orderApprovalId;
         private DriverId driverId;
         private OrderDetail orderDetail;
-        private DriverOrderStatus orderStatus;
+        private DriverOrderStatus driverOrderStatus;
 
         public Builder driverId(OrderApprovalId orderApprovalId) {
             this.orderApprovalId = orderApprovalId;
@@ -54,8 +54,8 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
             return this;
         }
 
-        public Builder orderStatus(DriverOrderStatus orderStatus) {
-            this.orderStatus = orderStatus;
+        public Builder driverOrderStatus(DriverOrderStatus driverOrderStatus) {
+            this.driverOrderStatus = driverOrderStatus;
             return this;
         }
 
@@ -73,6 +73,6 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
     }
 
     public DriverOrderStatus getOrderStatus() {
-        return orderStatus;
+        return driverOrderStatus;
     }
 }

@@ -4,8 +4,8 @@ import com.klaa.order.system.domain.entity.AggregateRoot;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.domain.valueobjects.OrderStatus;
+import com.klaa.order.system.domain.valueobjects.Position;
 
-import javax.swing.text.Position;
 
 public class OrderDetail extends AggregateRoot<OrderId> {
     private final Position position;
@@ -36,6 +36,11 @@ public class OrderDetail extends AggregateRoot<OrderId> {
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
+
+    public static Builder builder() {
+        return new OrderDetail.Builder();
+    }
+
 
     public static final class Builder{
         private OrderId orderId;

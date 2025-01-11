@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -17,10 +18,10 @@ public class OrderEventPayload {
     private String orderId;
 
     @JsonProperty
-    private String restaurantId;
+    private String driverId;
 
     @JsonProperty
-    private ZonedDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @JsonProperty
     private String orderApprovalStatus;

@@ -3,7 +3,6 @@ package com.klaa.order.system.domain.order.service.domain.mapper;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.domain.order.service.domain.dto.create.OrderCreateResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.reject.RejectOrderResponse;
-import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderQuery;
 import com.klaa.order.system.domain.order.service.domain.dto.track.TrackOrderResponse;
 import com.klaa.order.system.domain.order.service.domain.dto.create.PositionAddress;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
@@ -22,19 +21,12 @@ public class OrderDataMapper {
 
     public Order  orderCreateCommandToOrder(OrderCreateCommand orderCreateCommand){
         return Order.builder()
-                .userId(new UserId(orderCreateCommand.getCustomerId()))
+                .userId(new UserId(orderCreateCommand.getUserId()))
                 .position(positionAddressToPosition(orderCreateCommand.getPosition()))
                 .destination(positionAddressToPosition(orderCreateCommand.getDestinationAddress()))
                 .price(new Money(orderCreateCommand.getPrice()))
                 .build();
     }
-
-    public Position positionAddressToPosition(PositionAddress positionAddress){
-        return new Position(UUID.randomUUID(), positionAddress.getStreet(), positionAddress.getZipCode(), positionAddress.getCity());
-
-    }
-
-    // TODO: 12/25/2024 this last two methods will be modified
     public OrderCreateResponse orderCreatedEventToOrderCreateResponse(OrderCreatedEvent orderCreatedEvent) {
         return OrderCreateResponse.builder()
                 .orderStatus(orderCreatedEvent.getOrder().getOrderStatus())
@@ -42,21 +34,50 @@ public class OrderDataMapper {
                 .build();
     }
 
-    public TrackOrderResponse orderToTrackOrderResponse(TrackOrderQuery trackOrderQuery) {
+    public TrackOrderResponse orderToTrackOrderResponse(Order order) {
         return TrackOrderResponse.builder()
-                .orderTrackingId(trackOrderQuery.getOrderTrackingId())
+                .orderTrackingId(order.getTrackingId().getValue())
+                .orderStatus(order.getOrderStatus())
+                .failureMessages(order.getFailureMessages())
                 .build();
     }
 
     public RejectOrderResponse orderRejectedEventToRejectOrderResponse(OrderRejectedEvent rejectedEvent) {
-        return null;
+        return RejectOrderResponse.builder()
+                .orderTrackingId(rejectedEvent.getOrder().getTrackingId().getValue())
+                .orderStatus(rejectedEvent.getOrder().getOrderStatus())
+                .build();
     }
 
     public DriverRequestPayload orderCreatedEventToDriverRequestPayload(OrderCreatedEvent orderCreatedEvent) {
-        return  null;
+        return  DriverRequestPayload.builder()
+                .orderId(orderCreatedEvent.getOrder().getId().getValue().toString())
+                .position(orderAddressToStreetAddress(orderCreatedEvent.getOrder().getPosition()))
+                .destination(orderAddressToStreetAddress(orderCreatedEvent.getOrder().getDestination()))
+                .price(orderCreatedEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCreatedEvent.getLocalDateTime())
+                .build();
     }
 
     public DriverRequestPayload orderRejectedEventToDriverRequestPayload(OrderRejectedEvent rejectedEvent) {
-        return null;
+        return DriverRequestPayload.builder()
+                .orderId(rejectedEvent.getOrder().getId().getValue().toString())
+                .position(orderAddressToStreetAddress(rejectedEvent.getOrder().getPosition()))
+                .destination(orderAddressToStreetAddress(rejectedEvent.getOrder().getDestination()))
+                .price(rejectedEvent.getOrder().getPrice().getAmount())
+                .createdAt(rejectedEvent.getLocalDateTime())
+                .build();
     }
+    private PositionAddress orderAddressToStreetAddress(Position position) {
+        return new PositionAddress(
+                position.getStreetAddress(),
+                position.getZipCode(),
+                position.getCity()
+        );
+    }
+    private Position positionAddressToPosition(PositionAddress positionAddress){
+        return new Position(UUID.randomUUID(), positionAddress.getStreet(), positionAddress.getZipCode(), positionAddress.getCity());
+
+    }
+
 }

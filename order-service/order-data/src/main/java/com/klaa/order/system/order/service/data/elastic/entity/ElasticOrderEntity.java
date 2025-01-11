@@ -3,6 +3,7 @@ package com.klaa.order.system.order.service.data.elastic.entity;
 import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ElasticOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
