@@ -20,10 +20,10 @@ private List<String> failureMessages;
 
     public static final String FAILURE_MESSAGE_DELIMITER = ",";
 
-    public void initializeOrder() {
+    public void initializeOrder(DriverId driverId) {
         setId(new OrderId(UUID.randomUUID()));
         trackingId = new TrackingId(UUID.randomUUID());
-        driverId=new DriverId(UUID.randomUUID());
+        this.driverId=driverId;
         orderStatus = OrderStatus.PENDING;
     }
 

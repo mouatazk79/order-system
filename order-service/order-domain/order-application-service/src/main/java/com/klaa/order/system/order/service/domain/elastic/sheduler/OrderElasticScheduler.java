@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -33,8 +34,14 @@ public class OrderElasticScheduler {
             orderMessages.forEach(orderElasticMessage -> {
                 orderElasticMessagePublisher.publish(orderElasticMessage,this::updateOrderElasticMessageStatus);
             });
+            log.info("Fetched {} OrderElasticMessage with ids: {}, sending to elastic message bus!",
+                    orderMessages.size(),
+                    orderMessages.stream().map(outboxMessage ->
+                            outboxMessage.getId().toString()).collect(Collectors.joining(",")));
+            log.info("{} OrderElasticMessage sent to elastic message bus!", orderMessages.size());
 
         }
+
 
     }
 

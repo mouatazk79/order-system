@@ -18,7 +18,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
         validateDriver(driver);
         order.validateOrder();
-        order.initializeOrder();
+        order.initializeOrder(driver.getId());
         log.info("Order with id: {} initiated", order.getId());
         return new OrderCreatedEvent(order, LocalDateTime.now());
     }
@@ -58,7 +58,6 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
     @Override
     public OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages ) {
-
         order.initReject(failureMessages);
         log.info("Order rejecting for order id: {}", order.getId());
         return new OrderRejectedEvent(order,LocalDateTime.now());

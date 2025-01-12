@@ -35,11 +35,9 @@ public class OrderCreateCommandHelper {
 
     @Transactional
     public OrderCreatedEvent persistOrder(OrderCreateCommand orderCreateCommand) {
-        Order order=orderDataMapper.orderCreateCommandToOrder(orderCreateCommand);
         checkUser(orderCreateCommand.getUserId());
-        order.initializeOrder();
-        Driver driver=getDriver(order.getDriverId());
-        order.validateOrder();
+        Order order=orderDataMapper.orderCreateCommandToOrder(orderCreateCommand);
+        Driver driver=getDriver(new DriverId(UUID.randomUUID()));
         OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(order,driver);
         saveOrder(order);
         driverOutboxHelper.saveDriverRequestOutboxMessage(

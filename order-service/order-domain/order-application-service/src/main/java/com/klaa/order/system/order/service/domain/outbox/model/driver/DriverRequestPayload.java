@@ -16,6 +16,8 @@ public class DriverRequestPayload {
     @JsonProperty
     private String orderId;
     @JsonProperty
+    private String driverId;
+    @JsonProperty
     private BigDecimal price;
     @JsonProperty
     private PositionAddress position;

@@ -1,5 +1,6 @@
 package com.klaa.order.system.order.service.messaging.kafka.mapper;
 
+import com.klaa.order.system.kafka.model.elastic.OrderStatus;
 import com.klaa.order.system.order.service.domain.dto.create.PositionAddress;
 import com.klaa.order.system.order.service.domain.dto.message.DriverResponse;
 import com.klaa.order.system.order.service.domain.dto.message.PaymentResponse;
@@ -16,33 +17,12 @@ import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Component
 public class
 OrderMessagingDataMapper {
-//    public DriverRequestAvroModel orderToDriverRequestAvroModel(Order order) {
-//        return DriverRequestAvroModel.newBuilder()
-//                .setId(UUID.randomUUID().toString())
-//                .setSagaId(order.get)
-//                .setCustomerId(orderPaymentEventPayload.getCustomerId())
-//                .setOrderId(orderPaymentEventPayload.getOrderId())
-//                .setPrice(orderPaymentEventPayload.getPrice())
-//                .setCreatedAt(orderPaymentEventPayload.getCreatedAt().toInstant())
-//                .setPaymentOrderStatus(PaymentOrderStatus.valueOf(orderPaymentEventPayload.getPaymentOrderStatus()))
-//                .build();
-//
-//
-//    }
-//
-//    public PaymentRequestAvroModel orderToPaymentRequestAvroModel(Order order) {
-//        return PaymentRequestAvroModel.newBuilder()
-//                .setId(UUID.randomUUID())
-////                .setSagaId()
-//                .setOrderId(order.getId().getValue())
-//                .setPaymentOrderStatus(order.get)
-//                ;
-//    }
 
     public DriverResponse driverResponseAvroModelToDriverResponse(DriverResponseAvroModel driverResponseAvroModel) {
         return DriverResponse.builder()
@@ -73,12 +53,13 @@ OrderMessagingDataMapper {
     public DriverRequestAvroModel orderApprovalEventToDriverRequestAvroModel(String sagaId, DriverRequestPayload driverRequestPayload) {
         return DriverRequestAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
+                .setDriverId(UUID.fromString(driverRequestPayload.getDriverId()))
                 .setSagaId(UUID.fromString(sagaId))
                 .setOrderId(UUID.fromString(driverRequestPayload.getOrderId()))
                 .setPosition(positionAddressToPosition(driverRequestPayload.getPosition()))
                 .setDestination(positionAddressToPosition(driverRequestPayload.getDestination()))
                 .setPrice(driverRequestPayload.getPrice())
-//                .setCreatedAt(Instant.)
+                .setCreatedAt(Instant.now())
                 .build();
 
 
@@ -97,7 +78,23 @@ OrderMessagingDataMapper {
     }
 
     public OrderElasticMessageAvroModel orderPayloadToOrderElasticMessageAvroModel(Order orderPayload) {
-        return null;
+        return OrderElasticMessageAvroModel.newBuilder()
+                .setId(UUID.randomUUID())
+                .setTrackingId(orderPayload.getTrackingId().getValue())
+                .setDriverId(orderPayload.getDriverId().getValue())
+                .setOrderStatus(OrderStatus.valueOf(orderPayload.getOrderStatus().name()))
+                .setPosition(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
+                        .setCity(orderPayload.getPosition().getCity())
+                        .setStreetAddress(orderPayload.getPosition().getStreetAddress())
+                        .setZipCode(orderPayload.getPosition().getZipCode())
+                        .build())
+                .setDestination(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
+                        .setCity(orderPayload.getDestination().getCity())
+                        .setStreetAddress(orderPayload.getDestination().getStreetAddress())
+                        .setZipCode(orderPayload.getDestination().getZipCode())
+                        .build())
+                .setPrice(orderPayload.getPrice().getAmount())
+                .build();
     }
 
     private Position positionAddressToPosition(PositionAddress positionAddress){
