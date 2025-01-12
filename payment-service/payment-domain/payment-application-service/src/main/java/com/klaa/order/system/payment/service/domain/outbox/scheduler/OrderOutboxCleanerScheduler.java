@@ -1,8 +1,9 @@
 package com.klaa.order.system.payment.service.domain.outbox.scheduler;
 
-import com.food.ordering.system.outbox.OutboxScheduler;
-import com.food.ordering.system.outbox.OutboxStatus;
-import com.food.ordering.system.payment.service.domain.outbox.model.OrderOutboxMessage;
+
+import com.klaa.order.system.outbox.OutboxScheduler;
+import com.klaa.order.system.outbox.OutboxStatus;
+import com.klaa.order.system.payment.service.domain.outbox.model.OrderOutboxMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 
 @Slf4j
 @Component
@@ -23,8 +26,8 @@ public class OrderOutboxCleanerScheduler implements OutboxScheduler {
 
     @Override
     @Transactional
-    @Scheduled(cron = "@midnight")
-    public void processOutboxMessage() {
+    @Scheduled(fixedRate =2,timeUnit = TimeUnit.DAYS)
+    public void processOutboxMessages() {
         Optional<List<OrderOutboxMessage>> outboxMessagesResponse =
                 orderOutboxHelper.getOrderOutboxMessageByOutboxStatus(OutboxStatus.COMPLETED);
         if (outboxMessagesResponse.isPresent() && outboxMessagesResponse.get().size() > 0) {

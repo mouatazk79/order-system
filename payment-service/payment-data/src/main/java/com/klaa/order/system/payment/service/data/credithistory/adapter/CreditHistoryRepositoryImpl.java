@@ -33,7 +33,7 @@ public class CreditHistoryRepositoryImpl implements CreditHistoryRepository {
     @Override
     public Optional<List<CreditHistory>> findByUserId(UserId userId) {
         Optional<List<CreditHistoryEntity>> creditHistory =
-                creditHistoryJpaRepository.findByCustomerId(userId.getValue());
+                creditHistoryJpaRepository.findByUserId(userId.getValue());
         return creditHistory
                 .map(creditHistoryList ->
                         creditHistoryList.stream()
