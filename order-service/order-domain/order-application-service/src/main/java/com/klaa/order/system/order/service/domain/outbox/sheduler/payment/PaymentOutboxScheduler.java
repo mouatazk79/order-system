@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class PaymentOutboxScheduler implements OutboxScheduler {
     private final PaymentRequestMessagePublisher paymentRequestMessagePublisher;
     @Override
     @Transactional
-    @Scheduled
+    @Scheduled(fixedRate =2,timeUnit = TimeUnit.MINUTES)
     public void processOutboxMessages() {
         Optional<List<PaymentRequestOutboxMessage>> paymentRequestOutboxMessage =
                 paymentOutboxHelper.getPaymentOutboxMessageByOutboxStatusAndSagaStatus(

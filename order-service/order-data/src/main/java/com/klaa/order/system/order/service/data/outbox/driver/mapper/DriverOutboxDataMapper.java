@@ -2,9 +2,10 @@ package com.klaa.order.system.order.service.data.outbox.driver.mapper;
 
 import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
 import com.klaa.order.system.order.service.data.outbox.driver.entity.DriverOutboxMessageEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class DriverOutboxDataMapper {
     public Optional<DriverRequestOutboxMessage> approvalOutboxEntityToOrderApprovalOutboxMessage(DriverOutboxMessageEntity driverOutboxMessageEntity) {
         return Optional.of(DriverRequestOutboxMessage.builder()

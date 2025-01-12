@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
+@Table(schema = "\"order\"")
 @Data
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 @Entity
+@Table(schema = "\"order\"")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

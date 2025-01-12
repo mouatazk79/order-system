@@ -5,10 +5,11 @@ import com.klaa.order.system.order.service.data.user.repository.UserJpaRepositor
 import com.klaa.order.system.domain.order.service.domain.entity.User;
 import com.klaa.order.system.order.service.domain.ports.output.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
-
+@Component
 @AllArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository userJpaRepository;

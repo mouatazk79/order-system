@@ -5,12 +5,13 @@ import com.klaa.order.system.order.service.data.order.repository.OrderJpaReposit
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.order.service.domain.ports.output.repository.OrderRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@Component
 @AllArgsConstructor
 public class OrderRepositoryAdapter implements OrderRepository {
     private final OrderJpaRepository orderJpaRepository;

@@ -24,7 +24,7 @@ public class OrderElasticScheduler {
     private final OrderElasticMessagePublisher orderElasticMessagePublisher;
     private final OrderElasticRepository orderElasticRepository;
     @Transactional
-    @Scheduled(fixedRate =2,timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate =2,timeUnit = TimeUnit.DAYS)
     public void processElasticMessages(){
         orderElasticHelper.saveOrderElasticMessages(LocalDateTime.now().minusMinutes(2),LocalDateTime.now());
         Optional<List<OrderElasticMessage>> orderElasticMessages=orderElasticRepository.getAllOrderElasticMessageByStatus(ElasticMessageStatus.PENDING,ElasticMessageStatus.FAILED);
