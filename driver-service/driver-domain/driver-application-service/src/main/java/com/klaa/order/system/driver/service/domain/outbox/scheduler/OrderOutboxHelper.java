@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,7 +59,7 @@ public class OrderOutboxHelper {
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)
                 .createdAt(orderEventPayload.getCreatedAt())
-                .processedAt(ZonedDateTime.now(ZoneId.of("UTC")))
+                .processedAt(LocalDateTime.now())
                 .type("ORDER_SAGA_NAME")
                 .payload(createPayload(orderEventPayload))
                 .driverOrderStatus(driverOrderStatus)

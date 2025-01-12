@@ -11,7 +11,7 @@ import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEven
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("domainDriverDataMapper")
 public class DriverDataMapper {
 
     public OrderApproval driverRequestToOrderApproval(DriverRequest driverRequest) {
@@ -24,7 +24,7 @@ public class DriverDataMapper {
                         .price(new Money(driverRequest.getPrice()))
                         .build()
                 )
-                .driverOrderStatus(driverRequest.getOrderStatus())
+                .driverOrderStatus(driverRequest.getDriverOrderStatus())
                 .build();
     }
 

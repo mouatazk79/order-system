@@ -5,6 +5,7 @@ import com.klaa.order.system.outbox.OutboxStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,8 +21,8 @@ public class OrderOutboxEntity {
     @Id
     private UUID id;
     private UUID sagaId;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime processedAt;
     private String type;
     private String payload;
     @Enumerated(EnumType.STRING)

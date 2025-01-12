@@ -4,6 +4,8 @@ import com.klaa.order.system.driver.service.data.outbox.entity.OrderOutboxEntity
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class OrderOutboxDataAccessMapper {
 
@@ -12,6 +14,7 @@ public class OrderOutboxDataAccessMapper {
                 .id(orderOutboxMessage.getId())
                 .sagaId(orderOutboxMessage.getSagaId())
                 .createdAt(orderOutboxMessage.getCreatedAt())
+                .processedAt(LocalDateTime.now())
                 .type(orderOutboxMessage.getType())
                 .payload(orderOutboxMessage.getPayload())
                 .outboxStatus(orderOutboxMessage.getOutboxStatus())

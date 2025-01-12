@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -23,7 +24,7 @@ public class OrderOutboxCleanerScheduler implements OutboxScheduler {
     }
 
     @Transactional
-    @Scheduled(cron = "@midnight")
+    @Scheduled(fixedRate =12 ,timeUnit = TimeUnit.HOURS)
     @Override
     public void processOutboxMessages() {
         Optional<List<OrderOutboxMessage>> outboxMessagesResponse =

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -16,8 +17,8 @@ import java.util.UUID;
 public class OrderOutboxMessage {
     private UUID id;
     private UUID sagaId;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime processedAt;
     private String type;
     private String payload;
     private OutboxStatus outboxStatus;
