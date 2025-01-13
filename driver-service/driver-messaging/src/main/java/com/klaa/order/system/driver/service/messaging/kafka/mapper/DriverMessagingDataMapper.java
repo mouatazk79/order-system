@@ -17,10 +17,10 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class DriverMessagingDataMapper {
-    public DriverResponseAvroModel orderApprovalToDriverResponseAvroModel(OrderApproval orderApproval) {
+    public DriverResponseAvroModel orderApprovalToDriverResponseAvroModel(String sagaId,OrderApproval orderApproval) {
         return DriverResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
-//                .setSagaId("")
+                .setSagaId(UUID.fromString(sagaId))
                 .setDriverId(orderApproval.getDriverId().getValue())
                 .setOrderId(orderApproval.getOrderDetail().getId().getValue())
                 .setDriverOrderStatus(DriverOrderStatus.valueOf(orderApproval.getOrderStatus().name()))
@@ -43,14 +43,14 @@ public class DriverMessagingDataMapper {
 
     }
 
-    public DriverRequestAvroModel orderEventPayloadToDriverRequestAvroModel(String sagaId, OrderEventPayload orderEventPayload) {
-        return DriverRequestAvroModel.newBuilder()
+    public DriverResponseAvroModel orderEventPayloadToDriverResponseAvroModel(String sagaId, OrderEventPayload orderEventPayload) {
+        return DriverResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
                 .setSagaId(UUID.fromString(sagaId))
-                .setOrderId(UUID.fromString(orderEventPayload.getOrderId()))
                 .setDriverId(UUID.fromString(orderEventPayload.getDriverId()))
+                .setOrderId(UUID.fromString(orderEventPayload.getOrderId()))
+                .setDriverOrderStatus(DriverOrderStatus.valueOf(orderEventPayload.getOrderApprovalStatus()))
                 .setCreatedAt(Instant.now())
-                .setOrderStatus(OrderStatus.valueOf(orderEventPayload.getOrderApprovalStatus()))
                 .build();
     }
 }

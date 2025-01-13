@@ -2,10 +2,7 @@ package com.klaa.order.system.domain.order.service.domain;
 
 import com.klaa.order.system.domain.order.service.domain.entity.Driver;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
-import com.klaa.order.system.domain.order.service.domain.event.OrderCancelledEvent;
-import com.klaa.order.system.domain.order.service.domain.event.OrderCreatedEvent;
-import com.klaa.order.system.domain.order.service.domain.event.OrderPaidEvent;
-import com.klaa.order.system.domain.order.service.domain.event.OrderRejectedEvent;
+import com.klaa.order.system.domain.order.service.domain.event.*;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,9 +28,10 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     @Override
-    public void approveOrder(Order order) {
+    public OrderApprovedEvent approveOrder(Order order) {
         order.approve();
         log.info("Order with id: {} approved", order.getId());
+        return new OrderApprovedEvent(order,LocalDateTime.now());
     }
 
     @Override

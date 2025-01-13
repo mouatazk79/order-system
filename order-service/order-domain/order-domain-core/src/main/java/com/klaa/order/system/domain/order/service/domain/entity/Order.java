@@ -48,14 +48,14 @@ private List<String> failureMessages;
     }
 
     public void pay() {
-        if (orderStatus != OrderStatus.PENDING) {
+        if (orderStatus != OrderStatus.APPROVED) {
             throw new OrderDomainException("Order is not in correct state for pay operation!");
         }
         orderStatus = OrderStatus.PAID;
     }
 
     public void approve() {
-        if(orderStatus != OrderStatus.PAID) {
+        if(orderStatus != OrderStatus.PENDING) {
             throw new OrderDomainException("Order is not in correct state for approve operation!");
         }
         orderStatus = OrderStatus.APPROVED;

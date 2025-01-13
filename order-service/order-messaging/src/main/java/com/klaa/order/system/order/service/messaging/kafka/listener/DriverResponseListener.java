@@ -31,12 +31,12 @@ public class DriverResponseListener implements KafkaConsumer<DriverResponseAvroM
         messages.forEach(message->{
             DriverOrderStatus messageDriverOrderStatus=message.getDriverOrderStatus();
             if (DriverOrderStatus.APPROVED==messageDriverOrderStatus){
-                log.info("processing approved request with if: {}",message.getId());
+                log.info("processing driver approved response with id: {}",message.getId());
                 orderResponseMessageListener.orderApproved(
                         orderMessagingDataMapper.driverResponseAvroModelToDriverResponse(message)
                 );
             } else if (DriverOrderStatus.REJECTED==messageDriverOrderStatus) {
-                log.info("processing rejected request with if: {}",message.getId());
+                log.info("processing driver rejected response with id: {}",message.getId());
                 orderResponseMessageListener.orderRejected(
                         orderMessagingDataMapper.driverResponseAvroModelToDriverResponse(message)
                 );

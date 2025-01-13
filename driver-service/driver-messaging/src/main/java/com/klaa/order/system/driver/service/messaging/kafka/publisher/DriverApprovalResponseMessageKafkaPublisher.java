@@ -8,7 +8,7 @@ import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayloa
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverApprovalResponseMessagePublisher;
 import com.klaa.order.system.driver.service.messaging.kafka.mapper.DriverMessagingDataMapper;
-import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
+import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
 import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
 @AllArgsConstructor
 public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprovalResponseMessagePublisher {
     private final DriverMessagingDataMapper driverMessagingDataMapper;
-    private final KafkaProducer<String, DriverRequestAvroModel> kafkaProducer;
+    private final KafkaProducer<String, DriverResponseAvroModel> kafkaProducer;
     private final DriverServiceConfigData driverServiceConfigData;
     private final ObjectMapper objectMapper;
     @Override
@@ -36,18 +36,18 @@ public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprov
                 orderEventPayload.getOrderId(),
                 sagaId);
         try {
-            DriverRequestAvroModel driverRequestAvroModel =
+            DriverResponseAvroModel driverResponseAvroModel =
                     driverMessagingDataMapper
-                            .orderEventPayloadToDriverRequestAvroModel(sagaId, orderEventPayload);
+                            .orderEventPayloadToDriverResponseAvroModel(sagaId, orderEventPayload);
 
             kafkaProducer.send(driverServiceConfigData.getDriverApprovalResponseTopicName(),
                     sagaId,
-                    driverRequestAvroModel);
+                    driverResponseAvroModel);
 
-            log.info("DriverRequestAvroModel sent to kafka for order id: {} and saga id: {}",
-                    driverRequestAvroModel.getOrderId(), sagaId);
+            log.info("DriverResponseAvroModel sent to kafka for order id: {} and saga id: {}",
+                    driverResponseAvroModel.getOrderId(), sagaId);
         } catch (Exception e) {
-            log.error("Error while sending DriverRequestAvroModel message" +
+            log.error("Error while sending DriverResponseAvroModel message" +
                             " to kafka with order id: {} and saga id: {}, error: {}",
                     orderEventPayload.getOrderId(), sagaId, e.getMessage());
         }

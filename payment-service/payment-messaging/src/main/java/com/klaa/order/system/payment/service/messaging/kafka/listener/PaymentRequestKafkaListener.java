@@ -60,7 +60,6 @@ public class PaymentRequestKafkaListener implements KafkaConsumer<PaymentRequest
                 SQLException sqlException = (SQLException) e.getRootCause();
                 if (sqlException != null && sqlException.getSQLState() != null &&
                         PSQLState.UNIQUE_VIOLATION.getState().equals(sqlException.getSQLState())) {
-                    //NO-OP for unique constraint exception
                     log.error("Caught unique constraint exception with sql state: {} " +
                                     "in PaymentRequestKafkaListener for order id: {}",
                             sqlException.getSQLState(), paymentRequestAvroModel.getOrderId());
@@ -69,7 +68,6 @@ public class PaymentRequestKafkaListener implements KafkaConsumer<PaymentRequest
                             " PaymentRequestKafkaListener: " + e.getMessage(), e);
                 }
             } catch (PaymentNotFoundException e) {
-                //NO-OP for PaymentNotFoundException
                 log.error("No payment found for order id: {}", paymentRequestAvroModel.getOrderId());
             }
         });

@@ -1,5 +1,7 @@
 package com.klaa.order.system.order.service.domain.mapper;
 
+import com.klaa.order.system.domain.order.service.domain.event.OrderApprovedEvent;
+import com.klaa.order.system.domain.valueobjects.PaymentOrderStatus;
 import com.klaa.order.system.order.service.domain.dto.create.OrderCreateCommand;
 import com.klaa.order.system.order.service.domain.dto.create.OrderCreateResponse;
 import com.klaa.order.system.order.service.domain.dto.reject.RejectOrderResponse;
@@ -12,8 +14,10 @@ import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequ
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.Position;
 import com.klaa.order.system.domain.valueobjects.UserId;
+import com.klaa.order.system.order.service.domain.outbox.model.payment.PaymentRequestPayload;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -68,6 +72,15 @@ public class OrderDataMapper {
                 .destination(orderAddressToStreetAddress(rejectedEvent.getOrder().getDestination()))
                 .price(rejectedEvent.getOrder().getPrice().getAmount())
                 .createdAt(rejectedEvent.getLocalDateTime())
+                .build();
+    }
+    public PaymentRequestPayload orderApprovedEventToPaymentRequestPayload(OrderApprovedEvent approvedEvent) {
+        return PaymentRequestPayload.builder()
+                .orderId(approvedEvent.getOrder().getId().getValue().toString())
+                .userId(approvedEvent.getOrder().getUserId().toString())
+                .price(approvedEvent.getOrder().getPrice().getAmount())
+                .createdAt(LocalDateTime.now())
+                .paymentOrderStatus(PaymentOrderStatus.PENDING.toString())
                 .build();
     }
     private PositionAddress orderAddressToStreetAddress(Position position) {

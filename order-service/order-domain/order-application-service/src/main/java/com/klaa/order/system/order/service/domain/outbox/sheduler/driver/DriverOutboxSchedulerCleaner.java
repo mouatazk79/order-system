@@ -36,7 +36,7 @@ public class DriverOutboxSchedulerCleaner implements OutboxScheduler {
                     outboxMessages.size(),
                     outboxMessages.stream().map(DriverRequestOutboxMessage::getPayload)
                             .collect(Collectors.joining("\n")));
-            driverOutboxHelper.deletePaymentOutboxMessageByOutboxStatusAndSagaStatus(
+            driverOutboxHelper.deleteDriverOutboxMessageByOutboxStatusAndSagaStatus(
                     OutboxStatus.COMPLETED,
                     SagaStatus.SUCCEEDED,
                     SagaStatus.FAILED,

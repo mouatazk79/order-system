@@ -44,7 +44,7 @@ public class DriverOutboxHelper {
                 sagaStatus);
     }
     @Transactional(readOnly = true)
-    public Optional<DriverRequestOutboxMessage> getPaymentOutboxMessageBySagaIdAndSagaStatus(UUID sagaId,
+    public Optional<DriverRequestOutboxMessage> getDriverRequestOutboxMessageBySagaIdAndSagaStatus(UUID sagaId,
                                                                                             SagaStatus... sagaStatus) {
         return driverOutboxRepository.findByTypeAndSagaIdAndSagaStatus("OrderProcessingSaga", sagaId, sagaStatus);
     }
@@ -66,7 +66,7 @@ public class DriverOutboxHelper {
                 .build());
     }
     @Transactional
-    public void deletePaymentOutboxMessageByOutboxStatusAndSagaStatus(OutboxStatus outboxStatus,
+    public void deleteDriverOutboxMessageByOutboxStatusAndSagaStatus(OutboxStatus outboxStatus,
                                                                       SagaStatus... sagaStatus) {
         driverOutboxRepository.deleteByTypeAndOutboxStatusAndSagaStatus("OrderProcessingSaga", outboxStatus, sagaStatus);
     }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 @Getter
 @Builder
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class PaymentRequestPayload {
     @JsonProperty
     private BigDecimal price;
     @JsonProperty
-    private ZonedDateTime createdAt;
+    private LocalDateTime createdAt;
     @JsonProperty
     private String paymentOrderStatus;
 }
