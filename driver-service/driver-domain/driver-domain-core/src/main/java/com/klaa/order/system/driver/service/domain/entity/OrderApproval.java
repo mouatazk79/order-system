@@ -15,7 +15,7 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
 
 
    public void validateOrder(List<String> failureMessages){
-        if (orderDetail.getOrderStatus()!= OrderStatus.PENDING){
+        if (orderDetail.getOrderStatus()!= OrderStatus.PENDING&&driverOrderStatus==DriverOrderStatus.PENDING){
             failureMessages.add("order is not in pending state");
         }
     }

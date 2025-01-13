@@ -3,7 +3,6 @@ package com.klaa.order.system.driver.service.domain;
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
 import com.klaa.order.system.driver.service.domain.entity.Driver;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
-import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.exception.DriverNotFoundException;
 import com.klaa.order.system.driver.service.domain.mapper.DriverDataMapper;
@@ -42,43 +41,22 @@ public class DriverRequestHelper {
         log.info("received driver request with id: {}",driverRequest.getOrderId());
         checkDriver(driverRequest.getDriverId());
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
-        List<String> failureMessages = new ArrayList<>();
-
-
-        OrderDriverApprovalEvent approvalEvent=driverDomainService
-                .validateAndApproveOrder(orderApproval,failureMessages);
-
         persistOrderApproval(orderApproval);
-
-        orderOutboxHelper
-                .saveOrderOutboxMessage(driverDataMapper.orderApprovalEventToOrderEventPayload(approvalEvent),
-                        approvalEvent.getOrderApproval().getOrderStatus(),
-                        OutboxStatus.STARTED,
-                        UUID.fromString(driverRequest.getSagaId()));
-
-
         }
 
     @Transactional
-    public void persistCancelPayment(DriverRequest driverRequest) {
+    public void persistRejectRequest(DriverRequest driverRequest) {
         log.info("Received driver reject for order id: {}", driverRequest.getOrderId());
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         List<String> failureMessages = new ArrayList<>();
-        OrderDriverApprovalEvent approvalEvent=driverDomainService
-                .validateAndRejectOrder(orderApproval,failureMessages);
+        driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
         persistOrderApproval(orderApproval);
-        orderOutboxHelper
-                .saveOrderOutboxMessage(driverDataMapper.orderApprovalEventToOrderEventPayload(approvalEvent),
-                        approvalEvent.getOrderApproval().getOrderStatus(),
-                        OutboxStatus.STARTED,
-                        UUID.fromString(driverRequest.getSagaId()));
-
     }
 
     private void persistOrderApproval(OrderApproval orderApproval) {
         Optional<OrderApproval> newOrderApproval=approvalRepository.saveOrderApproval(orderApproval);
         if (newOrderApproval.isEmpty()){
-            throw new DriverDomainException("");
+            throw new DriverDomainException("OrderApproval with id "+orderApproval.getId()+" not saved");
         }
 
     }

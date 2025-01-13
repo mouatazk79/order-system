@@ -1,8 +1,9 @@
 package com.klaa.order.system.driver.service.domain.ports.input.service;
 
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
-import com.klaa.order.system.driver.service.domain.dto.reject.DriverRejectResponse;
+import com.klaa.order.system.driver.service.domain.dto.response.DriverResponse;
 
 public interface DriverApplicationService {
-DriverRejectResponse rejectOrder(DriverRequest driverRequest);
+DriverResponse approveOrder(DriverRequest driverRequest);
+DriverResponse rejectOrder(DriverRequest driverRequest);
 }

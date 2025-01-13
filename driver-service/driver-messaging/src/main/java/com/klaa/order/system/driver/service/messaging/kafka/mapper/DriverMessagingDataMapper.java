@@ -34,7 +34,7 @@ public class DriverMessagingDataMapper {
                 .sagaId(driverRequestAvroModel.getSagaId().toString())
                 .driverId(driverRequestAvroModel.getDriverId())
                 .orderId(driverRequestAvroModel.getOrderId())
-                .driverOrderStatus(com.klaa.order.system.domain.valueobjects.DriverOrderStatus.valueOf(driverRequestAvroModel.getOrderStatus().name()))
+                .driverOrderStatus(com.klaa.order.system.domain.valueobjects.DriverOrderStatus.PENDING)
                 .position(new Position(UUID.randomUUID(),driverRequestAvroModel.getPosition().getStreetAddress(),driverRequestAvroModel.getPosition().getZipCode(),driverRequestAvroModel.getPosition().getCity()) )
                 .destination(new Position(UUID.randomUUID(),driverRequestAvroModel.getDestination().getStreetAddress(),driverRequestAvroModel.getDestination().getZipCode(),driverRequestAvroModel.getDestination().getCity()))
                 .price(driverRequestAvroModel.getPrice())

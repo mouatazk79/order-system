@@ -4,7 +4,7 @@ import com.klaa.order.system.domain.valueobjects.DriverId;
 import com.klaa.order.system.domain.valueobjects.Money;
 import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
-import com.klaa.order.system.driver.service.domain.dto.reject.DriverRejectResponse;
+import com.klaa.order.system.driver.service.domain.dto.response.DriverResponse;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.entity.OrderDetail;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
@@ -28,8 +28,10 @@ public class DriverDataMapper {
                 .build();
     }
 
-    public DriverRejectResponse orderDriverApprovalEventToDriverRejectResponse(OrderDriverApprovalEvent approvalEvent) {
-        return null;
+    public DriverResponse orderDriverApprovalEventToDriverRejectResponse(OrderDriverApprovalEvent approvalEvent) {
+        return DriverResponse.builder()
+                .orderId(approvalEvent.getOrderApproval().getId().toString())
+                .driverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus()).build();
     }
 
     public OrderEventPayload orderApprovalEventToOrderEventPayload(OrderDriverApprovalEvent approvalEvent) {
