@@ -77,9 +77,9 @@ public class OrderSaga implements SagaStep<DriverResponse> {
         driverOutboxHelper.save(updateDriverRequestOutboxMessage(driverRequestOutboxMessage,order.getOrderStatus(), sagaStatus));
     }
     private OrderApprovedEvent approveOrder(DriverResponse driverResponse){
-        Optional<Order> order=orderRepository.findOrderById(driverResponse.getOrderId());
-        OrderApprovedEvent approvedEvent=orderDomainService.approveOrder(order.get());
-        orderRepository.saveOrder(order.get());
+        Order order=sagaHelper.findOrderById(driverResponse.getOrderId());
+        OrderApprovedEvent approvedEvent=orderDomainService.approveOrder(order);
+        orderRepository.saveOrder(order);
         return approvedEvent;
     }
     private DriverRequestOutboxMessage updateDriverRequestOutboxMessage(DriverRequestOutboxMessage driverRequestOutboxMessage, OrderStatus orderStatus,SagaStatus sagaStatus){
@@ -97,10 +97,10 @@ public class OrderSaga implements SagaStep<DriverResponse> {
     }
 
     private Order rejectOrder(DriverResponse driverResponse){
-        Optional<Order> order=orderRepository.findOrderById(driverResponse.getOrderId());
-        orderDomainService.rejectOrder(order.get(),driverResponse.getFailureMessages());
-        orderRepository.saveOrder(order.get());
-        return order.get();
+        Order order=sagaHelper.findOrderById(driverResponse.getOrderId());
+        orderDomainService.cancelOrder(order,driverResponse.getFailureMessages());
+        orderRepository.saveOrder(order);
+        return order;
     }
 
 }

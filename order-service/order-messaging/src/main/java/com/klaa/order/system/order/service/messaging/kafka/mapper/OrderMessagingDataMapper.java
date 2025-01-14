@@ -65,14 +65,14 @@ OrderMessagingDataMapper {
 
     }
 
-    public PaymentRequestAvroModel orderPaymentEventToPaymentRequestAvroModel(String sagaId, PaymentRequestPayload paymentRequestPayload) {
+    public PaymentRequestAvroModel paymentRequestPayloadToPaymentRequestAvroModel(String sagaId, PaymentRequestPayload paymentRequestPayload) {
         return PaymentRequestAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
                 .setSagaId(UUID.fromString(sagaId))
                 .setOrderId(UUID.fromString(paymentRequestPayload.getOrderId()))
                 .setPrice(paymentRequestPayload.getPrice())
                 .setUserId(UUID.fromString(paymentRequestPayload.getUserId()))
-                .setCreatedAt(paymentRequestPayload.getCreatedAt().toInstant())
+                .setCreatedAt(Instant.now())
                 .setPaymentOrderStatus(PaymentOrderStatus.valueOf(paymentRequestPayload.getPaymentOrderStatus()))
                 .build();
     }

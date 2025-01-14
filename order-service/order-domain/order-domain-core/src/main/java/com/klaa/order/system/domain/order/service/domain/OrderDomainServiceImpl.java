@@ -21,10 +21,9 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     @Override
-    public OrderPaidEvent payOrder(Order order ) {
+    public void payOrder(Order order ) {
         order.pay();
         log.info("Order with id: {} payed", order.getId());
-        return new OrderPaidEvent(order, LocalDateTime.now());
     }
 
     @Override
@@ -48,11 +47,6 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         log.info("Order cancelled for order id: {}", order.getId());
     }
 
-    @Override
-    public void rejectOrder(Order order, List<String> failureMessages) {
-        order.reject(failureMessages);
-        log.info("Order rejected for order id: {}", order.getId());
-    }
 
     @Override
     public OrderRejectedEvent rejectOrderRequest(Order order, List<String> failureMessages ) {
