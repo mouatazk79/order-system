@@ -7,16 +7,18 @@ import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
 @Builder
-@Document(indexName = "order.index")
+@Document(indexName = "order")
 public class OrderIndexModel implements IndexModel {
+    @Id
     @JsonProperty
-    @Field(type = FieldType.Text, name = "streetAddress")
+    @Field(type = FieldType.Text, name = "id")
     private String id;
     @JsonProperty
     @Field(type = FieldType.Nested, name = "position")
@@ -28,12 +30,12 @@ public class OrderIndexModel implements IndexModel {
     @Field(type = FieldType.Scaled_Float, scalingFactor = 100, name = "price")
     private BigDecimal price;
     @JsonProperty
-    @Field(type = FieldType.Keyword, name = "uuid")
+    @Field(type = FieldType.Keyword, name = "driverId")
     private UUID driverId;
     @JsonProperty
-    @Field(type = FieldType.Keyword, name = "uuid")
+    @Field(type = FieldType.Keyword, name = "trackingId")
     private UUID trackingId;
     @JsonProperty
-    @Field(type = FieldType.Keyword, name = "uuid")
+    @Field(type = FieldType.Keyword, name = "orderStatus")
     private String orderStatus;
 }

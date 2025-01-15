@@ -17,12 +17,7 @@
         <module>elastic-index-client</module>
         <module>elastic-query-client</module>
     </modules>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-            </dependency>
-        </dependencies>
+
 
 
 </project>
