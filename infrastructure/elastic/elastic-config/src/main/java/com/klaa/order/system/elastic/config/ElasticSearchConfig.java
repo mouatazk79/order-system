@@ -1,67 +1,60 @@
 package com.klaa.order.system.elastic.config;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import lombok.AllArgsConstructor;
+import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.elc.ElasticsearchClients;
-import org.springframework.data.elasticsearch.client.elc.ReactiveElasticsearchClient;
-import org.springframework.data.elasticsearch.client.elc.ReactiveElasticsearchConfiguration;
-import org.springframework.data.elasticsearch.client.elc.ReactiveElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ReactiveElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-import org.springframework.util.Assert;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.IOException;
+import java.util.Objects;
 
 
 @Configuration
-@EnableElasticsearchRepositories(
-        basePackages = "com.klaa.order.system.elastic.indexclient"
-)
+@EnableElasticsearchRepositories(basePackages = "com.klaa.order.system.elastic")
 @AllArgsConstructor
-public class ElasticSearchConfig extends ReactiveElasticsearchConfiguration {
+public class ElasticSearchConfig extends ElasticsearchConfiguration {
+
     private final ElasticConfigData elasticConfigData;
+
+//    @Bean
+//    public ElasticsearchClient elasticsearchClient() throws IOException {
+//        UriComponents serverUri = UriComponentsBuilder.fromHttpUrl(elasticConfigData.getConnectionUrl()).build();
+//        RestClient restClient = RestClient.builder(new HttpHost(
+//                Objects.requireNonNull(serverUri.getHost()),
+//                serverUri.getPort(),
+//                serverUri.getScheme()
+//        )).setRequestConfigCallback(
+//                requestConfigBuilder ->
+//                        requestConfigBuilder
+//                                .setConnectTimeout(elasticConfigData.getConnectTimeoutMs())
+//                                .setSocketTimeout(elasticConfigData.getSocketTimeoutMs())
+//        ).build();
+//
+//        RestClientTransport transport = new RestClientTransport(
+//                restClient,
+//                new JacksonJsonpMapper()
+//        );
+//
+//        return new ElasticsearchClient(transport);
+//    }
 
 
     @Override
-    @Bean
     public ClientConfiguration clientConfiguration() {
-        return ClientConfiguration.builder()
-                .connectedTo(elasticConfigData.getConnectionUrl())
-                .withConnectTimeout(elasticConfigData.getConnectTimeoutMs())
-                .withSocketTimeout(elasticConfigData.getSocketTimeoutMs())
-                .build();
-
+          return ClientConfiguration.builder()
+                .connectedTo("localhost:9200")
+                  .withConnectTimeout(elasticConfigData.getConnectTimeoutMs())
+                  .withSocketTimeout(elasticConfigData.getSocketTimeoutMs())
+                  .build();
+    }
     }
 
-    @Bean
-    public RestClient elasticsearchRestClient(ClientConfiguration clientConfiguration) {
-        return ElasticsearchClients.getRestClient(clientConfiguration);
-    }
-    @Bean
-    public ElasticsearchClient elasticsearchClient() {
-        RestClient restClient = elasticsearchRestClient(clientConfiguration());
-        ElasticsearchTransport transport = new RestClientTransport(
-                restClient,
-                new JacksonJsonpMapper()
-        );
-        return new ElasticsearchClient(transport);
-    }
-    @Bean
-    public ReactiveElasticsearchOperations reactiveElasticsearchOperations(ElasticsearchConverter elasticsearchConverter, ReactiveElasticsearchClient reactiveElasticsearchClient) {
-        ReactiveElasticsearchTemplate template = new ReactiveElasticsearchTemplate(reactiveElasticsearchClient, elasticsearchConverter);
-        template.setRefreshPolicy(this.refreshPolicy());
-        return template;
-    }
-
-
-
-
-
-}

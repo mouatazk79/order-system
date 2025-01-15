@@ -39,6 +39,7 @@
         <infrastructure.kafka.version>1.0-SNAPSHOT</infrastructure.kafka.version>
         <infrastructure.elastic.version>1.0-SNAPSHOT</infrastructure.elastic.version>
         <kafka.to.elastic.version>1.0-SNAPSHOT</kafka.to.elastic.version>
+        <elastic.version>7.9.1</elastic.version>
     </properties>
     <dependencies>
         <dependency>
@@ -217,6 +218,17 @@
                 <groupId>com.klaa</groupId>
                 <artifactId>kafkatoelastic-messaging</artifactId>
                 <version>${kafka.to.elastic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elastic.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elastic.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -15,10 +15,7 @@
         <dependency>
             <groupId>com.klaa</groupId>
             <artifactId>elastic-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.klaa</groupId>
-            <artifactId>elastic-config</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
