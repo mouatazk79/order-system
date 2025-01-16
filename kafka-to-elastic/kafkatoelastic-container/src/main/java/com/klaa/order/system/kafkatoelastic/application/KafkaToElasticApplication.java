@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.klaa.order.system")
 @ComponentScan(basePackages = {
         "com.klaa.order.system",
         "com.klaa.order.system.elastic.config",
