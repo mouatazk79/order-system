@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -25,8 +27,9 @@ public class OrderController {
         OrderCreateResponse orderCreateResponse= orderApplicationService.createOrder(orderCreateCommand);
         return ResponseEntity.ok(orderCreateResponse);
     }
-    @GetMapping
-    public ResponseEntity<TrackOrderResponse> trackOrder(@RequestBody TrackOrderQuery trackOrderQuery){
+    @GetMapping("/{trackingId}")
+    public ResponseEntity<TrackOrderResponse> trackOrder(@PathVariable("trackingId") UUID trackingId){
+        TrackOrderQuery trackOrderQuery= TrackOrderQuery.builder().orderTrackingId(trackingId).build();
         log.info("receiving order tracking query {}",trackOrderQuery);
         TrackOrderResponse trackOrderResponse= orderApplicationService.trackOrder(trackOrderQuery);
         return ResponseEntity.ok(trackOrderResponse);

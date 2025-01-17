@@ -37,7 +37,7 @@ public class OrderCreateCommandHelper {
     public OrderCreatedEvent persistOrder(OrderCreateCommand orderCreateCommand) {
         checkUser(orderCreateCommand.getUserId());
         Order order=orderDataMapper.orderCreateCommandToOrder(orderCreateCommand);
-        Driver driver=getDriver(new DriverId(UUID.randomUUID()));
+        Driver driver=getDriver(new DriverId(UUID.fromString("d475508c-2c8a-404a-9e5d-750292e8eb75")));
         OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(order,driver);
         saveOrder(orderCreatedEvent.getOrder());
         driverOutboxHelper.saveDriverRequestOutboxMessage(
@@ -59,7 +59,7 @@ public class OrderCreateCommandHelper {
         return driver.get();
     }
     private void checkUser(UUID id){
-        Optional<User> user=userRepository.findDriverById(id);
+        Optional<User> user=userRepository.findUserById(id);
         if(user.isEmpty()){
             throw new OrderDomainException("user with id :"+id+"does not exist");
         }
@@ -68,7 +68,7 @@ public class OrderCreateCommandHelper {
     private void saveOrder(Order order){
         Optional<Order> newOrder=orderRepository.saveOrder(order);
         if (newOrder.isEmpty()){
-            throw new OrderDomainException("order :"+newOrder+"not saved");
+            throw new OrderDomainException("order :"+newOrder+" not saved");
         }
     }
 }

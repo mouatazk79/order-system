@@ -20,7 +20,7 @@ public class OrderTrackCommandHandler {
     private final OrderDataMapper orderDataMapper;
     @Transactional(readOnly = true)
     public TrackOrderResponse trackOrder(TrackOrderQuery trackOrderQuery) {
-        Optional<Order> order=orderRepository.findOrderById(trackOrderQuery.getOrderTrackingId());
+        Optional<Order> order=orderRepository.findOrderByTrackingId(trackOrderQuery.getOrderTrackingId());
         if (order.isEmpty()){
             throw new OrderNotFoundException("order with id: "+trackOrderQuery.getOrderTrackingId()+"does not exist");
         }
