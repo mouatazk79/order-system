@@ -6,10 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.UUID;
-
 @Getter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class TrackOrderQuery {
     @NotNull
     private final UUID orderTrackingId;

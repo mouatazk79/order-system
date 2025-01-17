@@ -26,9 +26,20 @@ public class OrderEntityMapper {
                 .driverId(new DriverId(orderEntity.getDriverId()))
                 .trackingId(new TrackingId(orderEntity.getTrackingId()))
                 .orderStatus(orderEntity.getOrderStatus())
-                .failureMessages(orderEntity.getFailureMessages().isEmpty() ? new ArrayList<>() :
-                        new ArrayList<>(Arrays.asList(orderEntity.getFailureMessages()
-                                .split(FAILURE_MESSAGE_DELIMITER)))).build();
+                .build();
+    }
+    public OrderEntity orderToOrderEntity(Order order){
+
+        return OrderEntity.builder()
+                .orderId(order.getId().getValue())
+                .userId(order.getUserId().getValue())
+                .position(new PositionAddress(UUID.randomUUID(),order.getPosition().getStreetAddress(),order.getPosition().getZipCode(),order.getPosition().getZipCode()))
+                .destination(new PositionAddress(UUID.randomUUID(),order.getDestination().getStreetAddress(),order.getDestination().getZipCode(),order.getDestination().getZipCode()))
+                .price(order.getPrice().getAmount())
+                .driverId(order.getDriverId().getValue())
+                .trackingId(order.getTrackingId().getValue())
+                .orderStatus(order.getOrderStatus())
+                .build();
     }
 
     private Position positionAddressToPosition(PositionAddress positionAddress){
