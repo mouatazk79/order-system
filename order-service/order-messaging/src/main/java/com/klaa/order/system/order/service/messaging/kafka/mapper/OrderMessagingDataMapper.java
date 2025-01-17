@@ -50,7 +50,7 @@ OrderMessagingDataMapper {
                 .build();
     }
 
-    public DriverRequestAvroModel orderApprovalEventToDriverRequestAvroModel(String sagaId, DriverRequestPayload driverRequestPayload) {
+    public DriverRequestAvroModel driverRequestPayloadToDriverRequestAvroModel(String sagaId, DriverRequestPayload driverRequestPayload) {
         return DriverRequestAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
                 .setDriverId(UUID.fromString(driverRequestPayload.getDriverId()))

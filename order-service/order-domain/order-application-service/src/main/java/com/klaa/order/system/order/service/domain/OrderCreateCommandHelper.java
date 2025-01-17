@@ -39,7 +39,7 @@ public class OrderCreateCommandHelper {
         Order order=orderDataMapper.orderCreateCommandToOrder(orderCreateCommand);
         Driver driver=getDriver(new DriverId(UUID.randomUUID()));
         OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(order,driver);
-        saveOrder(order);
+        saveOrder(orderCreatedEvent.getOrder());
         driverOutboxHelper.saveDriverRequestOutboxMessage(
                 orderDataMapper.orderCreatedEventToDriverRequestPayload(orderCreatedEvent),
                 orderCreatedEvent.getOrder().getOrderStatus(),

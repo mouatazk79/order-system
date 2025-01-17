@@ -6,12 +6,8 @@ import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.exception.DriverNotFoundException;
 import com.klaa.order.system.driver.service.domain.mapper.DriverDataMapper;
-import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
-import com.klaa.order.system.driver.service.domain.outbox.scheduler.OrderOutboxHelper;
-import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverApprovalResponseMessagePublisher;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.DriverRepository;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderApprovalRepository;
-import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -31,8 +27,6 @@ public class DriverRequestHelper {
     private final OrderApprovalRepository approvalRepository;
     private final DriverDataMapper driverDataMapper;
     private final DriverDomainService driverDomainService;
-    private final OrderOutboxHelper orderOutboxHelper;
-    private final DriverApprovalResponseMessagePublisher driverApprovalResponseMessagePublisher;
 
 
 
@@ -69,17 +63,6 @@ public class DriverRequestHelper {
         }
     }
 
-    private boolean publishIfOutboxMessageProcessed(DriverRequest driverRequest) {
-        Optional<OrderOutboxMessage> orderOutboxMessage =
-                orderOutboxHelper.getCompletedOrderOutboxMessageBySagaIdAndOutboxStatus(UUID
-                        .fromString(driverRequest.getSagaId()), OutboxStatus.COMPLETED);
-        if (orderOutboxMessage.isPresent()) {
-            driverApprovalResponseMessagePublisher.publish(orderOutboxMessage.get(),
-                    orderOutboxHelper::updateOutboxStatus);
-            return true;
-        }
-        return false;
-    }
 
 
 }

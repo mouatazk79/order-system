@@ -7,7 +7,6 @@ import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayloa
 import com.klaa.order.system.kafka.model.driver.DriverOrderStatus;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
-import com.klaa.order.system.kafka.model.driver.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

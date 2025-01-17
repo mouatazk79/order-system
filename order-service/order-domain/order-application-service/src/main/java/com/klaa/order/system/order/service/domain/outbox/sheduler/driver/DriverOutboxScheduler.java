@@ -24,7 +24,7 @@ public class DriverOutboxScheduler implements OutboxScheduler {
     private final DriverRequestMessagePublisher driverRequestMessagePublisher;
     @Override
     @Transactional
-    @Scheduled(fixedRate =5,timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate =10,timeUnit = TimeUnit.SECONDS)
     public void processOutboxMessages() {
         Optional<List<DriverRequestOutboxMessage>> outboxMessagesResponse =
                 driverOutboxHelper.getDriverRequestOutboxMessageByOutboxStatusAndSagaStatus(

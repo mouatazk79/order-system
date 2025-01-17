@@ -39,7 +39,7 @@ public class DriverRequestMessageKafkaPublisher implements DriverRequestMessageP
         try {
             DriverRequestAvroModel driverRequestAvroModel =
                     orderMessagingDataMapper
-                            .orderApprovalEventToDriverRequestAvroModel(sagaId,
+                            .driverRequestPayloadToDriverRequestAvroModel(sagaId,
                                     driverRequestPayload);
 
             kafkaProducer.send(orderServiceConfigData.getDriverApprovalRequestTopicName(),
