@@ -18,13 +18,16 @@ public class OrderRepositoryAdapter implements OrderRepository {
     private final OrderEntityMapper orderEntityMapper;
     @Override
     public Optional<Order> saveOrder(Order order) {
-
-        return orderJpaRepository.findById(order.getId().getValue()).map(orderEntityMapper::orderEntityToOrder);
+        return Optional.of(orderEntityMapper.orderEntityToOrder(orderJpaRepository.save(orderEntityMapper.orderToOrderEntity(order))));
     }
 
     @Override
     public Optional<Order> findOrderById(UUID id) {
-        return Optional.empty();
+        return orderJpaRepository.findById(id).map(orderEntityMapper::orderEntityToOrder);
+    }
+    @Override
+    public Optional<Order> findOrderByTrackingId(UUID id) {
+        return orderJpaRepository.findByTrackingId(id).map(orderEntityMapper::orderEntityToOrder);
     }
 
     @Override

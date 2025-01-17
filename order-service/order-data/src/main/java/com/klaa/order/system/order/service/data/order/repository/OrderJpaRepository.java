@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface OrderJpaRepository extends JpaRepository<OrderEntity, UUID> {
     List<OrderEntity> findByCreatedDateIsBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Optional<OrderEntity> findByTrackingId(UUID trackingId);
 }

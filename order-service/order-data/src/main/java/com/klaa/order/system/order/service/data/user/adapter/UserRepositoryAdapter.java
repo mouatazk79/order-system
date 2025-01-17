@@ -15,7 +15,7 @@ public class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository userJpaRepository;
     private final UserEntityMapper userEntityMapper;
     @Override
-    public Optional<User> findDriverById(UUID id) {
-        return userJpaRepository.findById(id).map(userEntityMapper::userEntityToUser);
+    public Optional<User> findUserById(UUID id) {
+        return userJpaRepository.findByUserId(id).map(userEntityMapper::userEntityToUser);
     }
 }

@@ -6,6 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository {
-    Optional<User> findDriverById(UUID id);
+    Optional<User> findUserById(UUID id);
 
 }

@@ -11,5 +11,6 @@ public interface OrderRepository {
     Optional<Order> saveOrder(Order order);
     Optional<Order> findOrderById(UUID id);
     List<Order> findOrdersCreatedAtBetween(LocalDateTime startTime, LocalDateTime endTime);
+    Optional<Order> findOrderByTrackingId(UUID id);
 
 }
