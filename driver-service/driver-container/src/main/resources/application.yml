@@ -1,6 +1,9 @@
 server:
   port: 8082
-
+logging:
+  level:
+    root: INFO
+    com.klaa.order.system: DEBUG
 
 
 driver-service:

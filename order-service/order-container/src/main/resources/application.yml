@@ -2,7 +2,8 @@ server:
   port: 8080
 logging:
   level:
-    com.klaa.order.system: debug
+    root: INFO
+    com.klaa.order.system: DEBUG
 
 order-service:
   payment-request-topic-name: payment-request
@@ -42,7 +43,7 @@ kafka-producer-config:
   key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
   value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
   compression-type: snappy
-  acks: all
+  acks: 1
   batch-size: 16384
   batch-size-boost-factor: 100
   linger-ms: 5

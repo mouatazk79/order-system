@@ -3,6 +3,7 @@ server:
 
 logging:
   level:
+    root: INFO
     com.klaa.order.system: DEBUG
 
 payment-service:

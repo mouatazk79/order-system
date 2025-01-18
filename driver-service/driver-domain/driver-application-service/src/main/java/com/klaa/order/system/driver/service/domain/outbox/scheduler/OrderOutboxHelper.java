@@ -34,7 +34,7 @@ public class OrderOutboxHelper {
     }
 
     @Transactional(readOnly = true)
-    public Optional<OrderOutboxMessage> getCompletedOrderOutboxMessageBySagaIdAndOutboxStatus(UUID sagaId,
+    public Optional<OrderOutboxMessage> getOrderOutboxMessageBySagaIdAndOutboxStatus(UUID sagaId,
                                                                                               OutboxStatus
                                                                                                       outboxStatus) {
         return orderOutboxRepository.findByTypeAndSagaIdAndOutboxStatus("ORDER_SAGA_NAME", sagaId, outboxStatus);
@@ -65,6 +65,10 @@ public class OrderOutboxHelper {
                 .driverOrderStatus(driverOrderStatus)
                 .outboxStatus(outboxStatus)
                 .build());
+    }
+    @Transactional
+    public void saveOrderOutboxMessage(OrderOutboxMessage OrderOutboxMessage) {
+        save(OrderOutboxMessage);
     }
 
     @Transactional

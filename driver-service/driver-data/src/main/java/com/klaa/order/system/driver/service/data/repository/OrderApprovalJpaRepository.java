@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 @Repository
 public interface OrderApprovalJpaRepository extends JpaRepository<OrderApprovalEntity, UUID> {
+    OrderApprovalEntity findByOrderId(UUID orderId);
+
 }

@@ -1,7 +1,10 @@
 spring:
   application:
     name: kafka-to-elastic
-
+logging:
+  level:
+    root: INFO
+    com.klaa.order.system: DEBUG
 
 kafka-to-elastic-service:
   kafka-to-elastic-topic-name: order-elastic-message

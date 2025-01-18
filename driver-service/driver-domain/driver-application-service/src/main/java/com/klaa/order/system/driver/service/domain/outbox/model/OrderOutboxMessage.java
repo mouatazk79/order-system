@@ -27,4 +27,8 @@ public class OrderOutboxMessage {
     public void setOutboxStatus(OutboxStatus status) {
         this.outboxStatus = status;
     }
+    public void setDriverOrderStatus(DriverOrderStatus status) {
+        this.driverOrderStatus = status;
+    }
+
 }
