@@ -10,7 +10,7 @@ import java.util.List;
 
 public class OrderApproval extends BaseEntity<OrderApprovalId> {
     private final DriverId driverId;
-    private final OrderDetail orderDetail;
+    private OrderDetail orderDetail;
     private DriverOrderStatus driverOrderStatus;
 
 
@@ -40,7 +40,7 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
         private OrderDetail orderDetail;
         private DriverOrderStatus driverOrderStatus;
 
-        public Builder driverId(OrderApprovalId orderApprovalId) {
+        public Builder orderApprovalId(OrderApprovalId orderApprovalId) {
             this.orderApprovalId = orderApprovalId;
             return this;
         }
@@ -72,7 +72,16 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
         return orderDetail;
     }
 
-    public DriverOrderStatus getOrderStatus() {
+    public DriverOrderStatus getDriverOrderStatus() {
         return driverOrderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderApproval{" +
+                "driverId=" + driverId +
+                ", orderDetail=" + orderDetail +
+                ", driverOrderStatus=" + driverOrderStatus +
+                '}';
     }
 }

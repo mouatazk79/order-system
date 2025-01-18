@@ -1,18 +1,20 @@
 package com.klaa.order.system.driver.service.data.outbox.adapter;
 
+import com.klaa.order.system.driver.service.data.outbox.entity.OrderOutboxEntity;
 import com.klaa.order.system.driver.service.data.outbox.exception.OrderOutboxNotFoundException;
 import com.klaa.order.system.driver.service.data.outbox.mapper.OrderOutboxDataAccessMapper;
 import com.klaa.order.system.driver.service.data.outbox.repository.OrderOutboxJpaRepository;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderOutboxRepository;
 import com.klaa.order.system.outbox.OutboxStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Component
 public class OrderOutboxRepositoryImpl implements OrderOutboxRepository {
 
@@ -27,10 +29,12 @@ public class OrderOutboxRepositoryImpl implements OrderOutboxRepository {
 
     @Override
     public OrderOutboxMessage save(OrderOutboxMessage orderPaymentOutboxMessage) {
+        log.info("OrderOutboxMessage : {}",orderPaymentOutboxMessage);
+        OrderOutboxEntity orderOutboxEntity= orderOutboxJpaRepository.save(orderOutboxDataAccessMapper
+                        .orderOutboxMessageToOrderOutboxEntity(orderPaymentOutboxMessage));
+        log.info("OrderOutboxEntity : {}",orderOutboxEntity);
         return orderOutboxDataAccessMapper
-                .orderOutboxEntityToOrderOutboxMessage(orderOutboxJpaRepository
-                        .save(orderOutboxDataAccessMapper
-                                .orderOutboxMessageToOutboxEntity(orderPaymentOutboxMessage)));
+                .orderOutboxEntityToOrderOutboxMessage(orderOutboxEntity);
     }
 
     @Override

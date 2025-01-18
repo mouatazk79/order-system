@@ -16,6 +16,6 @@ public class DriverRepositoryAdapter implements DriverRepository {
     private final DriverDataMapper driverDataMapper;
     @Override
     public Optional<Driver> findDriverById(UUID id) {
-        return driverDataMapper.driverEntityToDriver(driverJpaRepository.findById(id));
+        return driverDataMapper.driverEntityToDriver(driverJpaRepository.findByDriverId(id));
     }
 }

@@ -36,7 +36,7 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent=driverDomainService.validateAndApproveOrder(orderApproval,failureMessages);
         OrderOutboxMessage orderOutboxMessage=checkOrderOutboxMessage(approvalCommand.getSagaId());
-        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus());
+        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getDriverOrderStatus());
         orderOutboxHelper.saveOrderOutboxMessage(orderOutboxMessage);
         approvalRepository.saveOrderApproval(approvalEvent.getOrderApproval());
         return driverDataMapper.orderDriverApprovalEventToDriverRejectResponse(approvalEvent);
@@ -48,7 +48,7 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent =driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
         OrderOutboxMessage orderOutboxMessage=checkOrderOutboxMessage(approvalCommand.getSagaId());
-        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus());
+        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getDriverOrderStatus());
         orderOutboxHelper.saveOrderOutboxMessage(orderOutboxMessage);
         approvalRepository.saveOrderApproval(approvalEvent.getOrderApproval());
         return driverDataMapper.orderDriverApprovalEventToDriverRejectResponse(approvalEvent);

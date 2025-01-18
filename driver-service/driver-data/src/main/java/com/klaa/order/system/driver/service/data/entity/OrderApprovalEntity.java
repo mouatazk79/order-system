@@ -21,5 +21,6 @@ public class OrderApprovalEntity {
     private UUID driverId;
     private UUID orderId;
     @Enumerated(EnumType.STRING)
+    @Column(name = "driver_order_status")
     private DriverOrderStatus driverOrderStatus;
 }

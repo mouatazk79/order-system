@@ -31,4 +31,18 @@ public class OrderOutboxMessage {
         this.driverOrderStatus = status;
     }
 
+    @Override
+    public String toString() {
+        return "OrderOutboxMessage{" +
+                "id=" + id +
+                ", sagaId=" + sagaId +
+                ", createdAt=" + createdAt +
+                ", processedAt=" + processedAt +
+                ", type='" + type + '\'' +
+                ", payload='" + payload + '\'' +
+                ", outboxStatus=" + outboxStatus +
+                ", driverOrderStatus=" + driverOrderStatus +
+                ", version=" + version +
+                '}';
+    }
 }

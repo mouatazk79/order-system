@@ -42,7 +42,7 @@ public static final class Builder{
 
     public Builder() {
     }
-    public Builder restaurantId(DriverId val) {
+    public Builder driverId(DriverId val) {
         driverId = val;
         return this;
     }

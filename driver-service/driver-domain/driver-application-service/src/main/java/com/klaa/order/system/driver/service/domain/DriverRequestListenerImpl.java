@@ -13,10 +13,12 @@ public class DriverRequestListenerImpl implements DriverRequestListener {
     private final DriverRequestHelper driverRequestHelper;
     @Override
     public void orderRequest(DriverRequest driverRequest) {
+        log.info("driverRequest with orderId {} and driverId {}",driverRequest.getOrderId(),driverRequest.getOrderId());
          driverRequestHelper.persistDriverRequest(driverRequest);
     }
     @Override
     public void orderCancelled(DriverRequest driverRequest) {
+        log.info("driverRequest with orderId {} and driverId {}",driverRequest.getOrderId(),driverRequest.getOrderId());
         driverRequestHelper.persistRejectRequest(driverRequest);
     }
 

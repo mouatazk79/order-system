@@ -2,14 +2,15 @@ package com.klaa.order.system.driver.service.data.outbox.mapper;
 
 import com.klaa.order.system.driver.service.data.outbox.entity.OrderOutboxEntity;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
+@Slf4j
 @Component
 public class OrderOutboxDataAccessMapper {
 
-    public OrderOutboxEntity orderOutboxMessageToOutboxEntity(OrderOutboxMessage orderOutboxMessage) {
+    public OrderOutboxEntity orderOutboxMessageToOrderOutboxEntity(OrderOutboxMessage orderOutboxMessage) {
         return OrderOutboxEntity.builder()
                 .id(orderOutboxMessage.getId())
                 .sagaId(orderOutboxMessage.getSagaId())
@@ -18,12 +19,13 @@ public class OrderOutboxDataAccessMapper {
                 .type(orderOutboxMessage.getType())
                 .payload(orderOutboxMessage.getPayload())
                 .outboxStatus(orderOutboxMessage.getOutboxStatus())
-                .orderStatus(orderOutboxMessage.getDriverOrderStatus())
+                .driverOrderStatus(orderOutboxMessage.getDriverOrderStatus())
                 .version(orderOutboxMessage.getVersion())
                 .build();
     }
 
     public OrderOutboxMessage orderOutboxEntityToOrderOutboxMessage(OrderOutboxEntity paymentOutboxEntity) {
+        log.info("OrderOutboxEntity : {}",paymentOutboxEntity);
         return OrderOutboxMessage.builder()
                 .id(paymentOutboxEntity.getId())
                 .sagaId(paymentOutboxEntity.getSagaId())
@@ -31,7 +33,7 @@ public class OrderOutboxDataAccessMapper {
                 .type(paymentOutboxEntity.getType())
                 .payload(paymentOutboxEntity.getPayload())
                 .outboxStatus(paymentOutboxEntity.getOutboxStatus())
-                .driverOrderStatus(paymentOutboxEntity.getOrderStatus())
+                .driverOrderStatus(paymentOutboxEntity.getDriverOrderStatus())
                 .version(paymentOutboxEntity.getVersion())
                 .build();
     }

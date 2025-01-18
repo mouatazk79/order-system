@@ -27,7 +27,7 @@ public class OrderOutboxEntity {
     @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
     @Enumerated(EnumType.STRING)
-    private DriverOrderStatus orderStatus;
+    private DriverOrderStatus driverOrderStatus;
     private int version;
 
 
@@ -42,6 +42,22 @@ public class OrderOutboxEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+
+    @Override
+    public String toString() {
+        return "OrderOutboxEntity{" +
+                "id=" + id +
+                ", sagaId=" + sagaId +
+                ", createdAt=" + createdAt +
+                ", processedAt=" + processedAt +
+                ", type='" + type + '\'' +
+                ", payload='" + payload + '\'' +
+                ", outboxStatus=" + outboxStatus +
+                ", driverOrderStatus=" + driverOrderStatus +
+                ", version=" + version +
+                '}';
     }
 }
 

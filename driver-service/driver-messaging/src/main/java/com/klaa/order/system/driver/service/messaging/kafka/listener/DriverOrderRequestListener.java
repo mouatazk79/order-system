@@ -28,7 +28,7 @@ public class DriverOrderRequestListener implements KafkaConsumer<DriverRequestAv
     @Override
     @KafkaListener(id = "${kafka-consumer-config.driver-approval-consumer-group-id}",
             topics = "${driver-service.driver-approval-request-topic-name}")
-    public void receive(@Payload List<DriverRequestAvroModel> messages, @Header(KafkaHeaders.KEY) List<String> keys,@Header(KafkaHeaders.PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+    public void receive(@Payload List<DriverRequestAvroModel> messages, @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,@Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         messages.forEach(
                 message->{
                     log.info("receiving order with id: {}",message.getOrderId());

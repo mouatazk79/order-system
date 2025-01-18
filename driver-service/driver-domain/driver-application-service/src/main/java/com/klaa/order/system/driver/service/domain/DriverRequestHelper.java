@@ -34,7 +34,7 @@ public class DriverRequestHelper {
 
     @Transactional
     public void persistDriverRequest(DriverRequest driverRequest) {
-        log.info("received driver request with id: {}",driverRequest.getOrderId());
+        log.info("received driver request with order id: {} and driverId: {}",driverRequest.getOrderId(),driverRequest.getDriverId());
         checkDriver(driverRequest.getDriverId());
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         orderOutboxHelper.saveOrderOutboxMessage(driverDataMapper.driverRequestToOrderOutboxMessage(driverRequest));
@@ -52,6 +52,7 @@ public class DriverRequestHelper {
     }
 
     private void persistOrderApproval(OrderApproval orderApproval) {
+        log.info("saving orderApproval: {}",orderApproval);
         Optional<OrderApproval> newOrderApproval=approvalRepository.saveOrderApproval(orderApproval);
         if (newOrderApproval.isEmpty()){
             throw new DriverDomainException("OrderApproval with id "+orderApproval.getId()+" not saved");
@@ -65,6 +66,7 @@ public class DriverRequestHelper {
         if(driver.isEmpty()){
             throw new DriverNotFoundException("driver with id: "+id+"does not exist");
         }
+        log.info("checking driver with id: {}",driver.get().getId());
     }
 
 

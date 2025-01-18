@@ -8,8 +8,8 @@ import com.klaa.order.system.domain.valueobjects.Position;
 
 
 public class OrderDetail extends AggregateRoot<OrderId> {
-    private final Position position;
-    private final Position destination;
+    private  Position position;
+    private  Position destination;
     private  Money price;
     private OrderStatus orderStatus;
     private OrderDetail(Builder builder) {

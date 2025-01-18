@@ -2,7 +2,6 @@ package com.klaa.order.system.driver.service.messaging.kafka.mapper;
 
 import com.klaa.order.system.domain.valueobjects.Position;
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
-import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
 import com.klaa.order.system.kafka.model.driver.DriverOrderStatus;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
@@ -16,16 +15,6 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class DriverMessagingDataMapper {
-    public DriverResponseAvroModel orderApprovalToDriverResponseAvroModel(String sagaId,OrderApproval orderApproval) {
-        return DriverResponseAvroModel.newBuilder()
-                .setId(UUID.randomUUID())
-                .setSagaId(UUID.fromString(sagaId))
-                .setDriverId(orderApproval.getDriverId().getValue())
-                .setOrderId(orderApproval.getOrderDetail().getId().getValue())
-                .setDriverOrderStatus(DriverOrderStatus.valueOf(orderApproval.getOrderStatus().name()))
-                .setCreatedAt(Instant.now())
-                .build();
-    }
 
     public DriverRequest driverRequestAvroModelToDriverRequest(DriverRequestAvroModel driverRequestAvroModel) {
         return  DriverRequest.builder()

@@ -10,6 +10,7 @@ import com.klaa.order.system.driver.service.domain.entity.OrderDetail;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
+import com.klaa.order.system.driver.service.domain.valueobject.OrderApprovalId;
 import com.klaa.order.system.outbox.OutboxStatus;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +29,11 @@ public class DriverDataMapper {
                 .outboxStatus(OutboxStatus.STARTED)
                 .driverOrderStatus(driverRequest.getDriverOrderStatus())
                 .build();
-
     }
 
     public OrderApproval driverRequestToOrderApproval(DriverRequest driverRequest) {
         return OrderApproval.builder()
+                .orderApprovalId(new OrderApprovalId(UUID.fromString(driverRequest.getId())))
                 .driverId(new DriverId(driverRequest.getDriverId()))
                 .orderDetail(OrderDetail.builder()
                         .orderId(new OrderId(driverRequest.getOrderId()))
@@ -48,7 +49,7 @@ public class DriverDataMapper {
     public DriverResponse orderDriverApprovalEventToDriverRejectResponse(OrderDriverApprovalEvent approvalEvent) {
         return DriverResponse.builder()
                 .orderId(approvalEvent.getOrderApproval().getId().toString())
-                .driverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus()).build();
+                .driverOrderStatus(approvalEvent.getOrderApproval().getDriverOrderStatus()).build();
     }
 
     public OrderEventPayload orderApprovalEventToOrderEventPayload(OrderDriverApprovalEvent approvalEvent) {
