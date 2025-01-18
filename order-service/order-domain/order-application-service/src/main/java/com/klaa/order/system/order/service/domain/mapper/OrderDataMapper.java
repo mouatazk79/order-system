@@ -56,7 +56,8 @@ public class OrderDataMapper {
     public DriverRequestPayload orderCreatedEventToDriverRequestPayload(OrderCreatedEvent orderCreatedEvent) {
         return  DriverRequestPayload.builder()
                 .orderId(orderCreatedEvent.getOrder().getId().getValue().toString())
-                .driverId(orderCreatedEvent.getOrder().getDriverId().toString())
+                .orderStatus(orderCreatedEvent.getOrder().getOrderStatus().toString())
+                .driverId(orderCreatedEvent.getOrder().getDriverId().getValue().toString())
                 .position(orderAddressToStreetAddress(orderCreatedEvent.getOrder().getPosition()))
                 .destination(orderAddressToStreetAddress(orderCreatedEvent.getOrder().getDestination()))
                 .price(orderCreatedEvent.getOrder().getPrice().getAmount())

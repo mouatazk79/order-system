@@ -35,12 +35,15 @@ public class DriverRequestMessageKafkaPublisher implements DriverRequestMessageP
         log.info("Received OrderApprovalOutboxMessage for order id: {} and saga id: {}",
                 driverRequestPayload.getOrderId(),
                 sagaId);
+        log.info("topic name {}",orderServiceConfigData.getDriverApprovalRequestTopicName());
 
         try {
+
             DriverRequestAvroModel driverRequestAvroModel =
                     orderMessagingDataMapper
                             .driverRequestPayloadToDriverRequestAvroModel(sagaId,
                                     driverRequestPayload);
+            log.info("DriverRequestAvroModel with orderId {}",driverRequestAvroModel.getOrderId());
 
             kafkaProducer.send(orderServiceConfigData.getDriverApprovalRequestTopicName(),
                     sagaId,

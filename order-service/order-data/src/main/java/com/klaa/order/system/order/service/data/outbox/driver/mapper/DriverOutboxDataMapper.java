@@ -31,6 +31,7 @@ public class DriverOutboxDataMapper {
                 .type(driverRequestOutboxMessage.getType())
                 .payload(driverRequestOutboxMessage.getPayload())
                 .sagaStatus(driverRequestOutboxMessage.getSagaStatus())
+                .orderStatus(driverRequestOutboxMessage.getOrderStatus())
                 .outboxStatus(driverRequestOutboxMessage.getOutboxStatus())
                 .version(driverRequestOutboxMessage.getVersion())
                 .build();

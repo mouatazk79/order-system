@@ -25,6 +25,6 @@ public class DriverRequestPayload {
     private PositionAddress destination;
     @JsonProperty
     private LocalDateTime createdAt;
-//    @JsonProperty
-//    private String driverOrderStatus;
+    @JsonProperty
+    private String orderStatus;
 }

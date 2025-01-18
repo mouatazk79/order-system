@@ -25,13 +25,6 @@
       }
     },
     {
-      "name": "userId",
-      "type": {
-        "type": "string",
-        "logicalType": "uuid"
-      }
-    },
-    {
       "name": "position",
       "type": {
         "type": "record",

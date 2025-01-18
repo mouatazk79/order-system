@@ -54,6 +54,7 @@ OrderMessagingDataMapper {
         return DriverRequestAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
                 .setDriverId(UUID.fromString(driverRequestPayload.getDriverId()))
+                .setOrderStatus(com.klaa.order.system.kafka.model.driver.OrderStatus.valueOf(driverRequestPayload.getOrderStatus()))
                 .setSagaId(UUID.fromString(sagaId))
                 .setOrderId(UUID.fromString(driverRequestPayload.getOrderId()))
                 .setPosition(positionAddressToPosition(driverRequestPayload.getPosition()))
@@ -61,8 +62,6 @@ OrderMessagingDataMapper {
                 .setPrice(driverRequestPayload.getPrice())
                 .setCreatedAt(Instant.now())
                 .build();
-
-
     }
 
     public PaymentRequestAvroModel paymentRequestPayloadToPaymentRequestAvroModel(String sagaId, PaymentRequestPayload paymentRequestPayload) {
