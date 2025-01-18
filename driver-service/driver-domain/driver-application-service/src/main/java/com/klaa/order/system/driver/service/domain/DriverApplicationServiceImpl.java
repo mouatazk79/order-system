@@ -1,17 +1,19 @@
 package com.klaa.order.system.driver.service.domain;
 
-import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
+import com.klaa.order.system.driver.service.domain.dto.approval.ApprovalCommand;
 import com.klaa.order.system.driver.service.domain.dto.response.DriverResponse;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.mapper.DriverDataMapper;
+import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.driver.service.domain.outbox.scheduler.OrderOutboxHelper;
 import com.klaa.order.system.driver.service.domain.ports.input.service.DriverApplicationService;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderApprovalRepository;
 import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,38 +30,45 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
 
 
     @Override
-    public DriverResponse approveOrder(DriverRequest driverRequest) {
-        OrderApproval orderApproval= checkOrder(driverRequest.getOrderId());
+    @Transactional
+    public DriverResponse approveOrder(ApprovalCommand approvalCommand) {
+        OrderApproval orderApproval= checkOrderApproval(approvalCommand.getOrderId());
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent=driverDomainService.validateAndApproveOrder(orderApproval,failureMessages);
-        orderOutboxHelper
-                .saveOrderOutboxMessage(driverDataMapper.orderApprovalEventToOrderEventPayload(approvalEvent),
-                        approvalEvent.getOrderApproval().getOrderStatus(),
-                        OutboxStatus.STARTED,
-                        UUID.fromString(driverRequest.getSagaId()));
+        OrderOutboxMessage orderOutboxMessage=checkOrderOutboxMessage(approvalCommand.getSagaId());
+        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus());
+        orderOutboxHelper.saveOrderOutboxMessage(orderOutboxMessage);
+        approvalRepository.saveOrderApproval(approvalEvent.getOrderApproval());
         return driverDataMapper.orderDriverApprovalEventToDriverRejectResponse(approvalEvent);
     }
-
     @Override
-    public DriverResponse rejectOrder(DriverRequest driverRequest) {
-        OrderApproval orderApproval= checkOrder(driverRequest.getOrderId());
+    @Transactional
+    public DriverResponse rejectOrder(ApprovalCommand approvalCommand) {
+        OrderApproval orderApproval= checkOrderApproval(approvalCommand.getOrderId());
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent =driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
-        orderOutboxHelper
-                .saveOrderOutboxMessage(driverDataMapper.orderApprovalEventToOrderEventPayload(approvalEvent),
-                        approvalEvent.getOrderApproval().getOrderStatus(),
-                        OutboxStatus.STARTED,
-                        UUID.fromString(driverRequest.getSagaId()));
-
+        OrderOutboxMessage orderOutboxMessage=checkOrderOutboxMessage(approvalCommand.getSagaId());
+        orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getOrderStatus());
+        orderOutboxHelper.saveOrderOutboxMessage(orderOutboxMessage);
+        approvalRepository.saveOrderApproval(approvalEvent.getOrderApproval());
         return driverDataMapper.orderDriverApprovalEventToDriverRejectResponse(approvalEvent);
     }
 
-    public OrderApproval checkOrder(UUID orderId){
-        Optional<OrderApproval> orderApproval=approvalRepository.findOrderId(orderId);
+    private OrderApproval checkOrderApproval(UUID orderApprovalId){
+        Optional<OrderApproval> orderApproval=approvalRepository.findByOrderId(orderApprovalId);
         if(orderApproval.isEmpty()){
-            throw new DriverDomainException("order does not exist");
+            throw new DriverDomainException("orderApproval does not exist");
         }
         return orderApproval.get();
 
     }
+    private OrderOutboxMessage checkOrderOutboxMessage(UUID sagaId){
+        Optional<OrderOutboxMessage> orderOutboxMessage=orderOutboxHelper.getOrderOutboxMessageBySagaIdAndOutboxStatus(sagaId,OutboxStatus.STARTED);
+        if (orderOutboxMessage.isEmpty()){
+            throw new DriverDomainException("orderOutboxMessage does not exist");
+        }
+        return orderOutboxMessage.get();
+    }
+
+
 }

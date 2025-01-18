@@ -9,10 +9,27 @@ import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.entity.OrderDetail;
 import com.klaa.order.system.driver.service.domain.event.OrderDriverApprovalEvent;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
+import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
+import com.klaa.order.system.outbox.OutboxStatus;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component("domainDriverDataMapper")
 public class DriverDataMapper {
+
+    public OrderOutboxMessage driverRequestToOrderOutboxMessage(DriverRequest driverRequest){
+        return OrderOutboxMessage.builder()
+                .id(driverRequest.getOrderId())
+                .sagaId(UUID.fromString(driverRequest.getSagaId()))
+                .createdAt(LocalDateTime.now())
+                .type("OrderProcessingSaga")
+                .outboxStatus(OutboxStatus.STARTED)
+                .driverOrderStatus(driverRequest.getDriverOrderStatus())
+                .build();
+
+    }
 
     public OrderApproval driverRequestToOrderApproval(DriverRequest driverRequest) {
         return OrderApproval.builder()

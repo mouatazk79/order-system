@@ -20,6 +20,4 @@ public class DriverRequestListenerImpl implements DriverRequestListener {
         driverRequestHelper.persistRejectRequest(driverRequest);
     }
 
-
-
 }

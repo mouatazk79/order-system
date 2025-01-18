@@ -29,7 +29,7 @@ public class DriverOutboxScheduler implements OutboxScheduler {
         Optional<List<DriverRequestOutboxMessage>> outboxMessagesResponse =
                 driverOutboxHelper.getDriverRequestOutboxMessageByOutboxStatusAndSagaStatus(
                         OutboxStatus.STARTED,
-                        SagaStatus.PROCESSING);
+                        SagaStatus.STARTED);
         if (outboxMessagesResponse.isPresent() && outboxMessagesResponse.get().size() > 0) {
             List<DriverRequestOutboxMessage> outboxMessages = outboxMessagesResponse.get();
             log.info("Received {} DriverRequestOutboxMessage with ids: {}, sending to message bus!",

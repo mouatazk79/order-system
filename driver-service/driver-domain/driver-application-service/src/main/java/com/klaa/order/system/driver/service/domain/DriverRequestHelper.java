@@ -6,6 +6,7 @@ import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.exception.DriverNotFoundException;
 import com.klaa.order.system.driver.service.domain.mapper.DriverDataMapper;
+import com.klaa.order.system.driver.service.domain.outbox.scheduler.OrderOutboxHelper;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.DriverRepository;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderApprovalRepository;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class DriverRequestHelper {
     private final OrderApprovalRepository approvalRepository;
     private final DriverDataMapper driverDataMapper;
     private final DriverDomainService driverDomainService;
+    private final OrderOutboxHelper orderOutboxHelper;
 
 
 
@@ -35,6 +37,7 @@ public class DriverRequestHelper {
         log.info("received driver request with id: {}",driverRequest.getOrderId());
         checkDriver(driverRequest.getDriverId());
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
+        orderOutboxHelper.saveOrderOutboxMessage(driverDataMapper.driverRequestToOrderOutboxMessage(driverRequest));
         persistOrderApproval(orderApproval);
         }
 
@@ -44,6 +47,7 @@ public class DriverRequestHelper {
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         List<String> failureMessages = new ArrayList<>();
         driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
+        orderOutboxHelper.saveOrderOutboxMessage(driverDataMapper.driverRequestToOrderOutboxMessage(driverRequest));
         persistOrderApproval(orderApproval);
     }
 
