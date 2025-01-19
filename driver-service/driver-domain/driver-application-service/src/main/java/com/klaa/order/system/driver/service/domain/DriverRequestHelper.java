@@ -9,6 +9,7 @@ import com.klaa.order.system.driver.service.domain.mapper.DriverDataMapper;
 import com.klaa.order.system.driver.service.domain.outbox.scheduler.OrderOutboxHelper;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.DriverRepository;
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderApprovalRepository;
+import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,12 @@ public class DriverRequestHelper {
         log.info("received driver request with order id: {} and driverId: {}",driverRequest.getOrderId(),driverRequest.getDriverId());
         checkDriver(driverRequest.getDriverId());
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
-        orderOutboxHelper.saveOrderOutboxMessage(driverDataMapper.driverRequestToOrderOutboxMessage(driverRequest));
+        orderOutboxHelper.saveOrderOutboxMessage(
+                driverDataMapper.driverRequestToOrderEventPayload(driverRequest),
+                orderApproval.getDriverOrderStatus(),
+                OutboxStatus.STARTED,
+               UUID.fromString(driverRequest.getSagaId())
+        );
         persistOrderApproval(orderApproval);
         }
 
@@ -47,7 +53,12 @@ public class DriverRequestHelper {
         OrderApproval orderApproval=driverDataMapper.driverRequestToOrderApproval(driverRequest);
         List<String> failureMessages = new ArrayList<>();
         driverDomainService.validateAndRejectOrder(orderApproval,failureMessages);
-        orderOutboxHelper.saveOrderOutboxMessage(driverDataMapper.driverRequestToOrderOutboxMessage(driverRequest));
+        orderOutboxHelper.saveOrderOutboxMessage(
+                driverDataMapper.driverRequestToOrderEventPayload(driverRequest),
+                orderApproval.getDriverOrderStatus(),
+                OutboxStatus.STARTED,
+                UUID.fromString(driverRequest.getSagaId())
+        );
         persistOrderApproval(orderApproval);
     }
 
@@ -59,8 +70,6 @@ public class DriverRequestHelper {
         }
 
     }
-
-
     private void checkDriver(UUID id){
         Optional<Driver> driver=driverRepository.findDriverById(id);
         if(driver.isEmpty()){

@@ -46,13 +46,13 @@ public class DriverDataMapper {
                 .driverOrderStatus(approvalEvent.getOrderApproval().getDriverOrderStatus()).build();
     }
 
-    public OrderEventPayload orderApprovalEventToOrderEventPayload(OrderDriverApprovalEvent approvalEvent) {
+    public OrderEventPayload driverRequestToOrderEventPayload(DriverRequest driverRequest) {
         return OrderEventPayload.builder()
-                .orderId(approvalEvent.getOrderApproval().getId().toString())
-                .driverId(approvalEvent.getOrderApproval().getDriverId().toString())
-                .createdAt(approvalEvent.getLocalDateTime())
-                .orderApprovalStatus(approvalEvent.getOrderApproval().toString())
-                .failureMessages(approvalEvent.getFailureMessages())
+                .orderId(driverRequest.getOrderId())
+                .driverId(driverRequest.getDriverId())
+                .position(driverRequest.getPosition())
+                .destination(driverRequest.getDestination())
+                .price(driverRequest.getPrice())
                 .build();
     }
 }

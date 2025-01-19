@@ -21,6 +21,7 @@ public class OrderOutboxMessage {
     private LocalDateTime createdAt;
     private LocalDateTime processedAt;
     private String type;
+    private String payload;
     private OutboxStatus outboxStatus;
     private DriverOrderStatus driverOrderStatus;
     private int version;

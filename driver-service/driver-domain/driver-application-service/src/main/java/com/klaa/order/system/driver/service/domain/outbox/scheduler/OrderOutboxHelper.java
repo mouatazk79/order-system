@@ -1,5 +1,7 @@
 package com.klaa.order.system.driver.service.domain.outbox.scheduler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
@@ -22,9 +24,12 @@ import java.util.UUID;
 public class OrderOutboxHelper {
 
     private final OrderOutboxRepository orderOutboxRepository;
+    private final ObjectMapper objectMapper;
 
-    public OrderOutboxHelper(OrderOutboxRepository orderOutboxRepository) {
+
+    public OrderOutboxHelper(OrderOutboxRepository orderOutboxRepository, ObjectMapper objectMapper) {
         this.orderOutboxRepository = orderOutboxRepository;
+        this.objectMapper = objectMapper;
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +57,10 @@ public class OrderOutboxHelper {
         save(OrderOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)
-                .createdAt(orderEventPayload.getCreatedAt())
+                .orderId(orderEventPayload.getOrderId())
+                .driverId(orderEventPayload.getDriverId())
+                .payload(createPayload(orderEventPayload))
+                .createdAt(LocalDateTime.now())
                 .processedAt(LocalDateTime.now())
                 .type("OrderProcessingSaga")
                 .driverOrderStatus(driverOrderStatus)
@@ -77,6 +85,17 @@ public class OrderOutboxHelper {
             throw new DriverDomainException("Could not save OrderOutboxMessage!");
         }
         log.info("OrderOutboxMessage saved with id: {}", orderPaymentOutboxMessage.getId());
+    }
+
+    private String createPayload(OrderEventPayload orderEventPayload) {
+        try {
+            return objectMapper.writeValueAsString(orderEventPayload);
+        } catch (JsonProcessingException e) {
+            log.error("Could not create OrderEventPayload object for order id: {}",
+                    orderEventPayload.getOrderId(), e);
+            throw new DriverDomainException("Could not create OrderEventPayload object for order id: " +
+                    orderEventPayload.getOrderId(), e);
+        }
     }
 
 
