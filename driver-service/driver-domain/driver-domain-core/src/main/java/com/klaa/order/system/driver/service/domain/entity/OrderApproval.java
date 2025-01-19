@@ -1,24 +1,25 @@
 package com.klaa.order.system.driver.service.domain.entity;
 
 import com.klaa.order.system.domain.entity.BaseEntity;
+import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.driver.service.domain.valueobject.OrderApprovalId;
 import com.klaa.order.system.domain.valueobjects.DriverId;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
-import com.klaa.order.system.domain.valueobjects.OrderStatus;
 
 import java.util.List;
 
 public class OrderApproval extends BaseEntity<OrderApprovalId> {
     private final DriverId driverId;
-    private OrderDetail orderDetail;
     private DriverOrderStatus driverOrderStatus;
+    private final OrderId orderId;
 
 
-   public void validateOrder(List<String> failureMessages){
-        if (orderDetail.getOrderStatus()!= OrderStatus.PENDING&&driverOrderStatus==DriverOrderStatus.PENDING){
+    public void validateOrder(List<String> failureMessages){
+        if (driverOrderStatus!=DriverOrderStatus.PENDING){
             failureMessages.add("order is not in pending state");
         }
     }
+
    public void changeStatus(DriverOrderStatus driverOrderStatus){
         this.driverOrderStatus=driverOrderStatus;
     }
@@ -26,8 +27,8 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
     private OrderApproval(Builder builder) {
         setId(builder.orderApprovalId);
         this.driverId = builder.driverId;
-        this.orderDetail = builder.orderDetail;
         this.driverOrderStatus = builder.driverOrderStatus;
+        this.orderId=builder.orderId;
     }
 
     public static Builder builder() {
@@ -37,8 +38,8 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
     public static class Builder {
         private OrderApprovalId orderApprovalId;
         private DriverId driverId;
-        private OrderDetail orderDetail;
         private DriverOrderStatus driverOrderStatus;
+        private OrderId orderId;
 
         public Builder orderApprovalId(OrderApprovalId orderApprovalId) {
             this.orderApprovalId = orderApprovalId;
@@ -49,13 +50,14 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
             return this;
         }
 
-        public Builder orderDetail(OrderDetail orderDetail) {
-            this.orderDetail = orderDetail;
-            return this;
-        }
 
         public Builder driverOrderStatus(DriverOrderStatus driverOrderStatus) {
             this.driverOrderStatus = driverOrderStatus;
+            return this;
+        }
+
+        public Builder orderId(OrderId orderId) {
+            this.orderId = orderId;
             return this;
         }
 
@@ -68,19 +70,21 @@ public class OrderApproval extends BaseEntity<OrderApprovalId> {
         return driverId;
     }
 
-    public OrderDetail getOrderDetail() {
-        return orderDetail;
-    }
 
     public DriverOrderStatus getDriverOrderStatus() {
         return driverOrderStatus;
+    }
+
+
+
+    public OrderId getOrderId() {
+        return orderId;
     }
 
     @Override
     public String toString() {
         return "OrderApproval{" +
                 "driverId=" + driverId +
-                ", orderDetail=" + orderDetail +
                 ", driverOrderStatus=" + driverOrderStatus +
                 '}';
     }
