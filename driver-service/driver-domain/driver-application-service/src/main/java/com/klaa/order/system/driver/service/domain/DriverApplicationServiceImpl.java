@@ -12,15 +12,18 @@ import com.klaa.order.system.driver.service.domain.ports.input.service.DriverApp
 import com.klaa.order.system.driver.service.domain.ports.output.repository.OrderApprovalRepository;
 import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@Slf4j
 @Service
+@Validated
 @AllArgsConstructor
 public class DriverApplicationServiceImpl implements DriverApplicationService {
     private final OrderApprovalRepository approvalRepository;
@@ -35,6 +38,7 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
         OrderApproval orderApproval= checkOrderApproval(approvalCommand.getOrderId());
         List<String> failureMessages = new ArrayList<>();
         OrderDriverApprovalEvent approvalEvent=driverDomainService.validateAndApproveOrder(orderApproval,failureMessages);
+        log.info("OrderDriverApprovalEvent {}",approvalEvent.getOrderApproval().getId());
         OrderOutboxMessage orderOutboxMessage=checkOrderOutboxMessage(approvalCommand.getSagaId());
         orderOutboxMessage.setDriverOrderStatus(approvalEvent.getOrderApproval().getDriverOrderStatus());
         orderOutboxHelper.saveOrderOutboxMessage(orderOutboxMessage);
@@ -59,6 +63,7 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
         if(orderApproval.isEmpty()){
             throw new DriverDomainException("orderApproval does not exist");
         }
+        log.info("checking order approval {}",orderApproval.get().getDriverId());
         return orderApproval.get();
 
     }
@@ -67,6 +72,7 @@ public class DriverApplicationServiceImpl implements DriverApplicationService {
         if (orderOutboxMessage.isEmpty()){
             throw new DriverDomainException("orderOutboxMessage does not exist");
         }
+        log.info("OrderOutboxMessage {}",orderOutboxMessage.get().getId());
         return orderOutboxMessage.get();
     }
 

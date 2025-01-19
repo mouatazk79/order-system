@@ -14,27 +14,29 @@ public class OrderOutboxDataAccessMapper {
         return OrderOutboxEntity.builder()
                 .id(orderOutboxMessage.getId())
                 .sagaId(orderOutboxMessage.getSagaId())
+                .orderId(orderOutboxMessage.getOrderId())
+                .driverId(orderOutboxMessage.getDriverId())
                 .createdAt(orderOutboxMessage.getCreatedAt())
                 .processedAt(LocalDateTime.now())
                 .type(orderOutboxMessage.getType())
-                .payload(orderOutboxMessage.getPayload())
                 .outboxStatus(orderOutboxMessage.getOutboxStatus())
                 .driverOrderStatus(orderOutboxMessage.getDriverOrderStatus())
                 .version(orderOutboxMessage.getVersion())
                 .build();
     }
 
-    public OrderOutboxMessage orderOutboxEntityToOrderOutboxMessage(OrderOutboxEntity paymentOutboxEntity) {
-        log.info("OrderOutboxEntity : {}",paymentOutboxEntity);
+    public OrderOutboxMessage orderOutboxEntityToOrderOutboxMessage(OrderOutboxEntity orderOutboxEntity) {
+        log.info("OrderOutboxEntity : {}",orderOutboxEntity);
         return OrderOutboxMessage.builder()
-                .id(paymentOutboxEntity.getId())
-                .sagaId(paymentOutboxEntity.getSagaId())
-                .createdAt(paymentOutboxEntity.getCreatedAt())
-                .type(paymentOutboxEntity.getType())
-                .payload(paymentOutboxEntity.getPayload())
-                .outboxStatus(paymentOutboxEntity.getOutboxStatus())
-                .driverOrderStatus(paymentOutboxEntity.getDriverOrderStatus())
-                .version(paymentOutboxEntity.getVersion())
+                .id(orderOutboxEntity.getId())
+                .sagaId(orderOutboxEntity.getSagaId())
+                .driverId(orderOutboxEntity.getDriverId())
+                .orderId(orderOutboxEntity.getOrderId())
+                .createdAt(orderOutboxEntity.getCreatedAt())
+                .type(orderOutboxEntity.getType())
+                .outboxStatus(orderOutboxEntity.getOutboxStatus())
+                .driverOrderStatus(orderOutboxEntity.getDriverOrderStatus())
+                .version(orderOutboxEntity.getVersion())
                 .build();
     }
 

@@ -2,12 +2,10 @@ package com.klaa.order.system.driver.service.data.mapper;
 
 import com.klaa.order.system.data.driver.entity.DriverEntity;
 import com.klaa.order.system.domain.valueobjects.DriverId;
-import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.domain.valueobjects.OrderId;
 import com.klaa.order.system.driver.service.data.entity.OrderApprovalEntity;
 import com.klaa.order.system.driver.service.domain.entity.Driver;
 import com.klaa.order.system.driver.service.domain.entity.OrderApproval;
-import com.klaa.order.system.driver.service.domain.entity.OrderDetail;
 import com.klaa.order.system.driver.service.domain.valueobject.OrderApprovalId;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +28,7 @@ public class DriverDataMapper {
         return OrderApprovalEntity.builder()
                 .orderApprovalId(orderApproval.getId().getValue())
                 .driverId(orderApproval.getDriverId().getValue())
-                .orderId(orderApproval.getOrderDetail().getId().getValue())
+                .orderId(orderApproval.getOrderId().getValue())
                 .driverOrderStatus(orderApproval.getDriverOrderStatus())
                 .build();
     }
@@ -39,7 +37,7 @@ public class DriverDataMapper {
         return OrderApproval.builder()
                 .orderApprovalId(new OrderApprovalId(orderApprovalEntity.getOrderApprovalId()))
                 .driverId(new DriverId( orderApprovalEntity.getDriverId()))
-                .orderDetail(OrderDetail.builder().orderId(new OrderId(orderApprovalEntity.getOrderId())).build())
+                .orderId(new OrderId(orderApprovalEntity.getOrderId()))
                 .driverOrderStatus(orderApprovalEntity.getDriverOrderStatus())
                 .build();
     }

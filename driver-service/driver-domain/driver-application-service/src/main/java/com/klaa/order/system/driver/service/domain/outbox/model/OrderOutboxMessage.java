@@ -16,10 +16,11 @@ import java.util.UUID;
 public class OrderOutboxMessage {
     private UUID id;
     private UUID sagaId;
+    private UUID orderId;
+    private UUID driverId;
     private LocalDateTime createdAt;
     private LocalDateTime processedAt;
     private String type;
-    private String payload;
     private OutboxStatus outboxStatus;
     private DriverOrderStatus driverOrderStatus;
     private int version;
@@ -39,7 +40,6 @@ public class OrderOutboxMessage {
                 ", createdAt=" + createdAt +
                 ", processedAt=" + processedAt +
                 ", type='" + type + '\'' +
-                ", payload='" + payload + '\'' +
                 ", outboxStatus=" + outboxStatus +
                 ", driverOrderStatus=" + driverOrderStatus +
                 ", version=" + version +

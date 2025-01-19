@@ -20,10 +20,11 @@ public class OrderOutboxEntity {
     @Id
     private UUID id;
     private UUID sagaId;
+    private UUID orderId;
+    private UUID driverId;
     private LocalDateTime createdAt;
     private LocalDateTime processedAt;
     private String type;
-    private String payload;
     @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
     @Enumerated(EnumType.STRING)
@@ -45,19 +46,5 @@ public class OrderOutboxEntity {
     }
 
 
-    @Override
-    public String toString() {
-        return "OrderOutboxEntity{" +
-                "id=" + id +
-                ", sagaId=" + sagaId +
-                ", createdAt=" + createdAt +
-                ", processedAt=" + processedAt +
-                ", type='" + type + '\'' +
-                ", payload='" + payload + '\'' +
-                ", outboxStatus=" + outboxStatus +
-                ", driverOrderStatus=" + driverOrderStatus +
-                ", version=" + version +
-                '}';
-    }
 }
 

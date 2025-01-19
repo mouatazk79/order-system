@@ -19,11 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.klaa</groupId>
-            <artifactId>driver-application-service</artifactId>
+            <artifactId>driver-domain-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.klaa</groupId>
-            <artifactId>driver-domain-core</artifactId>
+            <artifactId>driver-application-service</artifactId>
         </dependency>
         <dependency>
             <groupId>com.klaa</groupId>
@@ -36,10 +36,6 @@
         <dependency>
             <groupId>com.klaa</groupId>
             <artifactId>driver-application</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.klaa</groupId>
-            <artifactId>common-data</artifactId>
         </dependency>
     </dependencies>
 

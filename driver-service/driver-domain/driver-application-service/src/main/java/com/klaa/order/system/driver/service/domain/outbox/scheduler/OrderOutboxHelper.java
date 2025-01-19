@@ -1,7 +1,5 @@
 package com.klaa.order.system.driver.service.domain.outbox.scheduler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,29 +22,26 @@ import java.util.UUID;
 public class OrderOutboxHelper {
 
     private final OrderOutboxRepository orderOutboxRepository;
-    private final ObjectMapper objectMapper;
 
-    public OrderOutboxHelper(OrderOutboxRepository orderOutboxRepository,
-                             ObjectMapper objectMapper) {
+    public OrderOutboxHelper(OrderOutboxRepository orderOutboxRepository) {
         this.orderOutboxRepository = orderOutboxRepository;
-        this.objectMapper = objectMapper;
     }
 
     @Transactional(readOnly = true)
     public Optional<OrderOutboxMessage> getOrderOutboxMessageBySagaIdAndOutboxStatus(UUID sagaId,
                                                                                               OutboxStatus
                                                                                                       outboxStatus) {
-        return orderOutboxRepository.findByTypeAndSagaIdAndOutboxStatus("ORDER_SAGA_NAME", sagaId, outboxStatus);
+        return orderOutboxRepository.findByTypeAndSagaIdAndOutboxStatus("OrderProcessingSaga", sagaId, outboxStatus);
     }
 
     @Transactional(readOnly = true)
     public Optional<List<OrderOutboxMessage>> getOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {
-        return orderOutboxRepository.findByTypeAndOutboxStatus("ORDER_SAGA_NAME", outboxStatus);
+        return orderOutboxRepository.findByTypeAndOutboxStatus("OrderProcessingSaga", outboxStatus);
     }
 
     @Transactional
     public void deleteOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {
-        orderOutboxRepository.deleteByTypeAndOutboxStatus("ORDER_SAGA_NAME", outboxStatus);
+        orderOutboxRepository.deleteByTypeAndOutboxStatus("OrderProcessingSaga", outboxStatus);
     }
 
     @Transactional
@@ -60,8 +54,7 @@ public class OrderOutboxHelper {
                 .sagaId(sagaId)
                 .createdAt(orderEventPayload.getCreatedAt())
                 .processedAt(LocalDateTime.now())
-                .type("ORDER_SAGA_NAME")
-                .payload(createPayload(orderEventPayload))
+                .type("OrderProcessingSaga")
                 .driverOrderStatus(driverOrderStatus)
                 .outboxStatus(outboxStatus)
                 .build());
@@ -86,13 +79,7 @@ public class OrderOutboxHelper {
         log.info("OrderOutboxMessage saved with id: {}", orderPaymentOutboxMessage.getId());
     }
 
-    private String createPayload(OrderEventPayload orderEventPayload) {
-        try {
-            return objectMapper.writeValueAsString(orderEventPayload);
-        } catch (JsonProcessingException e) {
-            log.error("Could not create OrderEventPayload json!", e);
-            throw new DriverDomainException("Could not create OrderEventPayload json!", e);
-        }
-    }
+
+
 
 }

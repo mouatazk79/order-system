@@ -2,7 +2,7 @@ package com.klaa.order.system.driver.service.messaging.kafka.mapper;
 
 import com.klaa.order.system.domain.valueobjects.Position;
 import com.klaa.order.system.driver.service.domain.dto.message.DriverRequest;
-import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
+import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.kafka.model.driver.DriverOrderStatus;
 import com.klaa.order.system.kafka.model.driver.DriverRequestAvroModel;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.UUID;
 
 @Slf4j
@@ -31,14 +32,15 @@ public class DriverMessagingDataMapper {
 
     }
 
-    public DriverResponseAvroModel orderEventPayloadToDriverResponseAvroModel(String sagaId, OrderEventPayload orderEventPayload) {
+    public DriverResponseAvroModel orderEventPayloadToDriverResponseAvroModel(String sagaId, OrderOutboxMessage orderOutboxMessage) {
         return DriverResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID())
                 .setSagaId(UUID.fromString(sagaId))
-                .setDriverId(UUID.fromString(orderEventPayload.getDriverId()))
-                .setOrderId(UUID.fromString(orderEventPayload.getOrderId()))
-                .setDriverOrderStatus(DriverOrderStatus.valueOf(orderEventPayload.getOrderApprovalStatus()))
+                .setDriverId(orderOutboxMessage.getDriverId())
+                .setOrderId(orderOutboxMessage.getOrderId())
+                .setDriverOrderStatus(DriverOrderStatus.valueOf(orderOutboxMessage.getDriverOrderStatus().name()))
                 .setCreatedAt(Instant.now())
+                .setFailureMessages(Collections.emptyList())
                 .build();
     }
 }

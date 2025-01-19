@@ -28,7 +28,7 @@ public class OrderOutboxScheduler implements OutboxScheduler {
     }
 
     @Transactional
-    @Scheduled(fixedRate =5,timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate =10,timeUnit = TimeUnit.SECONDS)
     @Override
     public void processOutboxMessages() {
         Optional<List<OrderOutboxMessage>> outboxMessagesResponse =

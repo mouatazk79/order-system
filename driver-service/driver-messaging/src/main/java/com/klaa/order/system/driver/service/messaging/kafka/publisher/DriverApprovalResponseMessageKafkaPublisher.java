@@ -1,10 +1,6 @@
 package com.klaa.order.system.driver.service.messaging.kafka.publisher;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.driver.service.domain.config.DriverServiceConfigData;
-import com.klaa.order.system.driver.service.domain.outbox.model.OrderEventPayload;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverApprovalResponseMessagePublisher;
 import com.klaa.order.system.driver.service.messaging.kafka.mapper.DriverMessagingDataMapper;
@@ -23,22 +19,16 @@ public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprov
     private final DriverMessagingDataMapper driverMessagingDataMapper;
     private final KafkaProducer<String, DriverResponseAvroModel> kafkaProducer;
     private final DriverServiceConfigData driverServiceConfigData;
-    private final ObjectMapper objectMapper;
     @Override
     public void publish(OrderOutboxMessage orderOutboxMessage, BiConsumer<OrderOutboxMessage, OutboxStatus> outboxCallback) {
-        OrderEventPayload orderEventPayload =
-                getOrderEventPayload(orderOutboxMessage.getPayload(),
-                        OrderEventPayload.class);
-
         String sagaId = orderOutboxMessage.getSagaId().toString();
-
         log.info("Received OrderOutboxMessage for order id: {} and saga id: {}",
-                orderEventPayload.getOrderId(),
+                orderOutboxMessage.getOrderId(),
                 sagaId);
         try {
             DriverResponseAvroModel driverResponseAvroModel =
                     driverMessagingDataMapper
-                            .orderEventPayloadToDriverResponseAvroModel(sagaId, orderEventPayload);
+                            .orderEventPayloadToDriverResponseAvroModel(sagaId, orderOutboxMessage);
 
             kafkaProducer.send(driverServiceConfigData.getDriverApprovalResponseTopicName(),
                     sagaId,
@@ -49,15 +39,8 @@ public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprov
         } catch (Exception e) {
             log.error("Error while sending DriverResponseAvroModel message" +
                             " to kafka with order id: {} and saga id: {}, error: {}",
-                    orderEventPayload.getOrderId(), sagaId, e.getMessage());
+                    orderOutboxMessage.getOrderId(), sagaId, e.getMessage());
         }
     }
-    public <T> T getOrderEventPayload(String payload, Class<T> outputType) {
-        try {
-            return objectMapper.readValue(payload, outputType);
-        } catch (JsonProcessingException e) {
-            log.error("Could not read {} object!", outputType.getName(), e);
-            throw new OrderDomainException("Could not read " + outputType.getName() + " object!", e);
-        }
-    }
+
 }
