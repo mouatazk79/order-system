@@ -1,4 +1,4 @@
-package com.klaa.order.service.driver.service.application.exception;
+package com.klaa.order.system.driver.service.application.exception;
 
 import com.klaa.order.system.application.ErrorDTO;
 import com.klaa.order.system.driver.service.domain.exception.DriverDomainException;
