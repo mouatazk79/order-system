@@ -2,6 +2,7 @@ package com.klaa.order.system.order.service.messaging.kafka.publisher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klaa.order.system.kafka.producer.service.KafkaHelper;
 import com.klaa.order.system.order.service.domain.config.OrderServiceConfigData;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.order.service.domain.outbox.model.payment.PaymentRequestOutboxMessage;
@@ -23,6 +24,7 @@ public class PaymentRequestMessageKafkaPublisher implements PaymentRequestMessag
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
     private final OrderServiceConfigData orderServiceConfigData;
+    private final KafkaHelper kafkaHelper;
     private final ObjectMapper objectMapper;
     @Override
     public void publish(PaymentRequestOutboxMessage paymentRequestOutboxMessage, BiConsumer<PaymentRequestOutboxMessage, OutboxStatus> outboxCallback) {
@@ -41,8 +43,16 @@ public class PaymentRequestMessageKafkaPublisher implements PaymentRequestMessag
                     .paymentRequestPayloadToPaymentRequestAvroModel(sagaId, paymentRequestPayload);
             kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
                     sagaId,
-                    paymentRequestAvroModel);
-
+                    paymentRequestAvroModel,
+                    kafkaHelper.getKafkaCallback(
+                            orderServiceConfigData.getPaymentRequestTopicName(),
+                            paymentRequestAvroModel,
+                            paymentRequestOutboxMessage,
+                            outboxCallback,
+                            paymentRequestPayload.getOrderId(),
+                            "PaymentRequestAvroModel"
+                    )
+            );
             log.info("OrderPaymentEventPayload sent to Kafka for order id: {} and saga id: {}",
                     paymentRequestPayload.getOrderId(), sagaId);
         } catch (Exception e) {

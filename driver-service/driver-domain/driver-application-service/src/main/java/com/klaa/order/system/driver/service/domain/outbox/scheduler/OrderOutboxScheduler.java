@@ -1,5 +1,6 @@
 package com.klaa.order.system.driver.service.domain.outbox.scheduler;
 
+import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverApprovalResponseMessagePublisher;
 import com.klaa.order.system.outbox.OutboxScheduler;
@@ -32,7 +33,7 @@ public class OrderOutboxScheduler implements OutboxScheduler {
     @Override
     public void processOutboxMessages() {
         Optional<List<OrderOutboxMessage>> outboxMessagesResponse =
-                orderOutboxHelper.getOrderOutboxMessageByOutboxStatus(OutboxStatus.STARTED);
+                orderOutboxHelper.getOrderOutboxMessageByDriverOrderStatusAndOutboxStatus(DriverOrderStatus.PENDING,OutboxStatus.STARTED);
         if (outboxMessagesResponse.isPresent() && outboxMessagesResponse.get().size() > 0) {
             List<OrderOutboxMessage> outboxMessages = outboxMessagesResponse.get();
             log.info("Received {} OrderOutboxMessage with ids {}, sending to message bus!", outboxMessages.size(),

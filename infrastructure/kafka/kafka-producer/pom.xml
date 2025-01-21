@@ -12,6 +12,10 @@
     <artifactId>kafka-producer</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.klaa</groupId>

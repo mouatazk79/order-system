@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 @Slf4j
 @Component
@@ -22,17 +23,11 @@ public class KafkaProducerImpl<K extends Serializable, V extends SpecificRecordB
 
 
     @Override
-    public void send(String topicName, K key, V payload) {
+    public void send(String topicName, K key, V payload, BiConsumer<SendResult<K, V>, Throwable> callback)  {
         log.info("Sending payload='{}' to topic='{}'", payload, topicName);
         CompletableFuture<SendResult<K, V>> kafkaResultFuture =
                 kafkaTemplate.send(topicName, key, payload);
-        kafkaResultFuture.whenComplete((result, ex) -> {
-            if (ex == null) {
-                log.debug("Received new payload. Topic: {}",topicName);
-            } else {
-                log.error("Error sending message", ex);
-            }
-        });
+        kafkaResultFuture.whenComplete(callback);
     }
 
     @PreDestroy

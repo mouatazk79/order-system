@@ -5,6 +5,7 @@ import com.klaa.order.system.driver.service.domain.outbox.model.OrderOutboxMessa
 import com.klaa.order.system.driver.service.domain.ports.output.publisher.DriverApprovalResponseMessagePublisher;
 import com.klaa.order.system.driver.service.messaging.kafka.mapper.DriverMessagingDataMapper;
 import com.klaa.order.system.kafka.model.driver.DriverResponseAvroModel;
+import com.klaa.order.system.kafka.producer.service.KafkaHelper;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
 import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,9 @@ public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprov
     private final DriverMessagingDataMapper driverMessagingDataMapper;
     private final KafkaProducer<String, DriverResponseAvroModel> kafkaProducer;
     private final DriverServiceConfigData driverServiceConfigData;
+    private final KafkaHelper kafkaHelper;
+
+
     @Override
     public void publish(OrderOutboxMessage orderOutboxMessage, BiConsumer<OrderOutboxMessage, OutboxStatus> outboxCallback) {
         String sagaId = orderOutboxMessage.getSagaId().toString();
@@ -32,7 +36,17 @@ public class DriverApprovalResponseMessageKafkaPublisher implements DriverApprov
 
             kafkaProducer.send(driverServiceConfigData.getDriverApprovalResponseTopicName(),
                     sagaId,
-                    driverResponseAvroModel);
+                    driverResponseAvroModel,
+                    kafkaHelper.getKafkaCallback(
+                            driverServiceConfigData.getDriverApprovalResponseTopicName(),
+                            driverResponseAvroModel,
+                            orderOutboxMessage,
+                            outboxCallback,
+                            driverResponseAvroModel.getOrderId().toString(),
+                            "DriverResponseAvroModel"
+                    )
+            );
+
 
             log.info("DriverResponseAvroModel sent to kafka for order id: {} and saga id: {}",
                     driverResponseAvroModel.getOrderId(), sagaId);

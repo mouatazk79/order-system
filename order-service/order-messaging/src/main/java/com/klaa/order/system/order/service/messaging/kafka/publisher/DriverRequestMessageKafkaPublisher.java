@@ -2,6 +2,7 @@ package com.klaa.order.system.order.service.messaging.kafka.publisher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klaa.order.system.kafka.producer.service.KafkaHelper;
 import com.klaa.order.system.order.service.domain.config.OrderServiceConfigData;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestOutboxMessage;
@@ -24,6 +25,7 @@ public class DriverRequestMessageKafkaPublisher implements DriverRequestMessageP
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final KafkaProducer<String, DriverRequestAvroModel> kafkaProducer;
     private final OrderServiceConfigData orderServiceConfigData;
+    private final KafkaHelper kafkaHelper;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -47,7 +49,16 @@ public class DriverRequestMessageKafkaPublisher implements DriverRequestMessageP
 
             kafkaProducer.send(orderServiceConfigData.getDriverApprovalRequestTopicName(),
                     sagaId,
-                    driverRequestAvroModel);
+                    driverRequestAvroModel,
+                    kafkaHelper.getKafkaCallback(
+                            orderServiceConfigData.getDriverApprovalRequestTopicName(),
+                            driverRequestAvroModel,
+                            driverRequestOutboxMessage,
+                            outboxCallback,
+                            driverRequestPayload.getOrderId(),
+                            "DriverRequestAvroModel"
+                            )
+            );
 
             log.info("DriverRequestPayload sent to kafka for order id: {} and saga id: {}",
                     driverRequestAvroModel.getOrderId(), sagaId);

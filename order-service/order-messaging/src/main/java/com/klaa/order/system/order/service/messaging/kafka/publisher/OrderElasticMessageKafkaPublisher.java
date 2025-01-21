@@ -2,6 +2,7 @@ package com.klaa.order.system.order.service.messaging.kafka.publisher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klaa.order.system.kafka.producer.service.KafkaHelper;
 import com.klaa.order.system.order.service.domain.config.OrderServiceConfigData;
 import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.order.service.domain.elastic.model.OrderElasticMessage;
@@ -23,6 +24,7 @@ public class OrderElasticMessageKafkaPublisher implements OrderElasticMessagePub
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final KafkaProducer<String, OrderElasticMessageAvroModel> kafkaProducer;
     private final OrderServiceConfigData orderServiceConfigData;
+    private final KafkaHelper kafkaHelper;
     private final ObjectMapper objectMapper;
     @Override
     public void publish(OrderElasticMessage orderElasticMessage, BiConsumer<OrderElasticMessage, ElasticMessageStatus> elasticCallback) {
@@ -31,7 +33,20 @@ public class OrderElasticMessageKafkaPublisher implements OrderElasticMessagePub
                 orderMessagingDataMapper
                         .orderPayloadToOrderElasticMessageAvroModel(orderPayload);
         try {
-            kafkaProducer.send(orderServiceConfigData.getOrderElasticTopicName(), orderElasticMessageAvroModel.getId().toString(), orderElasticMessageAvroModel);
+//            kafkaProducer.send(
+//                    orderServiceConfigData.getOrderElasticTopicName(),
+//                    orderElasticMessageAvroModel.getId().toString(),
+//                    orderElasticMessageAvroModel,
+//                    kafkaHelper.getKafkaCallback(
+//                            orderServiceConfigData.getDriverApprovalRequestTopicName(),
+//                            orderElasticMessageAvroModel,
+//                            orderElasticMessage,
+//                            elasticCallback,
+//                            orderPayload.getId().toString(),
+//                            "OrderElasticMessageAvroModel"
+//
+//                    )
+//            );
 
             log.info("orderPayload sent to kafka for order id: {} and id: {}",
                     orderElasticMessageAvroModel.getId(), orderPayload.getId());

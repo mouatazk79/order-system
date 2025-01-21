@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainException;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
+import com.klaa.order.system.kafka.producer.service.KafkaHelper;
 import com.klaa.order.system.kafka.producer.service.KafkaProducer;
 import com.klaa.order.system.outbox.OutboxStatus;
 import com.klaa.order.system.payment.service.domain.config.PaymentServiceConfigData;
@@ -12,6 +13,7 @@ import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPaylo
 import com.klaa.order.system.payment.service.domain.outbox.model.OrderOutboxMessage;
 import com.klaa.order.system.payment.service.domain.ports.output.message.publisher.PaymentResponseMessagePublisher;
 import com.klaa.order.system.payment.service.messaging.kafka.mapper.PaymentMessagingDataMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,23 +21,17 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 @Component
+@AllArgsConstructor
 public class PaymentEventKafkaPublisher implements PaymentResponseMessagePublisher {
 
     private final PaymentMessagingDataMapper paymentMessagingDataMapper;
     private final KafkaProducer<String, PaymentResponseAvroModel> kafkaProducer;
     private final PaymentServiceConfigData paymentServiceConfigData;
     private final ObjectMapper objectMapper;
+    private final KafkaHelper kafkaHelper;
 
 
-    public PaymentEventKafkaPublisher(PaymentMessagingDataMapper paymentMessagingDataMapper,
-                                      KafkaProducer<String, PaymentResponseAvroModel> kafkaProducer,
-                                      PaymentServiceConfigData paymentServiceConfigData,
-                                      ObjectMapper objectMapper) {
-        this.paymentMessagingDataMapper = paymentMessagingDataMapper;
-        this.kafkaProducer = kafkaProducer;
-        this.paymentServiceConfigData = paymentServiceConfigData;
-        this.objectMapper = objectMapper;
-    }
+
 
     @Override
     public void publish(OrderOutboxMessage orderOutboxMessage,
@@ -55,7 +51,16 @@ public class PaymentEventKafkaPublisher implements PaymentResponseMessagePublish
 
             kafkaProducer.send(paymentServiceConfigData.getPaymentResponseTopicName(),
                     sagaId,
-                    paymentResponseAvroModel);
+                    paymentResponseAvroModel,
+                    kafkaHelper.getKafkaCallback(
+                            paymentServiceConfigData.getPaymentResponseTopicName(),
+                            paymentResponseAvroModel,
+                            orderOutboxMessage,
+                            outboxCallback,
+                            orderEventPayload.getOrderId(),
+                            "PaymentResponseAvroModel"
+                    )
+                    );
 
             log.info("PaymentResponseAvroModel sent to kafka for order id: {} and saga id: {}",
                     paymentResponseAvroModel.getOrderId(), sagaId);
