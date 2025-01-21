@@ -9,7 +9,7 @@ public class ElasticOrderDataMapper {
     public ElasticOrderEntity orderElasticMessageToElasticOrderEntity(OrderElasticMessage orderElasticMessage) {
         return ElasticOrderEntity.builder()
                 .id(orderElasticMessage.getId())
-                .elasticMessageStatus(orderElasticMessage.getElasticMessageStatus())
+                .outboxStatus(orderElasticMessage.getOutboxStatus())
                 .payload(orderElasticMessage.getPayload())
                 .build();
     }
@@ -17,7 +17,7 @@ public class ElasticOrderDataMapper {
     public OrderElasticMessage elasticOrderEntityToOrderElasticMessage(ElasticOrderEntity elasticOrderEntity) {
         return OrderElasticMessage.builder()
                 .id(elasticOrderEntity.getId())
-                .elasticMessageStatus(elasticOrderEntity.getElasticMessageStatus())
+                .outboxStatus(elasticOrderEntity.getOutboxStatus())
                 .payload(elasticOrderEntity.getPayload())
                 .build();
     }

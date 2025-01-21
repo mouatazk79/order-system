@@ -7,7 +7,7 @@ logging:
     com.klaa.order.system: DEBUG
 
 kafka-to-elastic-service:
-  kafka-to-elastic-topic-name: order-elastic-message
+  kafka-to-elastic-topic-name: order-elastic-payload
 
 kafka-config:
   bootstrap-servers: localhost:19092, localhost:29092, localhost:39092

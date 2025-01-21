@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.klaa.order.system.elastic.model.IndexModel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -11,9 +12,8 @@ import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-
+@NoArgsConstructor
 @Data
-@Builder
 @Document(indexName = "order")
 public class OrderIndexModel implements IndexModel {
     @Id

@@ -1,6 +1,7 @@
 package com.klaa.order.system.order.service.data.elastic.entity;
 
-import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
+
+import com.klaa.order.system.outbox.OutboxStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,9 @@ public class ElasticOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(columnDefinition="text", length=10485760)
     private String payload;
     @Enumerated(EnumType.STRING)
-    private ElasticMessageStatus elasticMessageStatus;
+    private OutboxStatus outboxStatus;
+
 }

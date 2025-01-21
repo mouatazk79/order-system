@@ -10,6 +10,7 @@ order-service:
   payment-response-topic-name: payment-response
   driver-approval-request-topic-name: driver-approval-request
   driver-approval-response-topic-name: driver-approval-response
+  order-elastic-topic-name: order-elastic-payload
 
 spring:
    application:

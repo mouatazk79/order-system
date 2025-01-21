@@ -29,11 +29,11 @@ public class  ElasticOrderKafkaListener implements KafkaConsumer<OrderElasticMes
     @Override
     @KafkaListener(id = "${kafka-consumer-config.kafka-to-elastic-consumer-group-id}",
             topics = "${kafka-to-elastic-service.kafka-to-elastic-topic-name}")
-    public void receive(@Payload List<OrderElasticMessageAvroModel> messages, @Header(KafkaHeaders.KEY) List<String> keys,@Header(KafkaHeaders.PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
-//        messages.forEach(message -> {
-//            List<String> ids= elasticIndexClient.save(elasticOrderDataMapper.orderElasticMessageAvroModelToOrderIndexModel(message));
-//            log.info("saving {} OrderIndexModels",ids.size());
-//        });
+    public void receive(@Payload List<OrderElasticMessageAvroModel> messages, @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,@Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,@Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+        messages.forEach(message -> {
+            List<String> ids= elasticIndexClient.save(elasticOrderDataMapper.orderElasticMessageAvroModelToOrderIndexModel(message));
+            log.info("saving {} OrderIndexModels",ids.size());
+        });
 
     }
 }

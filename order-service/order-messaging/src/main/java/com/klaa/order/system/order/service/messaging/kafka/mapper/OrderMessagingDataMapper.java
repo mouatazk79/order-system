@@ -4,7 +4,7 @@ import com.klaa.order.system.kafka.model.elastic.OrderStatus;
 import com.klaa.order.system.order.service.domain.dto.create.PositionAddress;
 import com.klaa.order.system.order.service.domain.dto.message.DriverResponse;
 import com.klaa.order.system.order.service.domain.dto.message.PaymentResponse;
-import com.klaa.order.system.domain.order.service.domain.entity.Order;
+import com.klaa.order.system.order.service.domain.elastic.model.OrderElasticPayload;
 import com.klaa.order.system.order.service.domain.outbox.model.driver.DriverRequestPayload;
 import com.klaa.order.system.order.service.domain.outbox.model.payment.PaymentRequestPayload;
 import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
@@ -17,6 +17,7 @@ import com.klaa.order.system.kafka.model.payment.PaymentRequestAvroModel;
 import com.klaa.order.system.kafka.model.payment.PaymentResponseAvroModel;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -76,25 +77,26 @@ OrderMessagingDataMapper {
                 .build();
     }
 
-    public OrderElasticMessageAvroModel orderPayloadToOrderElasticMessageAvroModel(Order orderPayload) {
+    public OrderElasticMessageAvroModel orderPayloadToOrderElasticMessageAvroModel(OrderElasticPayload orderElasticPayload) {
         return OrderElasticMessageAvroModel.newBuilder()
-                .setId(UUID.randomUUID())
-                .setTrackingId(orderPayload.getTrackingId().getValue())
-                .setDriverId(orderPayload.getDriverId().getValue())
-                .setOrderStatus(OrderStatus.valueOf(orderPayload.getOrderStatus().name()))
+                .setId(UUID.fromString(orderElasticPayload.getOrderId().getValue())) // Fix: Use `getOrderId()`
+                .setTrackingId(UUID.fromString(orderElasticPayload.getTrackingId().getValue())) // Fix: Use nested `getValue()`
+                .setDriverId(UUID.fromString(orderElasticPayload.getDriverId().getValue())) // Fix: Use nested `getValue()`
+                .setOrderStatus(OrderStatus.valueOf(orderElasticPayload.getOrderStatus())) // Ensure the status matches the enum
                 .setPosition(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
-                        .setCity(orderPayload.getPosition().getCity())
-                        .setStreetAddress(orderPayload.getPosition().getStreetAddress())
-                        .setZipCode(orderPayload.getPosition().getZipCode())
+                        .setCity(orderElasticPayload.getPosition().getCity()) // Fix: Correct method name
+                        .setStreetAddress(orderElasticPayload.getPosition().getStreetAddress()) // Fix: Correct method name
+                        .setZipCode(orderElasticPayload.getPosition().getZipCode()) // Fix: Correct method name
                         .build())
                 .setDestination(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
-                        .setCity(orderPayload.getDestination().getCity())
-                        .setStreetAddress(orderPayload.getDestination().getStreetAddress())
-                        .setZipCode(orderPayload.getDestination().getZipCode())
+                        .setCity(orderElasticPayload.getDestination().getCity()) // Fix: Correct method name
+                        .setStreetAddress(orderElasticPayload.getDestination().getStreetAddress()) // Fix: Correct method name
+                        .setZipCode(orderElasticPayload.getDestination().getZipCode()) // Fix: Correct method name
                         .build())
-                .setPrice(orderPayload.getPrice().getAmount())
+                .setPrice(BigDecimal.valueOf(orderElasticPayload.getPrice().getAmount().doubleValue())) // Fix: Convert BigDecimal to double
                 .build();
     }
+
 
     private Position positionAddressToPosition(PositionAddress positionAddress){
         return Position.newBuilder()

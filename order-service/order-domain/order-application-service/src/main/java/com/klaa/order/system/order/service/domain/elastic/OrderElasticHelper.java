@@ -8,6 +8,7 @@ import com.klaa.order.system.domain.order.service.domain.exception.OrderDomainEx
 
 import com.klaa.order.system.order.service.domain.ports.output.repository.OrderElasticRepository;
 import com.klaa.order.system.order.service.domain.ports.output.repository.OrderRepository;
+import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -28,9 +29,10 @@ public class OrderElasticHelper {
         List<Order> orders=orderRepository.findOrdersCreatedAtBetween(start,end);
          orders.forEach(order -> {
             OrderElasticMessage orderElasticMessage=OrderElasticMessage.builder()
-                            .id(UUID.randomUUID())
-                                    .payload(createPayload(order))
-                                            .build();
+                    .id(UUID.randomUUID())
+                    .payload(createPayload(order))
+                    .outboxStatus(OutboxStatus.STARTED)
+                    .build();
             orderElasticRepository.save(orderElasticMessage);
         });
     }

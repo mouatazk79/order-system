@@ -2,9 +2,9 @@ package com.klaa.order.system.order.service.data.elastic.adapter;
 
 import com.klaa.order.system.order.service.domain.elastic.model.OrderElasticMessage;
 import com.klaa.order.system.order.service.domain.ports.output.repository.OrderElasticRepository;
-import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
 import com.klaa.order.system.order.service.data.elastic.mapper.ElasticOrderDataMapper;
 import com.klaa.order.system.order.service.data.elastic.repository.ElasticOrderJpaRepository;
+import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +27,9 @@ public class ElasticOrderRepositoryAdapter implements OrderElasticRepository {
     }
 
     @Override
-    public Optional<List<OrderElasticMessage>> getAllOrderElasticMessageByStatus(ElasticMessageStatus... messageStatuses) {
+    public Optional<List<OrderElasticMessage>> getAllOrderElasticMessageByOutboxStatuses(OutboxStatus... outboxStatuses) {
         return Optional.of(elasticOrderJpaRepository
-                .findByElasticMessageStatusIn(Arrays.asList(messageStatuses))
+                .findByOutboxStatusIn(Arrays.asList(outboxStatuses))
                 .get()
                 .stream().map(elasticOrderDataMapper::elasticOrderEntityToOrderElasticMessage)
                 .collect(Collectors.toList()));

@@ -1,6 +1,6 @@
 package com.klaa.order.system.order.service.domain.elastic.model;
 
-import com.klaa.order.system.domain.valueobjects.ElasticMessageStatus;
+import com.klaa.order.system.outbox.OutboxStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.UUID;
 public class OrderElasticMessage {
     private UUID id;
     private String payload;
-    private ElasticMessageStatus elasticMessageStatus=ElasticMessageStatus.PENDING;
+    private OutboxStatus outboxStatus;
 
 }
