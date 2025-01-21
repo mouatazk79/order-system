@@ -41,6 +41,7 @@ public class PaymentRequestMessageKafkaPublisher implements PaymentRequestMessag
         try {
             PaymentRequestAvroModel paymentRequestAvroModel = orderMessagingDataMapper
                     .paymentRequestPayloadToPaymentRequestAvroModel(sagaId, paymentRequestPayload);
+            log.info("PaymentRequestAvroModel with orderId {}",paymentRequestAvroModel.getOrderId());
             kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
                     sagaId,
                     paymentRequestAvroModel,

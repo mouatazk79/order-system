@@ -19,7 +19,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class OrderEntity extends BaseJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID orderId;
     private UUID userId;
     @OneToOne(cascade = CascadeType.ALL)

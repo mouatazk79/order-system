@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,7 +61,7 @@ public class PaymentOutboxHelper {
         save(PaymentRequestOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)
-                .createdAt(paymentRequestPayload.getCreatedAt())
+                .createdAt(LocalDateTime.now())
                 .type("OrderProcessingSaga")
                 .payload(createPayload(paymentRequestPayload))
                 .orderStatus(orderStatus)

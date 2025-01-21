@@ -5,23 +5,25 @@ import com.klaa.order.system.outbox.OutboxStatus;
 import com.klaa.order.system.saga.SagaStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 @Entity
 @Table(schema = "\"order\"")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PaymentOutboxMessageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private UUID sagaId;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime processedAt;
     private String type;
     private String payload;
     @Enumerated(EnumType.STRING)

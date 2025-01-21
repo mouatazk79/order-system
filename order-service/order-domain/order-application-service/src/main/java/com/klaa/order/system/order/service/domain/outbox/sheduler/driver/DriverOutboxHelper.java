@@ -54,6 +54,8 @@ public class DriverOutboxHelper {
                                          SagaStatus sagaStatus,
                                          OutboxStatus outboxStatus,
                                          UUID sagaId) {
+
+        log.info("DriverRequestPayload : {}",driverRequestPayload.getOrderId());
         save(DriverRequestOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)

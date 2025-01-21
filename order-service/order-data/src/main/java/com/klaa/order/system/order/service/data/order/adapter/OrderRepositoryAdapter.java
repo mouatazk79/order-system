@@ -23,7 +23,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     @Override
     public Optional<Order> findOrderById(UUID id) {
-        return orderJpaRepository.findById(id).map(orderEntityMapper::orderEntityToOrder);
+        return orderJpaRepository.findByOrderId(id).map(orderEntityMapper::orderEntityToOrder);
     }
     @Override
     public Optional<Order> findOrderByTrackingId(UUID id) {

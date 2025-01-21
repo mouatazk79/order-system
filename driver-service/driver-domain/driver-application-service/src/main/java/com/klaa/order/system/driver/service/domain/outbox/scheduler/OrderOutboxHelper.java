@@ -38,11 +38,22 @@ public class OrderOutboxHelper {
                                                                                                       outboxStatus) {
         return orderOutboxRepository.findByTypeAndSagaIdAndOutboxStatus("OrderProcessingSaga", sagaId, outboxStatus);
     }
+//    @Transactional(readOnly = true)
+//    public Optional<OrderOutboxMessage> getOrderOutboxMessageByOrderIdAndOutboxStatus(UUID orderId, OutboxStatus outboxStatus) {
+//
+//        return orderOutboxRepository.findByTypeAndOrderIdAndOutboxStatus(orderId, outboxStatus);
+//    }
+
 
     @Transactional(readOnly = true)
     public Optional<List<OrderOutboxMessage>> getOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {
         return orderOutboxRepository.findByTypeAndOutboxStatus("OrderProcessingSaga", outboxStatus);
     }
+    @Transactional(readOnly = true)
+    public Optional<List<OrderOutboxMessage>> getOrderOutboxMessageByDriverOrderStatusAndOutboxStatus(DriverOrderStatus driverOrderStatus,OutboxStatus outboxStatus) {
+        return orderOutboxRepository.findByDriverOrderStatusNotAndOutboxStatus(driverOrderStatus, outboxStatus);
+    }
+
 
     @Transactional
     public void deleteOrderOutboxMessageByOutboxStatus(OutboxStatus outboxStatus) {

@@ -34,6 +34,9 @@ public class DriverDataMapper {
     }
 
     public OrderApproval orderApprovalEntityToOrderApproval(OrderApprovalEntity orderApprovalEntity) {
+        if (orderApprovalEntity==null){
+           return OrderApproval.builder().build();
+        }
         return OrderApproval.builder()
                 .orderApprovalId(new OrderApprovalId(orderApprovalEntity.getOrderApprovalId()))
                 .driverId(new DriverId( orderApprovalEntity.getDriverId()))

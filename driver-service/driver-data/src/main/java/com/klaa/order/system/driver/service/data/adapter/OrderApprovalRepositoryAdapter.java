@@ -29,6 +29,10 @@ public class OrderApprovalRepositoryAdapter implements OrderApprovalRepository {
 
     @Override
     public Optional<OrderApproval> findByOrderId(UUID id) {
-        return Optional.of(driverDataMapper.orderApprovalEntityToOrderApproval(orderApprovalJpaRepository.findByOrderId(id)));
+        OrderApproval orderApproval=driverDataMapper.orderApprovalEntityToOrderApproval(orderApprovalJpaRepository.findByOrderId(id));
+        if (orderApproval==null){
+            return Optional.empty();
+        }
+        return Optional.of(orderApproval);
     }
 }

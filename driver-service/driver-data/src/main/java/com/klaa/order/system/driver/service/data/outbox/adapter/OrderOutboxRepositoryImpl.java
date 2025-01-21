@@ -1,5 +1,6 @@
 package com.klaa.order.system.driver.service.data.outbox.adapter;
 
+import com.klaa.order.system.domain.valueobjects.DriverOrderStatus;
 import com.klaa.order.system.driver.service.data.outbox.entity.OrderOutboxEntity;
 import com.klaa.order.system.driver.service.data.outbox.exception.OrderOutboxNotFoundException;
 import com.klaa.order.system.driver.service.data.outbox.mapper.OrderOutboxDataAccessMapper;
@@ -55,7 +56,25 @@ public class OrderOutboxRepositoryImpl implements OrderOutboxRepository {
     }
 
     @Override
+    public Optional<List<OrderOutboxMessage>> findByDriverOrderStatusNotAndOutboxStatus(DriverOrderStatus driverOrderStatus, OutboxStatus outboxStatus) {
+        return Optional.of(orderOutboxJpaRepository.findByDriverOrderStatusNotAndOutboxStatus(driverOrderStatus,outboxStatus)
+                .orElseThrow()
+                .stream()
+                .map(orderOutboxDataAccessMapper::orderOutboxEntityToOrderOutboxMessage)
+                .collect(Collectors.toList()));
+
+    }
+
+    @Override
     public void deleteByTypeAndOutboxStatus(String type, OutboxStatus outboxStatus) {
         orderOutboxJpaRepository.deleteByTypeAndOutboxStatus(type, outboxStatus);
+    }
+
+    @Override
+    public Optional<OrderOutboxMessage> findByTypeAndOrderIdAndOutboxStatus(UUID orderId, OutboxStatus outboxStatus) {
+        return orderOutboxJpaRepository.findByOrderIdAndOutboxStatus(orderId, outboxStatus)
+                .map(orderOutboxDataAccessMapper::orderOutboxEntityToOrderOutboxMessage)
+
+                ;
     }
 }

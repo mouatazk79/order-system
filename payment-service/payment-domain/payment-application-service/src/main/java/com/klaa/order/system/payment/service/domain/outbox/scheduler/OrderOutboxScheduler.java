@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,8 +29,7 @@ public class OrderOutboxScheduler implements OutboxScheduler {
 
     @Override
     @Transactional
-    @Scheduled(fixedRateString = "${payment-service.outbox-scheduler-fixed-rate}",
-            initialDelayString = "${payment-service.outbox-scheduler-initial-delay}")
+    @Scheduled(fixedRate =10,timeUnit = TimeUnit.SECONDS)
     public void processOutboxMessages() {
         Optional<List<OrderOutboxMessage>> outboxMessagesResponse =
                 orderOutboxHelper.getOrderOutboxMessageByOutboxStatus(OutboxStatus.STARTED);

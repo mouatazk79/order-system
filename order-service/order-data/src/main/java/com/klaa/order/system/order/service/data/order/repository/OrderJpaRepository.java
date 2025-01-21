@@ -16,4 +16,6 @@ import java.util.UUID;
 public interface OrderJpaRepository extends JpaRepository<OrderEntity, UUID> {
     List<OrderEntity> findByCreatedDateIsBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
     Optional<OrderEntity> findByTrackingId(UUID trackingId);
+    Optional<OrderEntity> findByOrderId(UUID orderId);
+
 }

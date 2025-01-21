@@ -24,6 +24,7 @@ public class OrderOutboxEntity {
     private ZonedDateTime createdAt;
     private ZonedDateTime processedAt;
     private String type;
+    @Column(columnDefinition="text", length=10485760)
     private String payload;
     @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;

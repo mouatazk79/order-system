@@ -9,6 +9,8 @@ import com.klaa.order.system.kafka.model.payment.PaymentStatus;
 import com.klaa.order.system.payment.service.domain.dto.PaymentRequest;
 import com.klaa.order.system.payment.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
 import java.util.UUID;
 
 @Component
@@ -35,6 +37,7 @@ public class PaymentMessagingDataMapper {
                 .setFailureMessages(orderEventPayload.getFailureMessages())
                 .setPrice(orderEventPayload.getPrice())
                 .setPaymentStatus(PaymentStatus.valueOf(orderEventPayload.getPaymentStatus()))
+                .setCreatedAt(Instant.now())
                 .build();
     }
 }

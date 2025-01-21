@@ -40,6 +40,7 @@ public class OrderCreateCommandHelper {
         Driver driver=getDriver(new DriverId(UUID.fromString("d475508c-2c8a-404a-9e5d-750292e8eb75")));
         OrderCreatedEvent orderCreatedEvent=orderDomainService.validateAndInitiateOrder(order,driver);
         saveOrder(orderCreatedEvent.getOrder());
+        log.info("OrderCreatedEvent : {}",orderCreatedEvent.getOrder().getId().getValue().toString());
         driverOutboxHelper.saveDriverRequestOutboxMessage(
                 orderDataMapper.orderCreatedEventToDriverRequestPayload(orderCreatedEvent),
                 orderCreatedEvent.getOrder().getOrderStatus(),

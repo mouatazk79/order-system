@@ -77,7 +77,7 @@ public class OrderDataMapper {
     }
     public PaymentRequestPayload orderApprovedEventToPaymentRequestPayload(OrderApprovedEvent approvedEvent) {
         return PaymentRequestPayload.builder()
-                .orderId(approvedEvent.getOrder().getId().getValue().toString())
+                .orderId(approvedEvent.getOrder().getId().toString())
                 .userId(approvedEvent.getOrder().getUserId().toString())
                 .price(approvedEvent.getOrder().getPrice().getAmount())
                 .createdAt(LocalDateTime.now())
