@@ -76,6 +76,7 @@ services:
       - elastic-2
       - elastic-3
     volumes:
+#      - ./config/logback.conf:/etc/logstash/conf.d/logback.conf
       - ./config/logback.conf:/etc/logstash/conf.d/logback.conf
       - ./docker-logs/logstash:/logs
     environment:

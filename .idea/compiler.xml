@@ -20,6 +20,7 @@
         <module name="driver-messaging" />
         <module name="order-messaging" />
         <module name="kafkatoelastic-container" />
+        <module name="app-config-data" />
         <module name="payment-application-service" />
         <module name="driver-application-service" />
         <module name="common-domain" />
@@ -32,6 +33,7 @@
         <module name="driver-application" />
         <module name="order-application-service" />
         <module name="kafka-producer" />
+        <module name="mdc-interceptor" />
         <module name="kafka-config-data" />
         <module name="driver-domain" />
         <module name="outbox" />
@@ -50,6 +52,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="app-config-data" options="-parameters" />
       <module name="common" options="" />
       <module name="common-application" options="-parameters" />
       <module name="common-data" options="-parameters" />
@@ -77,6 +80,7 @@
       <module name="kafka-to-elastic" options="" />
       <module name="kafkatoelastic-container" options="-parameters" />
       <module name="kafkatoelastic-messaging" options="-parameters" />
+      <module name="mdc-interceptor" options="-parameters" />
       <module name="order-application" options="-parameters" />
       <module name="order-application-service" options="-parameters" />
       <module name="order-container" options="-parameters" />

@@ -12,6 +12,8 @@
         <module>infrastructure/kafka</module>
         <module>infrastructure/elastic</module>
         <module>kafka-to-elastic</module>
+        <module>app-config-data</module>
+        <module>mdc-interceptor</module>
     </modules>
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -40,8 +42,14 @@
         <infrastructure.elastic.version>1.0-SNAPSHOT</infrastructure.elastic.version>
         <kafka.to.elastic.version>1.0-SNAPSHOT</kafka.to.elastic.version>
         <elastic.version>7.9.1</elastic.version>
+        <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
+        <app.config.data>1.0-SNAPSHOT</app.config.data>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -54,6 +62,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>app-config-data</artifactId>
+                <version>${app.config.data}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaa</groupId>
+                <artifactId>mdc-interceptor</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>com.klaa</groupId>
                 <artifactId>common-application</artifactId>
@@ -229,6 +247,12 @@
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>${elastic.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -18,6 +18,10 @@
     </properties>
     <dependencies>
         <dependency>
+<groupId>com.klaa</groupId>
+<artifactId>app-config-data</artifactId>
+</dependency>
+        <dependency>
             <groupId>com.klaa</groupId>
             <artifactId>payment-domain-core</artifactId>
         </dependency>

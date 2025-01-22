@@ -13,6 +13,14 @@
     <dependencies>
         <dependency>
             <groupId>com.klaa</groupId>
+            <artifactId>app-config-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
+            <artifactId>mdc-interceptor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.klaa</groupId>
             <artifactId>kafkatoelastic-messaging</artifactId>
         </dependency>
         <dependency>
