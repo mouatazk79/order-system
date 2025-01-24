@@ -76,9 +76,8 @@ services:
       - elastic-2
       - elastic-3
     volumes:
-#      - ./config/logback.conf:/etc/logstash/conf.d/logback.conf
       - ./config/logback.conf:/etc/logstash/conf.d/logback.conf
-      - ./docker-logs/logstash:/logs
+      - Z:/springprojects/order-system/order-service/logs/logstash:/logs
     environment:
       LS_JAVA_OPTS: "-Xms256m -Xmx512m"
       CLUSTER_NAME: order-system-cluster
