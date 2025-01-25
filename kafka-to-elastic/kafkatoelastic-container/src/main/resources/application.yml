@@ -5,6 +5,8 @@ logging:
   level:
     root: INFO
     com.klaa.order.system: DEBUG
+log:
+  app-name: kafka-to-elastic-service
 
 kafka-to-elastic-service:
   kafka-to-elastic-topic-name: order-elastic-payload

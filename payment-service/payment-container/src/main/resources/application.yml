@@ -5,7 +5,8 @@ logging:
   level:
     root: INFO
     com.klaa.order.system: DEBUG
-
+log:
+  app-name: payment-service
 payment-service:
   payment-request-topic-name: payment-request
   payment-response-topic-name: payment-response
@@ -14,7 +15,7 @@ payment-service:
 
 spring:
   application:
-    name: order
+    name: payment
   datasource:
     url: jdbc:postgresql://localhost:5432/order?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: root

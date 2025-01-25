@@ -4,7 +4,8 @@ logging:
   level:
     root: INFO
     com.klaa.order.system: DEBUG
-
+log:
+  app-name: driver-service
 
 driver-service:
   driver-approval-request-topic-name: driver-approval-request
@@ -12,7 +13,7 @@ driver-service:
 
 spring:
   application:
-    name: order
+    name: driver
   datasource:
     url: jdbc:postgresql://localhost:5432/order?currentSchema=driver&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: root
