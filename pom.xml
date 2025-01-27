@@ -45,6 +45,7 @@
         <elastic.version>7.9.1</elastic.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
         <app.config.data>1.0-SNAPSHOT</app.config.data>
+        <image>klaa79/${project.artifactId}:${project.version}</image>
     </properties>
     <dependencies>
         <dependency>
