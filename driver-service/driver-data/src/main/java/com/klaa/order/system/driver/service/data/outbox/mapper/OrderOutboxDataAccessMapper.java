@@ -27,10 +27,6 @@ public class OrderOutboxDataAccessMapper {
     }
 
     public OrderOutboxMessage orderOutboxEntityToOrderOutboxMessage(OrderOutboxEntity orderOutboxEntity) {
-        log.info("OrderOutboxEntity : {}",orderOutboxEntity);
-        if(orderOutboxEntity==null){
-            throw new IllegalArgumentException("OrderApprovalEntity cannot be null");
-        }
         return OrderOutboxMessage.builder()
                 .id(orderOutboxEntity.getId())
                 .sagaId(orderOutboxEntity.getSagaId())

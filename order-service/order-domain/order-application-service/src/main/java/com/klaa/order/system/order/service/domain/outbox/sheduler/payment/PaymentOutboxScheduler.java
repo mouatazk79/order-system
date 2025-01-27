@@ -24,7 +24,7 @@ public class PaymentOutboxScheduler implements OutboxScheduler {
     private final PaymentRequestMessagePublisher paymentRequestMessagePublisher;
     @Override
     @Transactional
-    @Scheduled(fixedRate =2,timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate =10,timeUnit = TimeUnit.SECONDS)
     public void processOutboxMessages() {
         Optional<List<PaymentRequestOutboxMessage>> paymentRequestOutboxMessage =
                 paymentOutboxHelper.getPaymentOutboxMessageByOutboxStatusAndSagaStatus(

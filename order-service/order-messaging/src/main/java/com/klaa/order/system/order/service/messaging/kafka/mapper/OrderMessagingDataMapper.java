@@ -79,21 +79,21 @@ OrderMessagingDataMapper {
 
     public OrderElasticMessageAvroModel orderPayloadToOrderElasticMessageAvroModel(OrderElasticPayload orderElasticPayload) {
         return OrderElasticMessageAvroModel.newBuilder()
-                .setId(UUID.fromString(orderElasticPayload.getOrderId().getValue())) // Fix: Use `getOrderId()`
-                .setTrackingId(UUID.fromString(orderElasticPayload.getTrackingId().getValue())) // Fix: Use nested `getValue()`
-                .setDriverId(UUID.fromString(orderElasticPayload.getDriverId().getValue())) // Fix: Use nested `getValue()`
-                .setOrderStatus(OrderStatus.valueOf(orderElasticPayload.getOrderStatus())) // Ensure the status matches the enum
+                .setId(UUID.fromString(orderElasticPayload.getOrderId().getValue()))
+                .setTrackingId(UUID.fromString(orderElasticPayload.getTrackingId().getValue()))
+                .setDriverId(UUID.fromString(orderElasticPayload.getDriverId().getValue()))
+                .setOrderStatus(OrderStatus.valueOf(orderElasticPayload.getOrderStatus()))
                 .setPosition(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
-                        .setCity(orderElasticPayload.getPosition().getCity()) // Fix: Correct method name
-                        .setStreetAddress(orderElasticPayload.getPosition().getStreetAddress()) // Fix: Correct method name
-                        .setZipCode(orderElasticPayload.getPosition().getZipCode()) // Fix: Correct method name
+                        .setCity(orderElasticPayload.getPosition().getCity())
+                        .setStreetAddress(orderElasticPayload.getPosition().getStreetAddress())
+                        .setZipCode(orderElasticPayload.getPosition().getZipCode())
                         .build())
                 .setDestination(com.klaa.order.system.kafka.model.elastic.Position.newBuilder()
-                        .setCity(orderElasticPayload.getDestination().getCity()) // Fix: Correct method name
-                        .setStreetAddress(orderElasticPayload.getDestination().getStreetAddress()) // Fix: Correct method name
-                        .setZipCode(orderElasticPayload.getDestination().getZipCode()) // Fix: Correct method name
+                        .setCity(orderElasticPayload.getDestination().getCity())
+                        .setStreetAddress(orderElasticPayload.getDestination().getStreetAddress())
+                        .setZipCode(orderElasticPayload.getDestination().getZipCode())
                         .build())
-                .setPrice(BigDecimal.valueOf(orderElasticPayload.getPrice().getAmount().doubleValue())) // Fix: Convert BigDecimal to double
+                .setPrice(BigDecimal.valueOf(orderElasticPayload.getPrice().getAmount().doubleValue()))
                 .build();
     }
 

@@ -5,7 +5,4 @@ public class PaymentOutboxDataException extends RuntimeException{
         super(message);
     }
 
-    public PaymentOutboxDataException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

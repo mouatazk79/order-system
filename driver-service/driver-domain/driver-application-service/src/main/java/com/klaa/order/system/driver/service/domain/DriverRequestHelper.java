@@ -75,7 +75,6 @@ public class DriverRequestHelper {
         if(driver.isEmpty()){
             throw new DriverNotFoundException("driver with id: "+id+"does not exist");
         }
-        log.info("checking driver with id: {}",driver.get().getId());
     }
 
 

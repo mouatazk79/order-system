@@ -19,11 +19,8 @@ public class OrderApprovalRepositoryAdapter implements OrderApprovalRepository {
     private final DriverDataMapper driverDataMapper;
     @Override
     public Optional<OrderApproval> saveOrderApproval(OrderApproval orderApproval) {
-        log.info("OrderApproval............ : {}",orderApproval);
-      OrderApprovalEntity orderApprovalEntity= orderApprovalJpaRepository.save(driverDataMapper.orderApprovalToOrderApprovalEntity(orderApproval));
-      log.info("orderApprovalEntity............... : {}",orderApprovalEntity);
+        OrderApprovalEntity orderApprovalEntity= orderApprovalJpaRepository.save(driverDataMapper.orderApprovalToOrderApprovalEntity(orderApproval));
         OrderApproval orderApproval1=  driverDataMapper.orderApprovalEntityToOrderApproval(orderApprovalEntity);
-        log.info("OrderApproval ========= : {}",orderApproval1);
         return Optional.of(orderApproval1);
     }
 

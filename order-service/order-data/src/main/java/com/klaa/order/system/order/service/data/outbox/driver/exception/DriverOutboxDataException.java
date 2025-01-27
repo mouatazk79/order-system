@@ -5,7 +5,4 @@ public class DriverOutboxDataException extends RuntimeException{
         super(message);
     }
 
-    public DriverOutboxDataException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

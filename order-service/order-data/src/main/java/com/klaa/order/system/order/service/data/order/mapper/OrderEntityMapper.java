@@ -6,12 +6,8 @@ import com.klaa.order.system.order.service.data.order.entity.OrderEntity;
 import com.klaa.order.system.domain.order.service.domain.entity.Order;
 import com.klaa.order.system.order.service.data.order.entity.PositionAddress;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 
-import static com.klaa.order.system.domain.order.service.domain.entity.Order.FAILURE_MESSAGE_DELIMITER;
 
 
 @Component

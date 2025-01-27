@@ -38,11 +38,7 @@ public class OrderOutboxHelper {
                                                                                                       outboxStatus) {
         return orderOutboxRepository.findByTypeAndSagaIdAndOutboxStatus("OrderProcessingSaga", sagaId, outboxStatus);
     }
-//    @Transactional(readOnly = true)
-//    public Optional<OrderOutboxMessage> getOrderOutboxMessageByOrderIdAndOutboxStatus(UUID orderId, OutboxStatus outboxStatus) {
-//
-//        return orderOutboxRepository.findByTypeAndOrderIdAndOutboxStatus(orderId, outboxStatus);
-//    }
+
 
 
     @Transactional(readOnly = true)
@@ -108,8 +104,5 @@ public class OrderOutboxHelper {
                     orderEventPayload.getOrderId(), e);
         }
     }
-
-
-
 
 }

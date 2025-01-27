@@ -29,7 +29,7 @@ public class DriverOutboxHelper {
     public void save(DriverRequestOutboxMessage driverRequestOutboxMessage) {
         Optional<DriverRequestOutboxMessage> newDriverRequestOutboxMessage = driverOutboxRepository.save(driverRequestOutboxMessage);
         if (newDriverRequestOutboxMessage.isEmpty()) {
-            log.error("Could not save DriverRequestOutboxMessage with outbox id: {}", newDriverRequestOutboxMessage.get().getId());
+            log.error("Could not save DriverRequestOutboxMessage with outbox id: {}", driverRequestOutboxMessage.getId());
             throw new OrderDomainException("Could not save DriverRequestOutboxMessage with outbox id: " +
                     driverRequestOutboxMessage.getId());
         }

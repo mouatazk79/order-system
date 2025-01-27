@@ -25,10 +25,9 @@ public class OrderElasticScheduler {
     private final OrderElasticMessagePublisher orderElasticMessagePublisher;
     private final OrderElasticRepository orderElasticRepository;
     @Transactional
-    @Scheduled(fixedRate =10,timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate =2,timeUnit = TimeUnit.MINUTES)
     public void processElasticMessages(){
-        log.info("--------------------------------------");
-        orderElasticHelper.saveOrderElasticMessages(LocalDateTime.now().minusMinutes(200000),LocalDateTime.now());
+        orderElasticHelper.saveOrderElasticMessages(LocalDateTime.now().minusMinutes(2),LocalDateTime.now());
         Optional<List<OrderElasticMessage>> orderElasticMessages=orderElasticRepository.getAllOrderElasticMessageByOutboxStatuses(OutboxStatus.STARTED);
         if (orderElasticMessages.isPresent()&&orderElasticMessages.get().size()>0){
             List<OrderElasticMessage> orderMessages=orderElasticMessages.get();
