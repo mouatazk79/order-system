@@ -8,5 +8,12 @@ Order System Platform developed with microservice approach using the Spring Fram
 * Minikube,Kubernetes(k8s),Helm
 ## Microservice Structure:
 ![images](https://github.com/user-attachments/assets/7cedd600-a4e8-4fde-9b38-4589eee381d2)
+![hexagonal-architecture-ddd-domain-driven-design-600x484](https://github.com/user-attachments/assets/f8832b06-1986-46b7-94aa-7a418426463d)
 
+
+
+## Features
+* Clean Architecture
+* Event Sourcing
+* Integrity,Consistency
 
