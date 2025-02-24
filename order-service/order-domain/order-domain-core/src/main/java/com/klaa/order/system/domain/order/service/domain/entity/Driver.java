@@ -1,11 +1,12 @@
 package com.klaa.order.system.domain.order.service.domain.entity;
 
 import com.klaa.order.system.domain.entity.AggregateRoot;
+import com.klaa.order.system.domain.valueobjects.Car;
 import com.klaa.order.system.domain.valueobjects.DriverId;
 
 
 public class Driver extends AggregateRoot<DriverId> {
-private final String car;
+private final Car car;
 private boolean active;
 
     private Driver(Builder builder) {
@@ -18,7 +19,7 @@ private boolean active;
         return new Builder();
     }
 
-    public String getCar() {
+    public Car getCar() {
         return car;
     }
 
@@ -28,7 +29,7 @@ private boolean active;
 
     public static final class Builder {
         private DriverId driverId;
-        private String car;
+        private Car car;
         private boolean active;
 
         private Builder() {
@@ -39,7 +40,7 @@ private boolean active;
             return this;
         }
 
-        public Builder car(String val) {
+        public Builder car(Car val) {
             car = val;
             return this;
         }
